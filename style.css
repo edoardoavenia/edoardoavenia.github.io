@@ -60,15 +60,23 @@ a{
     margin:0;
 }
 
-.section-2 a{
-    display: block;
+/* Projects section */
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.projects-container a {
+    display: inline-block;
     padding: 5px;
     font-size: 1.2rem;
-    padding-left: 0;
-    width: 100px;
+    width: auto;
+    margin-right: 15px;
 }
+
 /* animations / utilities */
-.section-2 a:hover{
+.projects-container a:hover{
     font-size: 1.3rem;
     color: #fff;
     cursor: pointer;
@@ -99,5 +107,9 @@ a{
         padding: 0;
         padding-left: 1.5rem;
         padding-top: 2rem;
+    }
+    .projects-container {
+        flex-direction: column;
+        gap: 10px;
     }
 }
