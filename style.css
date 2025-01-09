@@ -85,18 +85,15 @@ a{
 /* Projects section */
 .projects-container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 20px;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 20px;
-    overflow-x: auto;
 }
 
 .projects-container a {
-    display: inline-block;
-    padding: 5px 10px;
+    display: block;
+    padding: 5px 0;
     font-size: 1.2rem;
-    white-space: nowrap;
     color: #7A7C80;
     transition: all 0.3s ease;
 }
