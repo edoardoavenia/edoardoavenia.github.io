@@ -14,7 +14,7 @@ body{
     color: #7A7C80;
 }
 
-h2,.white{
+h1, h2, .white{
     color: #fff;
 }
 
@@ -35,7 +35,7 @@ a{
     margin:0;
 }
 
-.section-1 h2{
+.section-1 h1{
     font-size: 1.7rem;
     margin-bottom: 10px;
 }
@@ -43,6 +43,25 @@ a{
 .section-1 a{
     font-size: 1.5rem;
     padding: 10px;
+}
+
+.hero-image {
+    width: 400px;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    margin: 0 10px;
+    transition: color 0.3s ease;
 }
 
 /* section 2 */
@@ -60,6 +79,7 @@ a{
     font-size: 1.1rem;
     padding-bottom: 10px;
     margin:0;
+    line-height: 1.5;
 }
 
 /* Projects section */
@@ -78,6 +98,7 @@ a{
     font-size: 1.2rem;
     white-space: nowrap;
     color: #7A7C80;
+    transition: all 0.3s ease;
 }
 
 /* animations / utilities */
@@ -85,18 +106,10 @@ a{
     font-size: 1.3rem;
     color: #fff;
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.section-1 a:hover{
+.social-links a:hover{
     color: #fff;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.white:hover{
-    position: relative;
-    padding-left: 10px;
 }
 
 /* media queries */
@@ -112,6 +125,10 @@ a{
         padding: 0;
         padding-left: 1.5rem;
         padding-top: 2rem;
+        width: 90%;
+    }
+    .hero-image {
+        width: 300px;
     }
     .projects-container {
         flex-direction: column;
