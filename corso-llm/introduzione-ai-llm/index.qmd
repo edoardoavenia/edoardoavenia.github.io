@@ -50,7 +50,7 @@ In questo corso non tratteremo tutto il mondo AI ma ci concentreremo specificame
 
 L'intelligenza artificiale, nella sua essenza più pura, è qualunque sistema che cerca di risolvere problemi che normalmente richiederebbero l'intelletto umano. Non è magia, è matematica.
 
-![AI, Machine Learning e Deep Learning](immagini/ai_ml_dl_venn_diagram.png){width=57% fig-align="center"}
+![Figura 1: AI, Machine Learning e Deep Learning](immagini/ai_ml_dl_venn_diagram.png){width=65% fig-align="center"}
 
 L'insieme più esterno rappresenta l'Intelligenza Artificiale nel suo complesso. È un territorio vasto che include anche i sistemi esperti degli anni '80 - quei programmi dove esperti umani codificavano manualmente ogni singola regola. Un sacco di regole del tipo "se questo allora quello", migliaia e migliaia di condizioni per cercare di catturare la conoscenza umana.
 
@@ -68,7 +68,7 @@ Video 3Blue1Brown su Reti Neurali: [link al video](https://www.youtube.com/watch
 
 Le reti neurali artificiali tentano di catturare l'essenza di questo processo, ma con una semplificazione estrema. Un neurone artificiale è solo una funzione matematica che prende numeri in input, li moltiplica per dei pesi - che chiamiamo parametri - e produce un numero in output.
 
-![Struttura di una rete neurale](immagini/artificial_neural_network.png){width=85% fig-align="center"}
+![Figura 2: Struttura di una rete neurale](immagini/artificial_neural_network.png){width=95% fig-align="center"}
 
 fonte: [Nature - Photonic neural networks](https://www.nature.com/articles/s41377-024-01590-3)
 
@@ -111,13 +111,13 @@ Ma assegnare un semplice numero ID a ogni token non cattura il significato. Qui 
 \end{center}
 
 
-![Vettore 2D](immagini/2d_vector.png){width=60% fig-align="center"}
+![Figura 3: Vettore 2D](immagini/2d_vector.png){width=69% fig-align="center"}
 
 \begin{center}
 \Large{\textbf{Vettore in uno spazio a tre dimensioni}}
 \end{center}
 
-![Vettore 3D](immagini/3d_vector.png){width=60% fig-align="center"}
+![Figura 4: Vettore 3D](immagini/3d_vector.png){width=69% fig-align="center"}
 
 fonte: [3Blue1Brown - Vectors](https://www.3blue1brown.com/lessons/vectors)
 
@@ -127,7 +127,7 @@ La magia degli embedding sta nel fatto che parole con significati simili hanno e
 
 Approfondimento: [Understanding Text with Attention Heatmaps](https://muneebsa.medium.com/deep-learning-101-lesson-30-understanding-text-with-attention-heatmaps-efe968a51bc2)
 
-![Attention Heatmap](immagini/attention_llm.png){width=85% fig-align="center"}
+![Figura 5: Attention Heatmap](immagini/attention_llm.png){width=95% fig-align="center"}
 
 Questi embedding sono così complessi e multidimensionali che nemmeno gli scienziati che li hanno creati li comprendono appieno. È parte del mistero della "black box" dell'AI: sappiamo che funziona, vediamo i risultati, ma i meccanismi interni rimangono in parte oscuri.
 
@@ -150,7 +150,7 @@ La prima fase è il pre-training, dove il modello viene esposto a quantità di t
 
 Un po' come negli esercizi per imparare nuove lingue...
 
-![Esercizio di completamento](immagini/next_token_prediction_example.png){width=85% fig-align="center"}
+![Figura 6: Esercizio di completamento](immagini/next_token_prediction_example.png){width=95% fig-align="center"}
 
 Questo task di "next token prediction" sembra banale, ma da esso emergono capacità straordinarie. È come se imparando a prevedere la parola successiva in miliardi di contesti diversi, il modello sviluppasse una comprensione implicita della grammatica, della logica, dei fatti del mondo, persino dello stile e del tono.
 
@@ -168,7 +168,7 @@ I modelli NLP tradizionali dovevano essere addestrati su un task specifico e pot
 
 Le proprietà emergenti dimostrano che, quando queste architetture vengono scalate a miliardi di parametri, diventano molto più che semplici 'pappagalli stocastici' o 'T9 sotto steroidi'
 
-![T9 sotto steroidi](immagini/llm_t9_with_steroids.png){width=40% fig-align="center"}
+![Figura 7: T9 sotto steroidi](immagini/llm_t9_with_steroids.png){width=46% fig-align="center"}
 
 Il prompt è il testo che dai come input al modello, e lui prevederà la risposta corretta token per token. Nel pre-training il modello capisce il linguaggio, nel fine-tuning impara anche a seguire le istruzioni e mantenere lo stile chat. La combinazione di queste capacità con i prompt in linguaggio naturale ha reso possibile l'interazione intuitiva che oggi diamo per scontata.
 
@@ -178,7 +178,7 @@ Il 30 novembre 2022 OpenAI rilasciò ChatGPT al pubblico. GPT-3.5 era già un mo
 
 L'impatto fu immediato e sconvolgente. Un milione di utenti in cinque giorni. Cento milioni in due mesi. Per la prima volta nella storia, gli LLM non erano più dominio esclusivo di ricercatori e grandi aziende tech. Era nelle mani di studenti, professionisti, creativi, curiosi di ogni tipo.
 
-![Crescita dei modelli LLM](immagini/llm_model_growth.png){width=80% fig-align="center"}
+![Figura 8: Crescita dei modelli LLM](immagini/llm_model_growth.png){width=90% fig-align="center"}
 
 Quello che seguì fu paragonabile all'esplosione del Cambriano, quel periodo 540 milioni di anni fa quando la vita sulla Terra si diversificò in modo esplosivo. Anthropic lanciò Claude, Meta rilasciò LLaMA in open source, Google rispose con Bard (poi Gemini), e decine di altre aziende e gruppi di ricerca si unirono alla corsa. Da allora non solo sono usciti centinaia di nuovi modelli, ma la ricerca scientifica sull'argomento è cresciuta esponenzialmente, con migliaia di paper pubblicati ogni mese che esplorano nuove frontiere e applicazioni.
 

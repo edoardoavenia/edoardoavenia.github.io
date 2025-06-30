@@ -112,7 +112,7 @@ Gli LLM possono recitare la teoria della relatività ma fallire su calcoli eleme
 
 \vspace{0.5cm}
 
-![Esempio di calcolo matematico con LLM](immagini/math_LLM_example.png){width=65% fig-align="center"}
+![Figura 1: Esempio di calcolo matematico con LLM](immagini/math_LLM_example.png){width=74% fig-align="center"}
 
 \vspace{0.5cm}
 
@@ -139,7 +139,7 @@ Un LLM genera testo predicendo la prossima parola più probabile. Non ha concett
 
 \vspace{0.5cm}
 
-![Allucinazioni LLM](immagini/allucinazioni_llm.png){width=75% fig-align="center"}
+![Figura 2: Allucinazioni LLM](immagini/allucinazioni_llm.png){width=85% fig-align="center"}
 
 \vspace{0.5cm}
 
@@ -174,7 +174,7 @@ Gli LLM operano essenzialmente come se avessero solo il Sistema 1 della cognizio
 
 \vspace{0.5cm}
 
-![Kahneman Book](immagini/kahneman_book.jpg){width=60% fig-align="center"}
+![Figura 3: Kahneman Book](immagini/kahneman_book.jpg){width=69% fig-align="center"}
 
 \vspace{0.5cm}
 
@@ -203,7 +203,7 @@ Link al paper: [transformer-circuits.pub/2025/attribution-graphs/biology.html](h
 
 Queste scoperte dimostrano che gli LLM sono molto più di un "T9 con gli steroidi" - sono sistemi complessi con meccanismi di ragionamento emergenti che stiamo appena iniziando a comprendere.
 
-![On the Biology of LLM](immagini/On_the_Biology_of_LLM.png){width=60% fig-align="center"}
+![Figura 4: On the Biology of LLM](immagini/On_the_Biology_of_LLM.png){width=69% fig-align="center"}
 
 ### Prompt Injection
 
@@ -219,7 +219,7 @@ Immaginate di vivere come il protagonista del film "Memento": ogni volta che vi 
 
 \vspace{0.5cm}
 
-![Memento Poster](immagini/memento_poster.jpg){width=45% fig-align="center"}
+![Figura 5: Memento Poster](immagini/memento_poster.jpg){width=52% fig-align="center"}
 
 \vspace{0.5cm}
 

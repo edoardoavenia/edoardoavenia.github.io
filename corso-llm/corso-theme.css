@@ -1,3 +1,48 @@
+/* Font sizes aumentati per il corso */
+body {
+  font-size: 1.3rem !important;
+}
+
+.section-2 p {
+  font-size: 1.3rem !important;
+}
+
+.section-2 a {
+  font-size: 1.25rem !important;
+}
+
+/* TOC font sizes */
+#TOC {
+  font-size: 1.15rem !important;
+}
+
+#TOC a {
+  font-size: 1.15rem !important;
+}
+
+.toc-title {
+  font-size: 1.3rem !important;
+}
+
+/* Figure captions centered and numbered */
+.quarto-figure figcaption,
+figure figcaption,
+.figure-caption {
+  text-align: center !important;
+  font-size: 1.1rem !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Counter for figures */
+body {
+  counter-reset: figure-counter;
+}
+
+.quarto-figure:before,
+figure:before {
+  counter-increment: figure-counter;
+}
+
 /* Variabili per i temi */
 :root {
   /* Dark mode (default) */
@@ -123,6 +168,24 @@ input:checked + .slider:before {
 
 #TOC a:hover {
   color: var(--link-hover-color) !important;
+}
+
+/* Lists font size */
+ul, ol {
+  font-size: 1.25rem !important;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Code blocks */
+code {
+  font-size: 1.1rem !important;
+}
+
+pre {
+  font-size: 1.05rem !important;
 }
 
 /* Mobile responsive */
