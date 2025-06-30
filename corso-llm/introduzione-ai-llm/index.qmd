@@ -59,7 +59,7 @@ Video 3Blue1Brown su Reti Neurali: [link al video](https://www.youtube.com/watch
 
 Le reti neurali artificiali tentano di catturare l'essenza di questo processo, ma con una semplificazione estrema. Un neurone artificiale è solo una funzione matematica che prende numeri in input, li moltiplica per dei pesi - che chiamiamo parametri - e produce un numero in output.
 
-![Struttura di una rete neurale](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcbcBXfWLNyQdo2P1koN1BWh2_3KI4JdELZCJPGLa8VwQwES3h3NVeGifMpFi1G9GuSNCghhJp-mYiap21V9aSep536KD8cPUb-xHqswiERjhtgeM8w1bLAJbjYzFbbB19_RxPQGg?key=dhMVT6hYyFZOsGrf2guXGw){width=85% fig-align="center"}
+![Struttura di una rete neurale](immagini/artificial_neural_network.png){width=85% fig-align="center"}
 
 fonte: [Nature - Photonic neural networks](https://www.nature.com/articles/s41377-024-01590-3)
 
@@ -102,13 +102,13 @@ Ma assegnare un semplice numero ID a ogni token non cattura il significato. Qui 
 \end{center}
 
 
-![Vettore 2D](https://lh7-rt.googleusercontent.com/docsz/AD_4nXePfhkbM3MZH8QTRCjdP9h9uy_mGJ0XxMGHPYGFRTOhjScvFykNUYV79sf0H6q-RmSmo5b1kYA2ovO4uepV5rSgysD14U2OmG2vSnZv2qkq0b3LavcPaDofQqNxyVZKL2YeWpbOEw?key=dhMVT6hYyFZOsGrf2guXGw){width=60% fig-align="center"}
+![Vettore 2D](immagini/2d_vector.png){width=60% fig-align="center"}
 
 \begin{center}
 \Large{\textbf{Vettore in uno spazio a tre dimensioni}}
 \end{center}
 
-![Vettore 3D](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcog_3OLwFMUXNA5Uk6el1epjRI5exjba8_8JczNc12NKlncbxAxkqtACpMCqK3lhBvBwZke8xpBq-OLsQkHxSPyLcZtm6-a8zpYWKaO2rZ0IBDjXeX8bKIKPat_gT3ZKP2yRPexQ?key=dhMVT6hYyFZOsGrf2guXGw){width=60% fig-align="center"}
+![Vettore 3D](immagini/3d_vector.png){width=60% fig-align="center"}
 
 fonte: [3Blue1Brown - Vectors](https://www.3blue1brown.com/lessons/vectors)
 
@@ -118,7 +118,7 @@ La magia degli embedding sta nel fatto che parole con significati simili hanno e
 
 Approfondimento: [Understanding Text with Attention Heatmaps](https://muneebsa.medium.com/deep-learning-101-lesson-30-understanding-text-with-attention-heatmaps-efe968a51bc2)
 
-![Attention Heatmap](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfcG-m0n_mG8w4vZNst65aA4IAinKHyg1HABgbRFtxeXUEWsGGzJ3YiA9KM1eRivvGOtoRzUP4x9xhUjkzmOfgrezAUaNfvBvpvhltUC-ds0MemlAO6au7a1Cb8G3LWcFUSebSPkQ?key=dhMVT6hYyFZOsGrf2guXGw){width=85% fig-align="center"}
+![Attention Heatmap](immagini/attention_llm.png){width=85% fig-align="center"}
 
 Questi embedding sono così complessi e multidimensionali che nemmeno gli scienziati che li hanno creati li comprendono appieno. È parte del mistero della "black box" dell'AI: sappiamo che funziona, vediamo i risultati, ma i meccanismi interni rimangono in parte oscuri.
 
