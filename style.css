@@ -67,7 +67,8 @@ a{
 /* section 2 */
 .section-2{
     padding-top: 5vh;
-    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .section-2 h2{

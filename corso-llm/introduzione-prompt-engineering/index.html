@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Edoardo Avenia">
+
+<title>L’Arte del dialogare con la macchina - Introduzione al Prompting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-98cad52ce7327bfd42cee12d434ba08f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="../../style.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#il-principio-fondamentale-contesto-e-specificità" id="toc-il-principio-fondamentale-contesto-e-specificità" class="nav-link active" data-scroll-target="#il-principio-fondamentale-contesto-e-specificità">Il Principio Fondamentale: Contesto e Specificità</a>
+  <ul class="collapse">
+  <li><a href="#esercizio-1-il-ruolo" id="toc-esercizio-1-il-ruolo" class="nav-link" data-scroll-target="#esercizio-1-il-ruolo">ESERCIZIO 1: Il Ruolo</a></li>
+  </ul></li>
+  <li><a href="#il-framework-rtf-role-task-format" id="toc-il-framework-rtf-role-task-format" class="nav-link" data-scroll-target="#il-framework-rtf-role-task-format">Il Framework RTF (Role-Task-Format)</a>
+  <ul class="collapse">
+  <li><a href="#esempio-rtf-in-azione" id="toc-esempio-rtf-in-azione" class="nav-link" data-scroll-target="#esempio-rtf-in-azione">Esempio RTF in Azione:</a></li>
+  <li><a href="#limportanza-del-formato-di-output" id="toc-limportanza-del-formato-di-output" class="nav-link" data-scroll-target="#limportanza-del-formato-di-output">L’Importanza del Formato di Output</a></li>
+  </ul></li>
+  <li><a href="#il-framework-ape-action-purpose-expectation" id="toc-il-framework-ape-action-purpose-expectation" class="nav-link" data-scroll-target="#il-framework-ape-action-purpose-expectation">Il Framework APE (Action-Purpose-Expectation)</a>
+  <ul class="collapse">
+  <li><a href="#esempio-ape-vs-rtf" id="toc-esempio-ape-vs-rtf" class="nav-link" data-scroll-target="#esempio-ape-vs-rtf">Esempio APE vs RTF:</a></li>
+  </ul></li>
+  <li><a href="#levoluzione-r.c.t.f.---quando-serve-più-contesto" id="toc-levoluzione-r.c.t.f.---quando-serve-più-contesto" class="nav-link" data-scroll-target="#levoluzione-r.c.t.f.---quando-serve-più-contesto">L’Evoluzione: R.C.T.F. - Quando Serve Più Contesto</a>
+  <ul class="collapse">
+  <li><a href="#esempio-il-potere-del-contesto" id="toc-esempio-il-potere-del-contesto" class="nav-link" data-scroll-target="#esempio-il-potere-del-contesto">Esempio: Il Potere del Contesto</a></li>
+  <li><a href="#esercizio-2-framework-face-off" id="toc-esercizio-2-framework-face-off" class="nav-link" data-scroll-target="#esercizio-2-framework-face-off">ESERCIZIO 2: Framework Face-Off</a></li>
+  </ul></li>
+  <li><a href="#la-cot-chain-of-thought" id="toc-la-cot-chain-of-thought" class="nav-link" data-scroll-target="#la-cot-chain-of-thought">La CoT (Chain of Thought)</a>
+  <ul class="collapse">
+  <li><a href="#i-modelli-hanno-bisogno-di-token-per-pensare" id="toc-i-modelli-hanno-bisogno-di-token-per-pensare" class="nav-link" data-scroll-target="#i-modelli-hanno-bisogno-di-token-per-pensare">I modelli hanno bisogno di token per pensare</a></li>
+  </ul></li>
+  <li><a href="#lapproccio-iterativo" id="toc-lapproccio-iterativo" class="nav-link" data-scroll-target="#lapproccio-iterativo">L’Approccio Iterativo</a>
+  <ul class="collapse">
+  <li><a href="#esempio-di-iterazione-reale" id="toc-esempio-di-iterazione-reale" class="nav-link" data-scroll-target="#esempio-di-iterazione-reale">Esempio di Iterazione Reale</a></li>
+  </ul></li>
+  <li><a href="#la-decomposizione" id="toc-la-decomposizione" class="nav-link" data-scroll-target="#la-decomposizione">La Decomposizione</a></li>
+  <li><a href="#conclusioni-larte-del-prompting" id="toc-conclusioni-larte-del-prompting" class="nav-link" data-scroll-target="#conclusioni-larte-del-prompting">Conclusioni: L’Arte del Prompting</a>
+  <ul class="collapse">
+  <li><a href="#principi-chiave-da-ricordare" id="toc-principi-chiave-da-ricordare" class="nav-link" data-scroll-target="#principi-chiave-da-ricordare">Principi Chiave da Ricordare</a></li>
+  </ul></li>
+  <li><a href="#sperimentazione-e-automazione-la-chiave-del-prompting-efficace" id="toc-sperimentazione-e-automazione-la-chiave-del-prompting-efficace" class="nav-link" data-scroll-target="#sperimentazione-e-automazione-la-chiave-del-prompting-efficace">Sperimentazione e Automazione: La Chiave del Prompting Efficace</a>
+  <ul class="collapse">
+  <li><a href="#tre-strategie-per-migliorare" id="toc-tre-strategie-per-migliorare" class="nav-link" data-scroll-target="#tre-strategie-per-migliorare">Tre Strategie per Migliorare</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+<div class="section-2">
+<a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">L’Arte del dialogare con la macchina - Introduzione al Prompting</h1>
+<p class="subtitle lead">Corso LLM - Modulo 3</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autore/Autrice</div>
+    <div class="quarto-title-meta-contents">
+             <p>Edoardo Avenia </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Il prompting è la competenza fondamentale per interagire efficacemente con gli LLM. Si tratta di strutturare le richieste in modo che il sistema possa interpretarle correttamente e produrre output utili.</p>
+<p>La differenza tra un prompt efficace e uno inefficace può essere drammatica. “Scrivi una email” produce risultati generici. “Scrivi una email di follow-up commerciale sintetica per un cliente B2B che non ha risposto alla proposta inviata 10 giorni fa” produce risultati utilizzabili.</p>
+<p>Questo modulo presenta framework pratici, tecniche consolidate ed esercizi concreti per sviluppare competenze di prompting applicabili immediatamente nel contesto lavorativo.</p>
+<section id="il-principio-fondamentale-contesto-e-specificità" class="level2">
+<h2 class="anchored" data-anchor-id="il-principio-fondamentale-contesto-e-specificità">Il Principio Fondamentale: Contesto e Specificità</h2>
+<p>Gli LLM possiedono vaste conoscenze generali ma mancano di contesto specifico sulla vostra situazione. L’LLM non sa chi siete, non conosce il vostro ruolo aziendale, non sa quale problema state cercando di risolvere, non conosce i vincoli specifici del vostro settore o della vostra organizzazione, e non può intuire in quale formato vi serve l’output.</p>
+<p>Un LLM senza contesto è come un consulente esperto al primo giorno in azienda: competente ma privo delle informazioni specifiche necessarie per essere immediatamente produttivo. Il vostro compito è fornire quelle informazioni attraverso prompt ben strutturati.</p>
+<section id="esercizio-1-il-ruolo" class="level3">
+<h3 class="anchored" data-anchor-id="esercizio-1-il-ruolo">ESERCIZIO 1: Il Ruolo</h3>
+<p>Task: spiegare come funziona la lacca per capelli. Provate questi tre prompt:</p>
+<p><strong>Prompt 1</strong>: Agisci come un insegnante di scuola materna che spiega concetti ai tuoi bambini di 5 anni. Spiega come funziona la lacca per capelli</p>
+<p><strong>Prompt 2</strong>: Agisci come un PhD in chimica dei polimeri. Spiega come funziona la lacca per capelli</p>
+<p><strong>Prompt 3</strong>: Agisci come un venditore in profumeria. Spiega come funziona la lacca per capelli</p>
+<p>Il ruolo determina completamente l’approccio e l’utilità dell’output.</p>
+<p><strong>Sfida creativa</strong>: Dopo aver osservato le tre risposte completamente diverse, riuscite a trovare un quarto ruolo che produca una spiegazione ancora diversa dalle precedenti? Pensate a professioni o prospettive inusuali che potrebbero dare un punto di vista unico sul funzionamento della lacca.</p>
+</section>
+</section>
+<section id="il-framework-rtf-role-task-format" class="level2">
+<h2 class="anchored" data-anchor-id="il-framework-rtf-role-task-format">Il Framework RTF (Role-Task-Format)</h2>
+<p>RTF è il framework fondamentale per strutturare prompt efficaci. Comprende tre componenti:</p>
+<ul>
+<li><strong>R - Role (Ruolo)</strong>: Chi deve essere l’AI</li>
+<li><strong>T - Task (Compito)</strong>: Cosa deve fare specificamente</li>
+<li><strong>F - Format (Formato)</strong>: Come deve presentare il risultato</li>
+</ul>
+<p>RTF copre l’80% dei casi d’uso quotidiani con solo tre elementi da ricordare.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/examples.png" class="img-fluid figure-img" style="width:45.0%"></p>
+<figcaption>Esempio RTF</figcaption>
+</figure>
+</div>
+<section id="esempio-rtf-in-azione" class="level3">
+<h3 class="anchored" data-anchor-id="esempio-rtf-in-azione">Esempio RTF in Azione:</h3>
+<p><strong>Prompt Debole</strong>:</p>
+<p><em>Dammi idee marketing per un prodotto di bellezza durante il Black Friday</em></p>
+<p><strong>Prompt RTF</strong>: Sei un brand manager growth marketer specializzato in e-commerce B2C esperto nel settore haircare premium</p>
+<p>Crea 10 strategie promozionali Black Friday per Keramine H, linea trattamenti capelli venduta in farmacia e profumeria</p>
+<p>Per ogni strategia: nome promo (3-5 parole), meccanica, target specifico (es. donne 35-50 con capelli trattati)</p>
+<p>Il primo prompt genera suggerimenti generici. Il secondo produce idee specifiche e implementabili.</p>
+</section>
+<section id="limportanza-del-formato-di-output" class="level3">
+<h3 class="anchored" data-anchor-id="limportanza-del-formato-di-output">L’Importanza del Formato di Output</h3>
+<p>Il formato giusto può trasformare un output mediocre in uno eccellente. Stesso contenuto, formati diversi, usi diversi.</p>
+<p><strong>Esempio</strong>: Dovete comunicare i risultati di un’analisi customer satisfaction.</p>
+<p>Notate come lo stesso contenuto cambia completamente utilità in base al formato richiesto:</p>
+<ul>
+<li><strong>“Riassumi in un paragrafo”</strong> → Testo continuo per report e documenti formali, facile da integrare in comunicazioni più ampie</li>
+<li><strong>“5 bullet point”</strong> → Punti chiave immediati, ideale per slide o quando serve sintesi estrema con impatto visivo</li>
+<li><strong>“Tabella con Area | Score | Azione”</strong> → Struttura che facilita confronti, prioritizzazione e assegnazione responsabilità operative</li>
+<li><strong>“Formato email con subject e CTA”</strong> → Comunicazione pronta all’uso con tutti gli elementi necessari per generare una risposta</li>
+</ul>
+<p>La lezione: specificare il formato desiderato è cruciale quanto definire il contenuto. Un’analisi brillante presentata nel formato sbagliato perde gran parte del suo valore.</p>
+</section>
+</section>
+<section id="il-framework-ape-action-purpose-expectation" class="level2">
+<h2 class="anchored" data-anchor-id="il-framework-ape-action-purpose-expectation">Il Framework APE (Action-Purpose-Expectation)</h2>
+<p>APE è un framework alternativo più agile, utile quando il ruolo è meno rilevante del risultato:</p>
+<ul>
+<li><strong>A - Action</strong>: Cosa deve FARE l’AI (verbo operativo)</li>
+<li><strong>P - Purpose</strong>: PERCHÉ lo deve fare (contesto e obiettivo)</li>
+<li><strong>E - Expectation</strong>: COME dovrebbe essere il risultato (vincoli e criteri)</li>
+</ul>
+<p>APE funziona perché costringe a chiarire esattamente cosa serve, perché serve e come verificare il successo.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/ape_framework.png" class="img-fluid figure-img" style="width:35.0%"></p>
+<figcaption>APE Framework</figcaption>
+</figure>
+</div>
+<section id="esempio-ape-vs-rtf" class="level3">
+<h3 class="anchored" data-anchor-id="esempio-ape-vs-rtf">Esempio APE vs RTF:</h3>
+<p><strong>Situazione</strong>: Dovete riassumere un report di 50 pagine per il CEO.</p>
+<p><strong>Approccio RTF</strong>: R: Sei un senior business analyst con 10 anni di esperienza T: Riassumi il report trimestrale allegato F: Sintesi di massimo 300 parole con 3 punti chiave principali</p>
+<p><strong>Approccio APE</strong> (più diretto): A: RIASSUMI il report trimestrale in allegato P: per il CEO che ha solo 2 minuti prima della riunione del consiglio E: Max 300 parole, 3 punti principali, focus su risultati economici</p>
+<p>APE va più diretto al punto quando il ruolo specifico aggiunge poco valore perché abbiamo specificato lo scopo.</p>
+<p><strong>Nota importante</strong>: Questo esempio serve per velocizzare la SCRITTURA di un riassunto, non per sostituire la lettura del report. Chi usa questo prompt deve aver già letto e compreso il documento di 50 pagine per verificare che il riassunto includa le informazioni corrette e non ometta elementi critici. In questo caso l’LLM è uno strumento per accelerare la redazione, non un sostituto della comprensione umana del contenuto.</p>
+</section>
+</section>
+<section id="levoluzione-r.c.t.f.---quando-serve-più-contesto" class="level2">
+<h2 class="anchored" data-anchor-id="levoluzione-r.c.t.f.---quando-serve-più-contesto">L’Evoluzione: R.C.T.F. - Quando Serve Più Contesto</h2>
+<p>Man mano che i vostri prompt diventeranno più sofisticati, sentirete il bisogno di aggiungere un elemento cruciale: il <strong>Contesto</strong>. Ecco che RTF evolve in <strong>R.C.T.F.</strong> (Role-Context-Task-Format).</p>
+<p>Il Contesto è tutto ciò che l’AI deve sapere sulla situazione specifica:</p>
+<ul>
+<li>Chi è il destinatario finale</li>
+<li>Qual è la situazione attuale</li>
+<li>Quali sono i vincoli o le sensibilità</li>
+<li>Cosa è successo prima</li>
+</ul>
+<section id="esempio-il-potere-del-contesto" class="level3">
+<h3 class="anchored" data-anchor-id="esempio-il-potere-del-contesto">Esempio: Il Potere del Contesto</h3>
+<p><strong>Prompt senza contesto</strong>: R: Sei un customer success manager T: Scrivi una email di follow-up a un cliente F: Email professionale di 150 parole</p>
+<p><strong>Stesso prompt con contesto</strong>: R: Sei un customer success manager</p>
+<p>C: Il cliente (Azienda ABC, nostro cliente da 3 anni) non accede alla piattaforma da 30 giorni. L’ultimo accesso coincide con un bug che abbiamo risolto. Hanno un rinnovo tra 2 mesi.</p>
+<p>T: Scrivi una email di follow-up per riattivare l’engagement</p>
+<p>F: Email professionale di 150 parole, tono empatico non commerciale</p>
+<p>Il primo genera una email generica. Il secondo produce una comunicazione mirata che affronta il problema specifico, riconosce la storia del cliente, e prepara il terreno per il rinnovo senza essere invadente.</p>
+</section>
+<section id="esercizio-2-framework-face-off" class="level3">
+<h3 class="anchored" data-anchor-id="esercizio-2-framework-face-off">ESERCIZIO 2: Framework Face-Off</h3>
+<p><strong>Scenario</strong>: Email di benvenuto per nuovo salone partner <strong>Contesto</strong>: Un parrucchiere è appena entrato nella rete Axenia (divisione professionale SOCO)</p>
+<p><strong>Punto di partenza - Prompt base</strong>: Scrivi email di benvenuto per nuovo salone partner</p>
+<p><strong>Il vostro compito</strong>: Riscrivete il prompt usando i framework che preferite. Potete scegliere tra:</p>
+<ul>
+<li><strong>APE</strong> (Action-Purpose-Expectation)</li>
+<li><strong>RTF</strong> (Role-Task-Format)</li>
+<li><strong>R.C.T.F.</strong> (Role-Context-Task-Format)</li>
+<li>O anche combinazioni/varianti personalizzate</li>
+</ul>
+<p>L’obiettivo è ottenere un’email che:</p>
+<ul>
+<li>Faccia sentire il parrucchiere parte della famiglia Axenia</li>
+<li>Comunichi i vantaggi pratici della partnership</li>
+<li>Includa informazioni su supporto e prossimi passi</li>
+<li>Mantenga un tono professionale ma caloroso</li>
+</ul>
+<p><strong>Nota</strong>: Non esiste un framework “giusto” - scegliete quello che vi sembra più adatto al task. L’importante è che il prompt finale produca un’email utilizzabile, non che segua perfettamente una formula.</p>
+</section>
+</section>
+<section id="la-cot-chain-of-thought" class="level2">
+<h2 class="anchored" data-anchor-id="la-cot-chain-of-thought">La CoT (Chain of Thought)</h2>
+<section id="i-modelli-hanno-bisogno-di-token-per-pensare" class="level3">
+<h3 class="anchored" data-anchor-id="i-modelli-hanno-bisogno-di-token-per-pensare">I modelli hanno bisogno di token per pensare</h3>
+<p><strong>Problema</strong>: Emily compra 3 mele e 2 arance. Ogni arancia costa $2. Il costo totale della frutta è $13. Quanto costa una mela?</p>
+<p><strong>Risposta Assistente 1</strong>: “La risposta è $3. Questo perché 2 arance a $2 sono $4 in totale. Quindi le 3 mele costano $9, e quindi ogni mela costa 9/3 = $3”.</p>
+<p><strong>Risposta Assistente 2</strong>: “Il costo totale delle arance è $4. 13 - 4 = 9, il costo delle 3 mele è $9. 9/3 = 3, quindi ogni mela costa $3. La risposta è $3”.</p>
+<p><strong>Quale approccio è più affidabile?</strong></p>
+<hr>
+<p>Entrambe le risposte sono matematicamente corrette ($3), ma notate la differenza cruciale:</p>
+<ul>
+<li>L’Assistente 1 <strong>dichiara subito la risposta</strong> e poi la giustifica a ritroso</li>
+<li>L’Assistente 2 <strong>costruisce la soluzione passo dopo passo</strong> e solo alla fine presenta la risposta</li>
+</ul>
+<p>È come se il primo assistente tentasse di risolvere tutto il problema in un singolo “salto mentale”, mentre il secondo divide il problema in piccoli calcoli sequenziali, usando ogni risultato intermedio come base per il passo successivo.</p>
+<p>Questa differenza è fondamentale. Quando un modello “ragiona ad alta voce” attraverso i passaggi intermedi prima di concludere, ha maggiori probabilità di produrre risposte corrette, specialmente in problemi più complessi.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/cot_reasoning_1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>Ragionamento CoT 1</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/cot_reasoning_2.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>Ragionamento CoT 2</figcaption>
+</figure>
+</div>
+<p>Chain of Thought è proprio questo: permettere al modello di generare token intermedi di ragionamento invece di “sparare” subito la risposta.</p>
+<p><strong>La frase chiave per attivarlo</strong>: “Ragiona passo per passo” o “Let’s think step by step”</p>
+</section>
+</section>
+<section id="lapproccio-iterativo" class="level2">
+<h2 class="anchored" data-anchor-id="lapproccio-iterativo">L’Approccio Iterativo</h2>
+<p>Il prompt perfetto al primo tentativo è raro. Il processo standard prevede:</p>
+<ol type="1">
+<li>Primo prompt: risultato approssimativo</li>
+<li>Analisi: identificare cosa manca o non funziona</li>
+<li>Refinement: aggiustare ruolo/contesto/task/formato</li>
+<li>Ripetere fino al risultato desiderato</li>
+</ol>
+<section id="esempio-di-iterazione-reale" class="level3">
+<h3 class="anchored" data-anchor-id="esempio-di-iterazione-reale">Esempio di Iterazione Reale</h3>
+<p><strong>Iterazione 1</strong>: Scrivi una email per invitare a un webinar <em>Risultato: Troppo generico, tono sbagliato</em></p>
+<p><strong>Iterazione 2</strong>: R: Sei un marketing manager T: Scrivi una email di invito per webinar su AI per HR F: Email di 200 parole <em>Risultato: Meglio, ma manca urgency e target</em></p>
+<p><strong>Iterazione 3</strong>: R: Sei un marketing manager specializzato in HR Tech</p>
+<p>C: Webinar gratuito il 15/11/2024 per HR manager di PMI italiane. Solo 100 posti. Speaker: ex-Google. Tema: “AI per recruiting senza bias”</p>
+<p>T: Scrivi email di invito che crei urgency senza essere spam</p>
+<p>F: Max 200 parole, subject line + preview text + body + CTA chiara</p>
+<p><em>Risultato: Perfetto! </em></p>
+</section>
+</section>
+<section id="la-decomposizione" class="level2">
+<h2 class="anchored" data-anchor-id="la-decomposizione">La Decomposizione</h2>
+<p>Per task complessi, è più efficace spezzare in passaggi sequenziali piuttosto che tentare un unico mega-prompt.</p>
+<p><strong>Invece di</strong>: Crea un piano di marketing completo per il lancio prodotto</p>
+<p><strong>Usare</strong>: Step 1: “Analizza i 3 competitor principali: positioning e pricing” Step 2: “Definisci 3 strategie di positioning differenzianti” Step 3: “Sviluppa piano marketing 6 mesi per strategia scelta” Step 4: “Crea budget dettagliato con ROI atteso”</p>
+<p>Ogni output diventa input per il passo successivo.</p>
+</section>
+<section id="conclusioni-larte-del-prompting" class="level2">
+<h2 class="anchored" data-anchor-id="conclusioni-larte-del-prompting">Conclusioni: L’Arte del Prompting</h2>
+<p>Il prompting efficace è un’arte che si sviluppa con la pratica. I framework presentati in questo modulo sono punti di partenza, non regole rigide. Con l’esperienza, svilupperete un intuito per quale approccio funziona meglio in ogni situazione.</p>
+<section id="principi-chiave-da-ricordare" class="level3">
+<h3 class="anchored" data-anchor-id="principi-chiave-da-ricordare">Principi Chiave da Ricordare</h3>
+<p><strong>Sperimentazione</strong>: Non esiste il prompt perfetto universale. Provate diverse formulazioni e imparate dai risultati.</p>
+<p><strong>Iterazione</strong>: Raffinate progressivamente i vostri prompt basandovi sui feedback e sui risultati ottenuti.</p>
+<p><strong>Contesto</strong>: Più informazioni rilevanti fornite, migliori saranno i risultati. Il contesto è fondamentale.</p>
+<p><strong>Specificità</strong>: Prompt vaghi generano risultati vaghi. Siate precisi nelle vostre richieste.</p>
+<p>Ricordate: l’obiettivo non è creare il prompt perfetto, ma ottenere risultati utili che vi aiutino a risolvere problemi reali e aumentare la vostra produttività.</p>
+</section>
+</section>
+<section id="sperimentazione-e-automazione-la-chiave-del-prompting-efficace" class="level2">
+<h2 class="anchored" data-anchor-id="sperimentazione-e-automazione-la-chiave-del-prompting-efficace">Sperimentazione e Automazione: La Chiave del Prompting Efficace</h2>
+<p>La vera maestria nel prompting si sviluppa attraverso la sperimentazione continua in diversi domini della vita, non solo quelli lavorativi.</p>
+<section id="tre-strategie-per-migliorare" class="level3">
+<h3 class="anchored" data-anchor-id="tre-strategie-per-migliorare">Tre Strategie per Migliorare</h3>
+<p><strong>Automatizza i Task Ripetitivi</strong>: Identificate attività ricorrenti nella vostra giornata, settimana o mese che potreste automatizzare con prompt ben strutturati. Ogni volta che vi trovate a ripetere un’attività simile, chiedetevi: “Posso creare un prompt template per questo?”</p>
+<p><strong>Processo Iterativo</strong>: Migliorate progressivamente i vostri prompt nel tempo, adattandoli in base ai risultati e alle nuove idee che emergono. Tenete un “prompt journal” dove annotate i prompt di successo e le loro evoluzioni.</p>
+<p><strong>Sperimenta ai Limiti</strong>: Osate con prompt creativi e non convenzionali per esplorare le capacità degli LLM e ampliare le vostre competenze. Provate combinazioni inusuali di ruoli, formati innovativi, o approcci che sembrano “troppo ambiziosi”.</p>
+<p>Osservando come gli LLM rispondono a varie formulazioni, svilupperete un’intuizione preziosa per creare prompt sempre più efficaci. Questa competenza diventerà sempre più cruciale nel mondo professionale dei prossimi anni.</p>
+</section>
+</section>
+
+</div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+<div class="section-2" style="margin-top: 50px;">
+<p style="color: #7A7C80;">Altri moduli in arrivo...</p>
+</div>
+
+
+
+
+</body></html>
