@@ -188,8 +188,94 @@ pre {
   font-size: 1.05rem !important;
 }
 
+/* Aumenta lo spazio disponibile per il testo */
+.section-2 {
+  max-width: 1000px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+
+/* Ottimizza i contenuti Quarto */
+.quarto-container {
+  max-width: 1000px !important;
+}
+
+main.content {
+  max-width: 1000px !important;
+  margin: 0 auto;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
+  /* Riduce margini e padding su mobile */
+  body {
+    font-size: 1.15rem !important;
+  }
+  
+  .section-2 {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    max-width: 100% !important;
+    width: 95% !important;
+  }
+  
+  .section-2 p {
+    font-size: 1.15rem !important;
+  }
+  
+  .section-2 a {
+    font-size: 1.1rem !important;
+  }
+  
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.3rem !important;
+  }
+  
+  /* TOC mobile */
+  #TOC {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+  
+  #TOC a {
+    font-size: 1rem !important;
+  }
+  
+  /* Lists */
+  ul, ol {
+    font-size: 1.1rem !important;
+    padding-left: 20px !important;
+  }
+  
+  /* Code blocks */
+  code {
+    font-size: 0.95rem !important;
+  }
+  
+  pre {
+    font-size: 0.9rem !important;
+    padding: 10px !important;
+  }
+  
+  /* Ottimizza contenuti Quarto su mobile */
+  main.content {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  .quarto-container {
+    padding: 0 !important;
+  }
   .theme-toggle {
     top: 10px;
     right: 10px;
