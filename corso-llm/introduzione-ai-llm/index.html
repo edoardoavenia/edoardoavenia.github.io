@@ -151,24 +151,24 @@ ul.task-list li input[type="checkbox"] {
 <p>Ma assegnare un semplice numero ID a ogni token non cattura il significato. Qui entrano in gioco gli embedding, rappresentazioni numeriche complesse che sono al cuore della “comprensione” linguistica dei modelli. Un embedding non è un singolo numero, ma un vettore di centinaia di dimensioni.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="immagini/2d_vector.png" class="img-fluid figure-img" style="width:69.0%"></p>
+<p><img src="immagini/2d_vector.png" class="img-fluid figure-img" style="width:83.0%"></p>
 <figcaption>Figura 3: Vettore 2D</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="immagini/3d_vector.png" class="img-fluid figure-img" style="width:69.0%"></p>
+<p><img src="immagini/3d_vector.png" class="img-fluid figure-img" style="width:83.0%"></p>
 <figcaption>Figura 4: Vettore 3D</figcaption>
 </figure>
 </div>
 <p>fonte: <a href="https://www.3blue1brown.com/lessons/vectors">3Blue1Brown - Vectors</a></p>
 <p>Nel mondo degli LLM, gli embedding vivono in spazi vettoriali a migliaia di dimensioni, spesso tra 1024 e oltre 12.000, a seconda del modello e dell’uso.</p>
 <p>La magia degli embedding sta nel fatto che parole con significati simili hanno embedding simili. Ma c’è di più: gli embedding cambiano in base al contesto. La parola “pesca” avrà un embedding diverso nella frase “Nel pancake adoro la pesca” rispetto a “Nel weekend adoro la pesca”. Il modello impara queste sottigliezze attraverso l’esposizione a miliardi di esempi durante l’addestramento, in questo modo la sua risposta peserà in modo diverso la parola pesca in base alle parole pancake e weekend.</p>
-<p>Approfondimento: <a href="https://muneebsa.medium.com/deep-learning-101-lesson-30-understanding-text-with-attention-heatmaps-efe968a51bc2">Understanding Text with Attention Heatmaps</a></p>
+<p>Approfondimento: <a href="https://muneebsa.medium.com/deep-learning-101-lesson-30-understanding-text-with-attention-heatmaps-efe968a51bc2">Comprendere il meccanismo di attenzione negli LLM</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="immagini/attention_llm.png" class="img-fluid figure-img" style="width:95.0%"></p>
-<figcaption>Figura 5: Attention Heatmap</figcaption>
+<p><img src="immagini/esempio_attenzione.png" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Figura 5: Esempio di meccanismo di attenzione</figcaption>
 </figure>
 </div>
 <p>Questi embedding sono così complessi e multidimensionali che nemmeno gli scienziati che li hanno creati li comprendono appieno. È parte del mistero della “black box” dell’AI: sappiamo che funziona, vediamo i risultati, ma i meccanismi interni rimangono in parte oscuri.</p>
