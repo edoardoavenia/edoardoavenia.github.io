@@ -50,7 +50,7 @@ In questo corso non tratteremo tutto il mondo AI ma ci concentreremo specificame
 
 L'intelligenza artificiale, nella sua essenza più pura, è qualunque sistema che cerca di risolvere problemi che normalmente richiederebbero l'intelletto umano. Non è magia, è matematica.
 
-![Figura 1: AI, Machine Learning e Deep Learning](immagini/ai_ml_dl_venn_diagram.png){width=65% fig-align="center"}
+![Figura 1: AI, Machine Learning e Deep Learning](immagini/ai_ml_dl_venn_diagram.png){width=85% fig-align="center"}
 
 L'insieme più esterno rappresenta l'Intelligenza Artificiale nel suo complesso. È un territorio vasto che include anche i sistemi esperti degli anni '80 - quei programmi dove esperti umani codificavano manualmente ogni singola regola. Un sacco di regole del tipo "se questo allora quello", migliaia e migliaia di condizioni per cercare di catturare la conoscenza umana.
 

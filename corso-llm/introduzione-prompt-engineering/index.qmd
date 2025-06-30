@@ -223,9 +223,9 @@ Entrambe le risposte sono matematicamente corrette ($3), ma notate la differenza
 
 Questa differenza è fondamentale. Quando un modello "ragiona ad alta voce" attraverso i passaggi intermedi prima di concludere, ha maggiori probabilità di produrre risposte corrette, specialmente in problemi più complessi.
 
-![Figura 3: Ragionamento CoT 1](immagini/cot_reasoning_1.png){width=94% fig-align="center"}
+![Figura 3: Ragionamento CoT 1](immagini/cot_reasoning_1.png){width=100% fig-align="center"}
 
-![Figura 4: Ragionamento CoT 2](immagini/cot_reasoning_2.png){width=94% fig-align="center"}
+![Figura 4: Ragionamento CoT 2](immagini/cot_reasoning_2.png){width=100% fig-align="center"}
 
 Chain of Thought è proprio questo: permettere al modello di generare token intermedi di ragionamento invece di "sparare" subito la risposta.
 
