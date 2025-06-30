@@ -6,10 +6,18 @@ lang: it
 format:
   html:
     theme: cosmo
-    css: "../../style.css"
+    css: 
+      - "../../style.css"
+      - "../corso-theme.css"
     toc: true
     include-before-body:
       text: |
+        <div class="theme-toggle">
+          <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+          </label>
+        </div>
         <div class="section-2">
         <a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
     include-after-body:
@@ -18,6 +26,7 @@ format:
         <div class="section-2" style="margin-top: 50px;">
         <a href="/corso-llm/introduzione-prompt-engineering/">Prossimo modulo →</a>
         </div>
+        <script src="../theme-toggle.js"></script>
 ---
 ## I Limiti Strutturali: Una Panoramica
 

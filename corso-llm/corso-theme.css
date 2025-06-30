@@ -1,0 +1,149 @@
+/* Variabili per i temi */
+:root {
+  /* Dark mode (default) */
+  --bg-color: #101214;
+  --text-color: #9A9C9F;
+  --heading-color: #fff;
+  --link-color: #9A9C9F;
+  --link-hover-color: #fff;
+  --code-bg: #1a1c1e;
+  --border-color: #2a2c2e;
+}
+
+/* Light mode */
+body.light-mode {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --heading-color: #000000;
+  --link-color: #0066cc;
+  --link-hover-color: #0052a3;
+  --code-bg: #f5f5f5;
+  --border-color: #e0e0e0;
+}
+
+/* Applica le variabili */
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color) !important;
+}
+
+a {
+  color: var(--link-color) !important;
+}
+
+a:hover {
+  color: var(--link-hover-color) !important;
+}
+
+code, pre {
+  background-color: var(--code-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Theme toggle switch */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2a2c2e;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "🌙";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+input:checked + .slider {
+  background-color: #e0e0e0;
+}
+
+input:checked + .slider:before {
+  transform: translateX(32px);
+  content: "☀️";
+  background-color: white;
+}
+
+/* Fix per elementi Quarto che potrebbero avere colori hardcoded */
+.quarto-title-meta {
+  color: var(--text-color) !important;
+}
+
+.toc-active {
+  color: var(--heading-color) !important;
+}
+
+#TOC {
+  border-color: var(--border-color) !important;
+}
+
+#TOC a {
+  color: var(--text-color) !important;
+}
+
+#TOC a:hover {
+  color: var(--link-hover-color) !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .switch {
+    width: 50px;
+    height: 24px;
+  }
+  
+  .slider:before {
+    height: 18px;
+    width: 18px;
+    font-size: 12px;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+}

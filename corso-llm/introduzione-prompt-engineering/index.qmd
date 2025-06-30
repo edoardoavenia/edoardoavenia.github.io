@@ -6,10 +6,18 @@ lang: it
 format:
   html:
     theme: cosmo
-    css: "../../style.css"
+    css: 
+      - "../../style.css"
+      - "../corso-theme.css"
     toc: true
     include-before-body:
       text: |
+        <div class="theme-toggle">
+          <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+          </label>
+        </div>
         <div class="section-2">
         <a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
     include-after-body:
@@ -18,6 +26,7 @@ format:
         <div class="section-2" style="margin-top: 50px;">
         <p style="color: #7A7C80;">Altri moduli in arrivo...</p>
         </div>
+        <script src="../theme-toggle.js"></script>
 ---
 
 \vspace{6cm}
