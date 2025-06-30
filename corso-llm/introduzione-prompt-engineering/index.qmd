@@ -111,7 +111,7 @@ APE è un framework alternativo più agile, utile quando il ruolo è meno rileva
 
 APE funziona perché costringe a chiarire esattamente cosa serve, perché serve e come verificare il successo.
 
-![APE Framework](immagini/ape_framework.png){width=35% fig-align="center"}
+![APE Framework](immagini/ape_framework.png){width=45% fig-align="center"}
 
 \vspace{2cm}
 
