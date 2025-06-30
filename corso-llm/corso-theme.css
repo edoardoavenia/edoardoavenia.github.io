@@ -188,11 +188,11 @@ pre {
   font-size: 1.05rem !important;
 }
 
-/* Aumenta lo spazio disponibile per il testo */
+/* Aumenta lo spazio disponibile per il testo riducendo i margini */
 .section-2 {
   max-width: 1000px !important;
-  padding-left: 30px !important;
-  padding-right: 30px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 /* Ottimizza i contenuti Quarto */
@@ -203,30 +203,30 @@ pre {
 main.content {
   max-width: 1000px !important;
   margin: 0 auto;
-  padding-left: 30px !important;
-  padding-right: 30px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  /* Riduce margini e padding su mobile */
+  /* Riduce margini e padding su mobile per dare più spazio al testo */
   body {
-    font-size: 1.15rem !important;
+    font-size: 1.3rem !important; /* Manteniamo il font grande */
   }
   
   .section-2 {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding-left: 10px !important;  /* Margini molto ridotti */
+    padding-right: 10px !important;
     max-width: 100% !important;
-    width: 95% !important;
+    width: 98% !important;  /* Usa quasi tutto lo schermo */
   }
   
   .section-2 p {
-    font-size: 1.15rem !important;
+    font-size: 1.3rem !important;  /* Manteniamo font grande */
   }
   
   .section-2 a {
-    font-size: 1.1rem !important;
+    font-size: 1.25rem !important;  /* Manteniamo font grande */
   }
   
   h1 {
@@ -267,14 +267,26 @@ main.content {
     padding: 10px !important;
   }
   
-  /* Ottimizza contenuti Quarto su mobile */
+  /* Ottimizza contenuti Quarto su mobile - margini minimi */
   main.content {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    width: 100% !important;
   }
   
   .quarto-container {
     padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Rimuovi margini extra da Quarto */
+  .quarto-document {
+    padding: 0 !important;
+  }
+  
+  #quarto-content {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
   .theme-toggle {
     top: 10px;
