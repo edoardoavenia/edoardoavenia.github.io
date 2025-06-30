@@ -77,7 +77,7 @@ RTF è il framework fondamentale per strutturare prompt efficaci. Comprende tre 
 
 RTF copre l'80% dei casi d'uso quotidiani con solo tre elementi da ricordare.
 
-![Esempio RTF](immagini/examples.png){width=45% fig-align="center"}
+![Figura 1: Esempio RTF](immagini/examples.png){width=52% fig-align="center"}
 
 ### Esempio RTF in Azione:
 
@@ -120,7 +120,7 @@ APE è un framework alternativo più agile, utile quando il ruolo è meno rileva
 
 APE funziona perché costringe a chiarire esattamente cosa serve, perché serve e come verificare il successo.
 
-![APE Framework](immagini/ape_framework.png){width=45% fig-align="center"}
+![Figura 2: APE Framework](immagini/ape_framework.png){width=52% fig-align="center"}
 
 \vspace{2cm}
 
@@ -223,9 +223,9 @@ Entrambe le risposte sono matematicamente corrette ($3), ma notate la differenza
 
 Questa differenza è fondamentale. Quando un modello "ragiona ad alta voce" attraverso i passaggi intermedi prima di concludere, ha maggiori probabilità di produrre risposte corrette, specialmente in problemi più complessi.
 
-![Ragionamento CoT 1](immagini/cot_reasoning_1.png){width=75% fig-align="center"}
+![Figura 3: Ragionamento CoT 1](immagini/cot_reasoning_1.png){width=94% fig-align="center"}
 
-![Ragionamento CoT 2](immagini/cot_reasoning_2.png){width=75% fig-align="center"}
+![Figura 4: Ragionamento CoT 2](immagini/cot_reasoning_2.png){width=94% fig-align="center"}
 
 Chain of Thought è proprio questo: permettere al modello di generare token intermedi di ragionamento invece di "sparare" subito la risposta.
 
