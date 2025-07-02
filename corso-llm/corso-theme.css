@@ -1,0 +1,310 @@
+/* Font sizes aumentati per il corso */
+body {
+  font-size: 1.3rem !important;
+}
+
+.section-2 p {
+  font-size: 1.3rem !important;
+}
+
+.section-2 a {
+  font-size: 1.25rem !important;
+}
+
+/* TOC font sizes */
+#TOC {
+  font-size: 1.15rem !important;
+}
+
+#TOC a {
+  font-size: 1.15rem !important;
+}
+
+.toc-title {
+  font-size: 1.3rem !important;
+}
+
+/* Figure captions centered and numbered */
+.quarto-figure figcaption,
+figure figcaption,
+.figure-caption {
+  text-align: center !important;
+  font-size: 1.1rem !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Counter for figures */
+body {
+  counter-reset: figure-counter;
+}
+
+.quarto-figure:before,
+figure:before {
+  counter-increment: figure-counter;
+}
+
+/* Variabili per i temi */
+:root {
+  /* Dark mode (default) */
+  --bg-color: #101214;
+  --text-color: #9A9C9F;
+  --heading-color: #fff;
+  --link-color: #9A9C9F;
+  --link-hover-color: #fff;
+  --code-bg: #1a1c1e;
+  --border-color: #2a2c2e;
+}
+
+/* Light mode */
+body.light-mode {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --heading-color: #000000;
+  --link-color: #0066cc;
+  --link-hover-color: #0052a3;
+  --code-bg: #f5f5f5;
+  --border-color: #e0e0e0;
+}
+
+/* Applica le variabili */
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color) !important;
+}
+
+a {
+  color: var(--link-color) !important;
+}
+
+a:hover {
+  color: var(--link-hover-color) !important;
+}
+
+code, pre {
+  background-color: var(--code-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Theme toggle switch */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 75px;
+  height: 35px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2a2c2e;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "🌙";
+  height: 28px;
+  width: 28px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+input:checked + .slider {
+  background-color: #e0e0e0;
+}
+
+input:checked + .slider:before {
+  transform: translateX(40px);
+  content: "☀️";
+  background-color: white;
+}
+
+/* Fix per elementi Quarto che potrebbero avere colori hardcoded */
+.quarto-title-meta {
+  color: var(--text-color) !important;
+}
+
+.toc-active {
+  color: var(--heading-color) !important;
+}
+
+#TOC {
+  border-color: var(--border-color) !important;
+}
+
+#TOC a {
+  color: var(--text-color) !important;
+}
+
+#TOC a:hover {
+  color: var(--link-hover-color) !important;
+}
+
+/* Lists font size */
+ul, ol {
+  font-size: 1.25rem !important;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Code blocks */
+code {
+  font-size: 1.1rem !important;
+}
+
+pre {
+  font-size: 1.05rem !important;
+}
+
+/* Aumenta lo spazio disponibile per il testo riducendo i margini */
+.section-2 {
+  max-width: 1000px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+/* Ottimizza i contenuti Quarto */
+.quarto-container {
+  max-width: 1000px !important;
+}
+
+main.content {
+  max-width: 1000px !important;
+  margin: 0 auto;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  /* Riduce margini e padding su mobile per dare più spazio al testo */
+  body {
+    font-size: 1.3rem !important; /* Manteniamo il font grande */
+  }
+  
+  .section-2 {
+    padding-left: 10px !important;  /* Margini molto ridotti */
+    padding-right: 10px !important;
+    max-width: 100% !important;
+    width: 98% !important;  /* Usa quasi tutto lo schermo */
+  }
+  
+  .section-2 p {
+    font-size: 1.3rem !important;  /* Manteniamo font grande */
+  }
+  
+  .section-2 a {
+    font-size: 1.25rem !important;  /* Manteniamo font grande */
+  }
+  
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.3rem !important;
+  }
+  
+  /* TOC mobile */
+  #TOC {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+  
+  #TOC a {
+    font-size: 1rem !important;
+  }
+  
+  /* Lists */
+  ul, ol {
+    font-size: 1.1rem !important;
+    padding-left: 20px !important;
+  }
+  
+  /* Code blocks */
+  code {
+    font-size: 0.95rem !important;
+  }
+  
+  pre {
+    font-size: 0.9rem !important;
+    padding: 10px !important;
+  }
+  
+  /* Ottimizza contenuti Quarto su mobile - margini minimi */
+  main.content {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    width: 100% !important;
+  }
+  
+  .quarto-container {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Rimuovi margini extra da Quarto */
+  .quarto-document {
+    padding: 0 !important;
+  }
+  
+  #quarto-content {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .switch {
+    width: 63px;
+    height: 30px;
+  }
+  
+  .slider:before {
+    height: 23px;
+    width: 23px;
+    font-size: 15px;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(33px);
+  }
+}
