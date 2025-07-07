@@ -40,6 +40,30 @@ ul.task-list li input[type="checkbox"] {
 .quarto-title-meta-contents {
   display: none;
 }
+
+/* Fix margini specifici per questo modulo */
+@media (min-width: 992px) {
+  #quarto-document-content {
+    max-width: calc(100% - 300px) !important;
+    margin-right: 20px !important;
+  }
+  
+  main.content {
+    padding-right: 40px !important;
+  }
+}
+
+/* Assicura che il contenuto non vada sotto la TOC */
+.page-columns .content {
+  grid-column: 2 !important;
+}
+
+/* Fix per immagini affiancate - le mette una sopra l'altra */
+div[style*="margin: 20px 0"] figure {
+  display: block !important;
+  margin: 20px auto !important;
+  text-align: center !important;
+}
 </style>
 
 
@@ -174,12 +198,12 @@ ul.task-list li input[type="checkbox"] {
 <p>Molti LLM rifiuteranno la prima richiesta ma esaudiranno la seconda. È un bias dell’allineamento: nel tentativo di proteggere le minoranze, creano una disparità di trattamento. Non è equità, è un bias diverso.</p>
 <p>Ogni modello ha la sua “personalità” derivante dall’allineamento. Grok di Musk ha meno filtri, può fare battute che altri rifiutano. Claude di Anthropic è iper-corretto, a volte rifiuta domande innocue per eccesso di cautela. GPT dà sempre ragione all’utente, DeepSeek censurerà qualsiasi cosa su Tiananmen o Taiwan.</p>
 <p>Google ha fatto un disastro epico con Gemini. Per correggere la sotto-rappresentazione delle minoranze, ha iniziato a generare papi neri e nazisti asiatici. Nel tentativo di eliminare un bias, ne ha creato uno opposto: la cancellazione della realtà storica. Il CEO ha dovuto scusarsi pubblicamente.</p>
-<div style="display: flex; gap: 20px; margin: 20px 0;">
-<figure style="flex: 1;" class="figure">
-<img src="immagini/gemini_bias_pope.jpg" style="width: 100%;" alt="Gemini bias pope" class="figure-img">
+<div style="margin: 20px 0;">
+<figure  class="figure">
+<img src="immagini/gemini_bias_pope.jpg" style="width: 60%;" alt="Gemini bias pope" class="figure-img">
 </figure>
-<figure style="flex: 1;" class="figure">
-<img src="immagini/gemini_bias_soldati.jpeg" style="width: 100%;" alt="Gemini bias soldati" class="figure-img">
+<figure  class="figure">
+<img src="immagini/gemini_bias_soldati.jpeg" style="width: 60%;" alt="Gemini bias soldati" class="figure-img">
 </figure>
 </div>
 <p style="text-align: center; font-style: italic;">
