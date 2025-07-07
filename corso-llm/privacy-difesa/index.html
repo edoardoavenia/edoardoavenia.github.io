@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Edoardo Avenia">
+
+<title>Privacy - Strategie Tecniche di Difesa</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="modulo-5_files/libs/clipboard/clipboard.min.js"></script>
+<script src="modulo-5_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="modulo-5_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="modulo-5_files/libs/quarto-html/popper.min.js"></script>
+<script src="modulo-5_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="modulo-5_files/libs/quarto-html/anchor.min.js"></script>
+<link href="modulo-5_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="modulo-5_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="modulo-5_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="modulo-5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="modulo-5_files/libs/bootstrap/bootstrap-98cad52ce7327bfd42cee12d434ba08f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../corso-theme.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#una-premessa-necessaria" id="toc-una-premessa-necessaria" class="nav-link active" data-scroll-target="#una-premessa-necessaria">Una Premessa Necessaria</a></li>
+  <li><a href="#il-problema-reale-dove-vanno-i-vostri-dati" id="toc-il-problema-reale-dove-vanno-i-vostri-dati" class="nav-link" data-scroll-target="#il-problema-reale-dove-vanno-i-vostri-dati">Il Problema Reale: Dove Vanno i Vostri Dati</a></li>
+  <li><a href="#lanonimizzazione-la-prima-e-più-semplice-difesa" id="toc-lanonimizzazione-la-prima-e-più-semplice-difesa" class="nav-link" data-scroll-target="#lanonimizzazione-la-prima-e-più-semplice-difesa">L’Anonimizzazione: La Prima e Più Semplice Difesa</a></li>
+  <li><a href="#configurare-le-piattaforme-per-la-privacy" id="toc-configurare-le-piattaforme-per-la-privacy" class="nav-link" data-scroll-target="#configurare-le-piattaforme-per-la-privacy">Configurare le Piattaforme per la Privacy</a>
+  <ul class="collapse">
+  <li><a href="#chatgpt" id="toc-chatgpt" class="nav-link" data-scroll-target="#chatgpt">ChatGPT</a></li>
+  <li><a href="#altri-provider-e-policy-privacy" id="toc-altri-provider-e-policy-privacy" class="nav-link" data-scroll-target="#altri-provider-e-policy-privacy">Altri Provider e Policy Privacy</a></li>
+  </ul></li>
+  <li><a href="#soluzioni-enterprise-quando-serve-di-più" id="toc-soluzioni-enterprise-quando-serve-di-più" class="nav-link" data-scroll-target="#soluzioni-enterprise-quando-serve-di-più">Soluzioni Enterprise: Quando Serve di Più</a>
+  <ul class="collapse">
+  <li><a href="#deployment-privati-nel-cloud" id="toc-deployment-privati-nel-cloud" class="nav-link" data-scroll-target="#deployment-privati-nel-cloud">Deployment Privati nel Cloud</a></li>
+  <li><a href="#soluzioni-on-premise-e-open-source" id="toc-soluzioni-on-premise-e-open-source" class="nav-link" data-scroll-target="#soluzioni-on-premise-e-open-source">Soluzioni On-Premise e Open Source</a></li>
+  </ul></li>
+  <li><a href="#creare-una-cultura-della-privacy" id="toc-creare-una-cultura-della-privacy" class="nav-link" data-scroll-target="#creare-una-cultura-della-privacy">Creare una Cultura della Privacy</a>
+  <ul class="collapse">
+  <li><a href="#partnership-aziendali-e-flessibilità" id="toc-partnership-aziendali-e-flessibilità" class="nav-link" data-scroll-target="#partnership-aziendali-e-flessibilità">Partnership Aziendali e Flessibilità</a></li>
+  </ul></li>
+  <li><a href="#i-vostri-diritti-e-come-esercitarli" id="toc-i-vostri-diritti-e-come-esercitarli" class="nav-link" data-scroll-target="#i-vostri-diritti-e-come-esercitarli">I Vostri Diritti e Come Esercitarli</a></li>
+  <li><a href="#conclusione-pragmatismo-non-paranoia" id="toc-conclusione-pragmatismo-non-paranoia" class="nav-link" data-scroll-target="#conclusione-pragmatismo-non-paranoia">Conclusione: Pragmatismo, Non Paranoia</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+<div class="theme-toggle">
+  <label class="switch">
+    <input type="checkbox" id="theme-toggle">
+    <span class="slider"></span>
+  </label>
+</div>
+<div class="section-2">
+<a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Privacy - Strategie Tecniche di Difesa</h1>
+<p class="subtitle lead">Corso LLM - Modulo 5</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autore/Autrice</div>
+    <div class="quarto-title-meta-contents">
+             <p>Edoardo Avenia </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="una-premessa-necessaria" class="level2">
+<h2 class="anchored" data-anchor-id="una-premessa-necessaria">Una Premessa Necessaria</h2>
+<p>Prima di addentrarci negli aspetti tecnici della privacy con gli LLM, è importante che io chiarisca la mia posizione. Sono un tecnico, non un avvocato. Quello che segue è una spiegazione tecnica di come funzionano questi sistemi e quali sono le implicazioni pratiche per la protezione dei dati. Non costituisce consulenza legale. Per questioni di compliance normativa o GDPR, consultate sempre il vostro team legale.</p>
+<p>Detto questo, comprendere gli aspetti tecnici è fondamentale. Non potete proteggere ciò che non capite. E la buona notizia è che proteggere i vostri dati quando usate l’AI non è complicato come potreste pensare.</p>
+</section>
+<section id="il-problema-reale-dove-vanno-i-vostri-dati" class="level2">
+<h2 class="anchored" data-anchor-id="il-problema-reale-dove-vanno-i-vostri-dati">Il Problema Reale: Dove Vanno i Vostri Dati</h2>
+<p>I rischi della privacy con gli LLM non sono teorici. Prendiamo due esempi recenti che dimostrano cosa può andare storto:</p>
+<p><strong>OmniGPT (febbraio 2025)</strong><br>
+Il 12 febbraio 2025, CSO Online ha riportato che un hacker ha messo in vendita su BreachForums un archivio contenente oltre 34 milioni di righe di conversazioni utente, 30.000 email e numeri di telefono, oltre a API key e chiavi crypto presumibilmente provenienti da OmniGPT. L’azienda non ha confermato ufficialmente la violazione, e finora nessuna autorità ha annunciato sanzioni in ambito GDPR, sebbene gli analisti ipotizzino conseguenze potenzialmente gravi.</p>
+<p>Link alla fonte:<br>
+<a href="https://www.csoonline.com/article/3822911/hacker-allegedly-puts-massive-omnigpt-breach-data-for-sale-on-the-dark-web.html">https://www.csoonline.com/article/3822911/hacker-allegedly-puts-massive-omnigpt-breach-data-for-sale-on-the-dark-web.html</a></p>
+<p><strong>DeepSeek – “LLMjacking” (gennaio 2025)</strong><br>
+Un database pubblico di DeepSeek, lasciato accessibile su internet senza autenticazione, conteneva oltre 1 milione di record con prompt LLM, chiavi API e altri dati sensibili. I dati sono stati sfruttati da attori malevoli per consumare oltre 2 miliardi di token, causando un danno economico stimato in quasi 50.000 dollari in meno di cinque giorni. L’attacco è stato definito “LLMjacking” per via del furto di accesso a modelli AI tramite credenziali compromesse.</p>
+<p>Link alle fonti:<br>
+<a href="https://sysdig.com/blog/llmjacking-targets-deepseek/">https://sysdig.com/blog/llmjacking-targets-deepseek/</a><br>
+<a href="https://hackread.com/hackers-monetize-llmjacking-selling-stolen-ai-access/">https://hackread.com/hackers-monetize-llmjacking-selling-stolen-ai-access/</a></p>
+<p>Il primo livello è quello immediato: quando inviate un prompt a ChatGPT, Claude o Gemini, i vostri dati viaggiano necessariamente verso i server del provider. È come inviare una email: anche se la connessione è criptata, il contenuto deve essere letto dal server per generare una risposta. Questo significa che i vostri dati esistono, almeno temporaneamente, su computer che non controllate.</p>
+<p>Il secondo livello è più subdolo: molti provider utilizzano le conversazioni degli utenti per migliorare i loro modelli. “Migliorare” in questo contesto significa re-training, e il re-training può causare memorizzazione dei vostri dati. Il modello può letteralmente memorizzare frammenti di testo e rigurgitarli mesi dopo. Non è un bug, è una conseguenza di come funziona il deep learning.</p>
+<p>Il terzo livello è quello che molti ignorano: i log e la retention dei dati. Anche se il provider promette di non usare i vostri dati per training, questi dati vengono salvati per debugging, compliance, analytics. Per quanto tempo? Chi può accedervi? In quali paesi sono salvati questi backup? L’FTC americana ha investigato OpenAI proprio su questi aspetti, richiedendo informazioni dettagliate su incidenti di sicurezza e gestione dati.</p>
+<p>[Fonte: <a href="https://www.afslaw.com/perspectives/privacy-counsel/leaked-ftc-civil-investigative-demand-openai-provides-rare-preliminary">ArentFox Schiff - Leaked FTC Civil Investigative Demand</a>]</p>
+</section>
+<section id="lanonimizzazione-la-prima-e-più-semplice-difesa" class="level2">
+<h2 class="anchored" data-anchor-id="lanonimizzazione-la-prima-e-più-semplice-difesa">L’Anonimizzazione: La Prima e Più Semplice Difesa</h2>
+<p>La buona notizia è che la soluzione più efficace è anche la più semplice: anonimizzare i dati prima di inviarli. Non dovete diventare esperti di cybersecurity. Dovete solo sviluppare l’abitudine di sostituire informazioni sensibili con placeholder generici.</p>
+<p>Prendiamo un esempio concreto. State scrivendo una email di scuse per un cliente arrabbiato. Invece di scrivere “Scrivi una mail di scuse per Mario Rossi della Rossi SpA che si lamenta del ritardo nella consegna del lotto #4521”, scrivete “Scrivi una mail di scuse per un cliente di un’azienda manifatturiera che si lamenta di un ritardo di consegna”. L’AI genererà una risposta altrettanto efficace, ma non avrete esposto dati sensibili.</p>
+<p>Per documenti più complessi come fogli Excel, la funzione trova e sostituisci è vostra amica. Prima di caricare quel file con i dati di vendita, sostituite tutti i nomi dei clienti con codici generici. “Acme Corp” diventa “Cliente_001”, “mario.rossi@email.com” diventa “email_001@example.com”. L’analisi funzionerà esattamente allo stesso modo, ma i dati reali non lasceranno mai il vostro computer.</p>
+</section>
+<section id="configurare-le-piattaforme-per-la-privacy" class="level2">
+<h2 class="anchored" data-anchor-id="configurare-le-piattaforme-per-la-privacy">Configurare le Piattaforme per la Privacy</h2>
+<p>Molte piattaforme LLM offrono impostazioni di privacy, ma sono spesso nascoste o disattivate di default. Prendetevi dieci minuti per configurarle correttamente e risparmierete molti potenziali problemi.</p>
+<section id="chatgpt" class="level3">
+<h3 class="anchored" data-anchor-id="chatgpt">ChatGPT</h3>
+<p>In ChatGPT, andate in Settings, poi Data Controls. L’opzione cruciale ora si chiama “Improve the model for everyone”. Disattivatela. Questo dice a OpenAI di non usare le vostre conversazioni per addestrare futuri modelli. È un’impostazione fondamentale per uso professionale.</p>
+<p>Ma attenzione: queste impostazioni sono legate al dispositivo e al browser che state usando. Se disattivate il training sul vostro laptop, potrebbe essere ancora attivo sull’app del telefono. Ogni volta che accedete da un nuovo dispositivo, controllate di nuovo.</p>
+<p>Un’altra feature utilissima sono le chat temporanee. ChatGPT offre modalità “temporanee” dove la conversazione non viene salvata nella cronologia, non aggiorna la “memoria” del modello, e non viene usata per training. È l’equivalente della modalità incognito del browser, perfetta per quei momenti in cui dovete processare dati sensibili.</p>
+</section>
+<section id="altri-provider-e-policy-privacy" class="level3">
+<h3 class="anchored" data-anchor-id="altri-provider-e-policy-privacy">Altri Provider e Policy Privacy</h3>
+<p>Ogni provider ha regole diverse sulla privacy:</p>
+<p><strong>Claude</strong> (Anthropic): Ha politiche di massima privacy di default. Non usa conversazioni per training senza consenso esplicito. <a href="https://www.anthropic.com/legal/privacy">Privacy Policy</a></p>
+<p><strong>Gemini</strong> (Google): Permette di impostare cancellazione automatica dei dati dopo periodi specifici. Integrato con le policy Google Workspace per account aziendali. <a href="https://support.google.com/gemini/answer/13594961">Privacy Help</a></p>
+<p><strong>Copilot</strong> (Microsoft): Segue le policy Microsoft enterprise, ma le opzioni consumer sono meno trasparenti. <a href="https://www.microsoft.com/en-gb/privacy/privacystatement">Privacy Statement</a></p>
+<p><strong>Importante</strong>: Leggete sempre le privacy policy complete. I link sopra sono punti di partenza, ma le policy cambiano frequentemente. Verificate cosa succede ai vostri dati, per quanto vengono conservati, e in quali giurisdizioni.</p>
+<p>La “memoria” dei modelli è un’altra area critica. ChatGPT può “ricordare” informazioni dalle conversazioni precedenti per personalizzare le risposte future. Sembra utile, ma può diventare un problema quando il modello confonde informazioni di clienti diversi. Se lavorate con dati di multiple aziende, considerate di disattivare completamente questa funzione. Io personalmente la disattivo sempre.</p>
+</section>
+</section>
+<section id="soluzioni-enterprise-quando-serve-di-più" class="level2">
+<h2 class="anchored" data-anchor-id="soluzioni-enterprise-quando-serve-di-più">Soluzioni Enterprise: Quando Serve di Più</h2>
+<p>Per molte aziende, le impostazioni privacy base non sono sufficienti. Servono garanzie più forti e controllo maggiore.</p>
+<p>I piani enterprise di ChatGPT, Claude e Gemini funzionano diversamente dalle versioni consumer. La differenza principale? I vostri dati non vengono mai usati per training. Inoltre, ottenete Data Processing Agreement (DPA) legalmente vincolanti, audit log completi, e certificazioni di compliance. Il costo è maggiore, ma per dati aziendali critici, è un investimento necessario.</p>
+<p>Ma ci si può fidare? Le certificazioni esistono (SOC2, ISO 27001), ma la fiducia ultima dipende dalla vostra valutazione del rischio. Molte aziende preferiscono comunque soluzioni on-premise per dati ultra-sensibili.</p>
+<section id="deployment-privati-nel-cloud" class="level3">
+<h3 class="anchored" data-anchor-id="deployment-privati-nel-cloud">Deployment Privati nel Cloud</h3>
+<p>Se usate già servizi cloud, potete mantenere i dati nel vostro ambiente:</p>
+<p><strong>Azure OpenAI</strong>: Permette di creare endpoint privati all’interno della vostra rete virtuale. I dati viaggiano solo attraverso il backbone privato di Microsoft.</p>
+<p><strong>AWS Bedrock</strong>: Eseguite modelli AI all’interno del vostro VPC, con tutti i controlli di sicurezza esistenti.</p>
+</section>
+<section id="soluzioni-on-premise-e-open-source" class="level3">
+<h3 class="anchored" data-anchor-id="soluzioni-on-premise-e-open-source">Soluzioni On-Premise e Open Source</h3>
+<p>Per chi vuole il controllo totale, ad esempio proteggere segreti industriali, ci sono opzioni per eseguire LLM completamente in casa:</p>
+<p><strong>Ollama</strong>: Tool che semplifica il deployment di modelli open source sui vostri server. Supporta Llama, Mistral, e altri modelli.</p>
+<p><strong>Container Sigillati</strong>: Google offre Gemini in container cifrati che girano nel vostro datacenter. I pesi del modello rimangono protetti da enclave hardware (AMD SEV, Intel TDX). È come avere il modello in casa ma senza poterlo copiare - il meglio di entrambi i mondi per chi ha requisiti di data residency stringenti.</p>
+<p>Il trade-off è che dovete gestire hardware (GPU costose), aggiornamenti e manutenzione. Ma per alcuni settori è l’unica opzione accettabile.</p>
+</section>
+</section>
+<section id="creare-una-cultura-della-privacy" class="level2">
+<h2 class="anchored" data-anchor-id="creare-una-cultura-della-privacy">Creare una Cultura della Privacy</h2>
+<p>Le migliori tecnologie di protezione sono inutili se le persone non le usano. La vera sfida non è tecnica ma culturale.</p>
+<p>Un approccio che funziona è il “semaforo” dei dati:</p>
+<ul>
+<li><strong>Verde</strong>: Informazioni pubbliche o già pubblicate - usate qualsiasi LLM</li>
+<li><strong>Giallo</strong>: Dati interni non sensibili - solo LLM con privacy configurata</li>
+<li><strong>Rosso</strong>: Informazioni confidenziali o personali - solo soluzioni private o anonimizzazione completa</li>
+</ul>
+<section id="partnership-aziendali-e-flessibilità" class="level3">
+<h3 class="anchored" data-anchor-id="partnership-aziendali-e-flessibilità">Partnership Aziendali e Flessibilità</h3>
+<p>Molte aziende hanno partnership con certi provider (es. Copilot Microsoft, Google Workspace) che offrono certificazioni e garanzie lato privacy. Questi accordi sono preziosi per dati sensibili - usate sempre il provider aziendale per semaforo rosso e giallo. Ma attenzione: sono spesso i responsabili interni all’azienda che impongono regole eccessivamente rigide come “qui si può usare solo questo strumento”.</p>
+<p>Questa rigidità è un errore strategico grave. Costringere i dipendenti a utilizzare solo uno strumento in tutti i casi limita moltissimo la scoperta, gli esperimenti e l’avanzamento dell’azienda. Limita il vantaggio competitivo che questa tecnologia può dare.</p>
+<p>Bisogna insegnare ai colleghi a distinguere quali dati è importante non condividere e quali attività possono essere fatte con strumenti diversi. Per il semaforo verde - ricerche pubbliche, traduzioni di documenti trovati online, brainstorming su argomenti generici - la libertà di sperimentazione è fondamentale.</p>
+<p>Un esempio concreto: il vostro team di ricerca scientifica. La ricerca può dare in questo momento un vantaggio competitivo enorme, non solo di velocità ma di qualità. Se i ricercatori devono sapere che non possono inserire le vostre formule proprietarie o segreti industriali nei prompt, ma devono essere liberi di fare ricerche generiche come “dammi informazioni sulla molecola XYZ” o “quali sono gli ultimi sviluppi nella sintesi del composto ABC”. Questa libertà non va impedita.</p>
+<p>I dipendenti sono persone intelligenti. Se capiscono che i dati privati dei clienti non vanno condivisi nel gruppo WhatsApp del cinema del venerdì sera, possono capire anche quali dati sono sensibili per l’AI. Al massimo, create profili differenziati: chi ha seguito formazione avanzata o dimostra competenza può avere più libertà di sperimentazione.</p>
+<p>Una soluzione pratica: quando si sperimenta, usare account aziendali (anche se gratuiti) così che periodicamente si possano controllare le chat per verificare il rispetto della privacy e darsi feedback costruttivo tra colleghi. L’importante è lasciare libertà di esperimentare a chi vuole prendersi questa responsabilità, sempre nel rispetto della privacy dei dati sensibili.</p>
+<p>La chiave è la trasparenza. Create una cultura dove:</p>
+<ul>
+<li>I successi si condividono (“Ho trovato questo prompt che funziona benissimo!”)</li>
+<li>Gli errori si ammettono (“Ho quasi inviato dati clienti a un tool random!”)</li>
+<li>I colleghi si aiutano (“Ehi, stai per incollare email e p.iva di un partner commerciale, usa prima l’anonimizzazione”)</li>
+</ul>
+<p>Nascondere l’uso di AI tools porta solo a rischi maggiori. Meglio sperimentare alla luce del sole con regole chiare che nell’ombra senza controlli.</p>
+</section>
+</section>
+<section id="i-vostri-diritti-e-come-esercitarli" class="level2">
+<h2 class="anchored" data-anchor-id="i-vostri-diritti-e-come-esercitarli">I Vostri Diritti e Come Esercitarli</h2>
+<p>Pochi sanno che i maggiori provider AI hanno portali dedicati alla privacy dove potete esercitare i vostri diritti:</p>
+<ul>
+<li><strong>OpenAI</strong>: <a href="https://privacy.openai.com/">privacy.openai.com</a> - Download dati, cancellazione account, rimozione da output</li>
+<li><strong>Google</strong>: Attraverso il vostro Google Account</li>
+<li><strong>Anthropic</strong>: Via email a privacy@anthropic.com</li>
+</ul>
+<p>Questi diritti derivano dal GDPR europeo ma molti provider li estendono globalmente. Se scoprite che informazioni sensibili sono finite nel training di un modello, avete il diritto di richiederne la rimozione.</p>
+</section>
+<section id="conclusione-pragmatismo-non-paranoia" class="level2">
+<h2 class="anchored" data-anchor-id="conclusione-pragmatismo-non-paranoia">Conclusione: Pragmatismo, Non Paranoia</h2>
+<p>La privacy con gli LLM non richiede di diventare esperti di sicurezza o di rinunciare ai benefici dell’AI. Richiede consapevolezza e alcune semplici abitudini.</p>
+<p>Disattivate sempre il training sui vostri dati - è un click che non vi costa nulla. Anonimizzate prima di inviare quando ci sono dati sensibili. Usate le chat temporanee quando appropriate. Per i dati aziendali, definite policy chiare ma flessibili basate sul livello di rischio.</p>
+<p>Ma soprattutto, ricordate che la perfezione non è l’obiettivo. L’obiettivo è ridurre il rischio a livelli accettabili mentre continuate a beneficiare di questi strumenti potenti. Con le giuste precauzioni, potete usare l’AI con fiducia, sapendo che i vostri dati sono protetti quanto ragionevolmente possibile.</p>
+<p>La tecnologia continuerà ad evolversi, e con essa le soluzioni di privacy. Rimanete informati, ma non paralizzati.</p>
+</section>
+
+</div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+<div class="section-2" style="margin-top: 50px;">
+<a href="/corso-llm/bias-pensiero-critico/">Prossimo modulo →</a>
+</div>
+<script src="../theme-toggle.js"></script>
+
+
+
+
+</body></html>
