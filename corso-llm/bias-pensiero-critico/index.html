@@ -41,23 +41,6 @@ ul.task-list li input[type="checkbox"] {
   display: none;
 }
 
-/* Fix margini specifici per questo modulo */
-@media (min-width: 992px) {
-  #quarto-document-content {
-    max-width: calc(100% - 300px) !important;
-    margin-right: 20px !important;
-  }
-  
-  main.content {
-    padding-right: 40px !important;
-  }
-}
-
-/* Assicura che il contenuto non vada sotto la TOC */
-.page-columns .content {
-  grid-column: 2 !important;
-}
-
 /* Fix per immagini affiancate - le mette una sopra l'altra */
 div[style*="margin: 20px 0"] figure {
   display: block !important;
@@ -233,9 +216,7 @@ Esempi di bias nell’allineamento di Gemini
 <h3 class="anchored" data-anchor-id="fase-1-definizione-iterativa---farsi-fare-domande">Fase 1: DEFINIZIONE ITERATIVA - Farsi Fare Domande</h3>
 <p><strong>Combatte:</strong> il problema del contesto, l’LLM fa spesso assunzioni nascoste</p>
 <p>Il primo problema è che l’LLM non conosce il vostro contesto. Il secondo è che voi date per scontate troppe cose. La soluzione? Fatevi interrogare.</p>
-<pre><code>PROMPT 1:
-
-## Ruolo
+<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## Ruolo
 
 Sei un analista esperto che aiuta a definire problemi complessi attraverso un processo iterativo di raffinamento.
 
@@ -274,16 +255,14 @@ Domande per migliorare la descrizione:
 [Categoria 2]:
 3. [Domanda specifica]?
 
-Puoi rispondere alle domande o suggerire modifiche dirette alla descrizione.</code></pre>
+Puoi rispondere alle domande o suggerire modifiche dirette alla descrizione.</code></pre></div>
 <p>Non rispondete superficialmente. Ogni domanda è un’opportunità per scoprire qualcosa che non avevate considerato o che l’LLM non sa.</p>
 </section>
 <section id="fase-2-divergenza-creativa---esplorare-tutte-le-opzioni" class="level3">
 <h3 class="anchored" data-anchor-id="fase-2-divergenza-creativa---esplorare-tutte-le-opzioni">Fase 2: DIVERGENZA CREATIVA - Esplorare Tutte le Opzioni</h3>
 <p><strong>Combatte:</strong> la falsa dicotomia, il pensiero limitato</p>
 <p>Il nostro cervello tende a vedere solo 2-3 opzioni. “O faccio A o faccio B”. Ma spesso le possibilità sono molte di più. Forziamoci a esplorare.</p>
-<pre><code>PROMPT 2:
-
-## Ruolo
+<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## Ruolo
 
 Sei un facilitatore di brainstorming esperto, un innovatore strategico specializzato in:
 
@@ -340,16 +319,14 @@ Problema analizzato: [Sintesi in 1 riga del challenge affrontato]
 - Bilanciamento dinamico: alterna idee safe e wild nella stessa categoria
 - Zero giudizio: presenta tutte le idee con uguale dignità
 
-Ricorda: L'obiettivo non è dare soluzioni finite ma accendere scintille creative nell'utente.</code></pre>
+Ricorda: L'obiettivo non è dare soluzioni finite ma accendere scintille creative nell'utente.</code></pre></div>
 <p>Non scartate subito le idee “assurde”. Spesso contengono semi di innovazione. Leggete tutte le 50 idee. Annotatevi i numeri di quelle che vi colpiscono, anche se sembrano impossibili e possibili soluzioni che vi vengono in mente.</p>
 </section>
 <section id="fase-3-analisi-comparativa---valutare-oggettivamente" class="level3">
 <h3 class="anchored" data-anchor-id="fase-3-analisi-comparativa---valutare-oggettivamente">Fase 3: ANALISI COMPARATIVA - Valutare Oggettivamente</h3>
 <p><strong>Combatte:</strong> il bias di conferma e le valutazioni superficiali</p>
 <p>Ora che avete opzioni, resistete alla tentazione di scegliere subito la vostra preferita. Fate analizzare pro e contro in modo sistematico.</p>
-<pre><code>PROMPT 3:
-
-## Ruolo
+<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## Ruolo
 
 Sei un analista strategico specializzato in decision science, esperto in:
 
@@ -393,16 +370,14 @@ Esempio struttura:
 
 ## Raccomandazione finale
 
-Sintetizza quale opzione risolve meglio il problema specificato e perché, considerando tutti i fattori analizzati.</code></pre>
+Sintetizza quale opzione risolve meglio il problema specificato e perché, considerando tutti i fattori analizzati.</code></pre></div>
 <p>Leggete attentamente. I “costi nascosti” sono spesso i più illuminanti. Confrontate le valutazioni con le vostre intuizioni iniziali. Dove differiscono?</p>
 </section>
 <section id="fase-4-critica-costruttiva---demolire-lidea-preferita" class="level3">
 <h3 class="anchored" data-anchor-id="fase-4-critica-costruttiva---demolire-lidea-preferita">Fase 4: CRITICA COSTRUTTIVA - Demolire l’Idea Preferita</h3>
 <p><strong>Combatte:</strong> ottimismo irrealistico, punti ciechi</p>
 <p>Avete scelto la vostra idea preferita? Perfetto. Ora è il momento di metterla sotto stress. Questo è il prompt più potente e scomodo.</p>
-<pre><code>PROMPT 4:
-
-## RUOLO
+<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## RUOLO
 
 Sei un consulente strategico socratico che espone problemi reali attraverso domande critiche che forzano a ragionare in profondità. Il tuo compito è fare da "avvocato del diavolo" intellettuale.
 
@@ -450,7 +425,7 @@ Usa formule come:
 
 ## OBIETTIVO
 
-Non dare risposte o soluzioni. Fai arrivare l'utente da solo alla comprensione profonda attraverso domande scomode che espongono i veri problemi. Se l'idea ha difetti fatali, falli emergere attraverso il ragionamento, non attraverso affermazioni.</code></pre>
+Non dare risposte o soluzioni. Fai arrivare l'utente da solo alla comprensione profonda attraverso domande scomode che espongono i veri problemi. Se l'idea ha difetti fatali, falli emergere attraverso il ragionamento, non attraverso affermazioni.</code></pre></div>
 <p><strong>Come usare questa fase:</strong></p>
 <p>Questo è il momento della verità. Non cercate di “vincere” contro il prompt difendendo la vostra idea. Al contrario:</p>
 <ol type="1">
@@ -875,6 +850,50 @@ Non dare risposte o soluzioni. Fai arrivare l'utente da solo alla comprensione p
 <a href="/corso-llm/">← Torna all'indice del corso</a>
 </div>
 <script src="../theme-toggle.js"></script>
+<script>
+// Aggiungi pulsanti copia ai code blocks
+document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('.sourceCode');
+  
+  codeBlocks.forEach(function(codeBlock) {
+    // Crea il pulsante copia
+    const copyButton = document.createElement('button');
+    copyButton.className = 'code-copy-button';
+    copyButton.setAttribute('title', 'Copia');
+    copyButton.innerHTML = '<i class="bi bi-clipboard"></i>';
+    
+    // Aggiungi il pulsante al code block
+    codeBlock.style.position = 'relative';
+    copyButton.style.position = 'absolute';
+    copyButton.style.top = '8px';
+    copyButton.style.right = '8px';
+    codeBlock.insertBefore(copyButton, codeBlock.firstChild);
+  });
+  
+  // Re-inizializza clipboard.js per i nuovi pulsanti
+  if (window.ClipboardJS) {
+    const clipboard = new window.ClipboardJS('.code-copy-button', {
+      text: function(trigger) {
+        return trigger.parentElement.querySelector('code').textContent;
+      }
+    });
+    
+    clipboard.on('success', function(e) {
+      // Cambia icona temporaneamente
+      const icon = e.trigger.querySelector('i');
+      icon.classList.remove('bi-clipboard');
+      icon.classList.add('bi-check');
+      
+      setTimeout(function() {
+        icon.classList.remove('bi-check');
+        icon.classList.add('bi-clipboard');
+      }, 1000);
+      
+      e.clearSelection();
+    });
+  }
+});
+</script>
 
 
 
