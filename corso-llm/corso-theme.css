@@ -88,6 +88,28 @@ a:hover {
 code, pre {
   background-color: var(--code-bg) !important;
   border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Fix per code blocks in dark mode */
+.sourceCode {
+  color: var(--text-color) !important;
+}
+
+.sourceCode span {
+  color: var(--text-color) !important;
+}
+
+/* Ensure copy button is visible */
+.code-copy-button {
+  background-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.code-copy-button:hover {
+  background-color: var(--text-color) !important;
+  color: var(--bg-color) !important;
 }
 
 /* Theme toggle switch */
@@ -205,6 +227,27 @@ main.content {
   margin: 0 auto;
   padding-left: 20px !important;
   padding-right: 20px !important;
+}
+
+/* Fix layout con TOC a destra */
+.page-columns .page-full {
+  grid-column: page-start / page-end !important;
+}
+
+#quarto-content.page-columns {
+  grid-template-columns: 1fr min(calc(100vw - 3rem), 1400px) 250px 1fr !important;
+}
+
+#quarto-margin-sidebar {
+  margin-right: 0 !important;
+  width: 250px !important;
+}
+
+/* Previeni sovrapposizione testo con TOC */
+@media (min-width: 992px) {
+  main.content {
+    margin-right: 280px !important;
+  }
 }
 
 /* Mobile responsive */
