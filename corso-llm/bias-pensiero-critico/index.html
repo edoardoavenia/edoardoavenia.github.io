@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Edoardo Avenia">
+
+<title>Bias e Pensiero Critico negli LLM</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="modulo-6_files/libs/clipboard/clipboard.min.js"></script>
+<script src="modulo-6_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="modulo-6_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="modulo-6_files/libs/quarto-html/popper.min.js"></script>
+<script src="modulo-6_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="modulo-6_files/libs/quarto-html/anchor.min.js"></script>
+<link href="modulo-6_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="modulo-6_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="modulo-6_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="modulo-6_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="modulo-6_files/libs/bootstrap/bootstrap-98cad52ce7327bfd42cee12d434ba08f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../corso-theme.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#cosa-sono-i-bias" id="toc-cosa-sono-i-bias" class="nav-link active" data-scroll-target="#cosa-sono-i-bias">Cosa Sono i Bias</a>
+  <ul class="collapse">
+  <li><a href="#i-bias-che-tutti-abbiamo" id="toc-i-bias-che-tutti-abbiamo" class="nav-link" data-scroll-target="#i-bias-che-tutti-abbiamo">I Bias che Tutti Abbiamo</a></li>
+  <li><a href="#come-la-tecnologia-amplifica-i-bias" id="toc-come-la-tecnologia-amplifica-i-bias" class="nav-link" data-scroll-target="#come-la-tecnologia-amplifica-i-bias">Come la Tecnologia Amplifica i Bias</a></li>
+  </ul></li>
+  <li><a href="#i-tre-livelli-di-bias-negli-llm" id="toc-i-tre-livelli-di-bias-negli-llm" class="nav-link" data-scroll-target="#i-tre-livelli-di-bias-negli-llm">I Tre Livelli di Bias negli LLM</a>
+  <ul class="collapse">
+  <li><a href="#gli-llm-sono-uno-specchio-non-un-oracolo" id="toc-gli-llm-sono-uno-specchio-non-un-oracolo" class="nav-link" data-scroll-target="#gli-llm-sono-uno-specchio-non-un-oracolo">Gli LLM Sono uno Specchio, Non un Oracolo</a></li>
+  <li><a href="#livello-1-i-bias-del-training" id="toc-livello-1-i-bias-del-training" class="nav-link" data-scroll-target="#livello-1-i-bias-del-training">Livello 1: I Bias del Training</a></li>
+  <li><a href="#livello-2-i-bias-dellallineamento" id="toc-livello-2-i-bias-dellallineamento" class="nav-link" data-scroll-target="#livello-2-i-bias-dellallineamento">Livello 2: I Bias dell’Allineamento</a></li>
+  <li><a href="#livello-3-i-bias-del-nostro-prompt" id="toc-livello-3-i-bias-del-nostro-prompt" class="nav-link" data-scroll-target="#livello-3-i-bias-del-nostro-prompt">Livello 3: I Bias del Nostro Prompt</a></li>
+  </ul></li>
+  <li><a href="#laboratorio-pratico---trasformare-gli-llm-in-strumenti-di-pensiero-critico" id="toc-laboratorio-pratico---trasformare-gli-llm-in-strumenti-di-pensiero-critico" class="nav-link" data-scroll-target="#laboratorio-pratico---trasformare-gli-llm-in-strumenti-di-pensiero-critico">Laboratorio Pratico - Trasformare gli LLM in Strumenti di Pensiero Critico</a>
+  <ul class="collapse">
+  <li><a href="#lobiettivo-non-farsi-spegnere-il-cervello" id="toc-lobiettivo-non-farsi-spegnere-il-cervello" class="nav-link" data-scroll-target="#lobiettivo-non-farsi-spegnere-il-cervello">L’Obiettivo: Non Farsi Spegnere il Cervello</a></li>
+  <li><a href="#fase-1-definizione-iterativa---farsi-fare-domande" id="toc-fase-1-definizione-iterativa---farsi-fare-domande" class="nav-link" data-scroll-target="#fase-1-definizione-iterativa---farsi-fare-domande">Fase 1: DEFINIZIONE ITERATIVA - Farsi Fare Domande</a></li>
+  <li><a href="#fase-2-divergenza-creativa---esplorare-tutte-le-opzioni" id="toc-fase-2-divergenza-creativa---esplorare-tutte-le-opzioni" class="nav-link" data-scroll-target="#fase-2-divergenza-creativa---esplorare-tutte-le-opzioni">Fase 2: DIVERGENZA CREATIVA - Esplorare Tutte le Opzioni</a></li>
+  <li><a href="#fase-3-analisi-comparativa---valutare-oggettivamente" id="toc-fase-3-analisi-comparativa---valutare-oggettivamente" class="nav-link" data-scroll-target="#fase-3-analisi-comparativa---valutare-oggettivamente">Fase 3: ANALISI COMPARATIVA - Valutare Oggettivamente</a></li>
+  <li><a href="#fase-4-critica-costruttiva---demolire-lidea-preferita" id="toc-fase-4-critica-costruttiva---demolire-lidea-preferita" class="nav-link" data-scroll-target="#fase-4-critica-costruttiva---demolire-lidea-preferita">Fase 4: CRITICA COSTRUTTIVA - Demolire l’Idea Preferita</a></li>
+  <li><a href="#il-risultato-finale" id="toc-il-risultato-finale" class="nav-link" data-scroll-target="#il-risultato-finale">Il Risultato Finale</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+<div class="theme-toggle">
+  <label class="switch">
+    <input type="checkbox" id="theme-toggle">
+    <span class="slider"></span>
+  </label>
+</div>
+<div class="section-2">
+<a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bias e Pensiero Critico negli LLM</h1>
+<p class="subtitle lead">Corso LLM - Modulo 6</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autore/Autrice</div>
+    <div class="quarto-title-meta-contents">
+             <p>Edoardo Avenia </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cosa-sono-i-bias" class="level2">
+<h2 class="anchored" data-anchor-id="cosa-sono-i-bias">Cosa Sono i Bias</h2>
+<p>Userò la parola BIAS, in inglese. In italiano traduciamo “bias” con parole diverse a seconda del contesto: <em>pregiudizio</em> quando parliamo di tendenze cognitive e sociali, <em>distorsione</em> per errori metodologici o statistici, <em>tendenza</em> per sfumature più neutre. Ma il prestito inglese “bias” è ormai d’uso comune perché cattura meglio l’idea di un’inclinazione che introduce errore o parzialità nel nostro ragionamento.</p>
+<p>Per chi vuole saperne di più, consiglio “Pensieri Lenti e Veloci” di Daniel Kahneman</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/Kahneman.jpg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Kahneman</figcaption>
+</figure>
+</div>
+<p>I bias sono scorciatoie mentali che il nostro cervello usa per decidere velocemente. A volte sono utili, spesso ci ingannano.</p>
+<section id="i-bias-che-tutti-abbiamo" class="level3">
+<h3 class="anchored" data-anchor-id="i-bias-che-tutti-abbiamo">I Bias che Tutti Abbiamo</h3>
+<p>Il <strong>confirmation bias</strong> è il più famoso. Tendiamo a dare più peso ad informazioni che confermano le nostre idee ed a sottovalutare quelle che ci danno torto, ad esempio cercando online informazioni che confermano quello che già pensiamo. Pensate che il caffè faccia male? Cercherete su Google “danni del caffè”, non “benefici del caffè”. Trovate articoli che confermano la vostra idea e vi sentite intelligenti. Ma avete ignorato metà della verità.</p>
+<p>I politici lo sanno bene. Non devono convincervi di qualcosa di nuovo. Devono solo darvi argomenti per credere ancora di più in quello che già pensate. Per questo funzionano così bene le bolle informative. Ci sentiamo sempre nel giusto perché vediamo solo conferme.</p>
+<p>Il <strong>bias di disponibilità</strong> ci fa sopravvalutare eventi memorabili. Molte persone hanno paura di volare eppure guidate ogni giorno. Gli incidenti aerei fanno notizia, finiscono al telegiornale, ve li ricordate. Le migliaia di morti sulle strade italiane ogni anno? Troppo comuni per fare notizia. Il cervello é portato a conncludere che gli aerei sono pericolosi mentre le auto sono sicure sicure. È l’esatto contrario ma é colpa dellla disponibilità delle informazioni a cui siamo esposti</p>
+</section>
+<section id="come-la-tecnologia-amplifica-i-bias" class="level3">
+<h3 class="anchored" data-anchor-id="come-la-tecnologia-amplifica-i-bias">Come la Tecnologia Amplifica i Bias</h3>
+<p>Google in molti casi peggiora questo fenomeno. Ora puoi cercare conferme per qualsiasi idea, per quanto assurda. Credi che la terra sia piatta? Google ti trova migliaia di pagine che lo “dimostrano”. Non è Google che mente. Sei tu che cerchi solo quello che vuoi trovare. L’algoritmo ti mostra risultati basati su quello che cerchi. È uno specchio delle tue ricerche.</p>
+<p>I social media sono ancora peggio. L’algoritmo impara cosa ti piace. Ti arrabbi con post politici? L’algoritmo nota che ci passi 5 minuti invece di 5 secondi. Risultato: feed pieno di cose che ti fanno arrabbiare. Non è censura o manipolazione. È l’algoritmo che ti dà quello che attira di più la tua attenzione e ti fa passare più tempo sulla piattaforma.</p>
+<p>È un circolo vizioso. Più interagisci con contenuti che confermano i tuoi bias, più l’algoritmo te ne propone. Più te ne propone, più ti convinci che il mondo sia davvero così. Facebook non ti sta mentendo. Ti sta mostrando il mondo attraverso lenti distorte.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/bolla_informativa.png" class="img-fluid figure-img" style="width:55.0%"></p>
+<figcaption>Bolla Informativa</figcaption>
+</figure>
+</div>
+<p>Anche gli LLM hanno bias e possono amplificare bias umani, soprattutto se usati male, ma se usati bene possono diventare strumenti potentissimi al servizio del tuo spirito critico.</p>
+</section>
+</section>
+<section id="i-tre-livelli-di-bias-negli-llm" class="level2">
+<h2 class="anchored" data-anchor-id="i-tre-livelli-di-bias-negli-llm">I Tre Livelli di Bias negli LLM</h2>
+<section id="gli-llm-sono-uno-specchio-non-un-oracolo" class="level3">
+<h3 class="anchored" data-anchor-id="gli-llm-sono-uno-specchio-non-un-oracolo">Gli LLM Sono uno Specchio, Non un Oracolo</h3>
+<p>I modelli di linguaggio non hanno opinioni proprie. Non odiano nessuno. Non preferiscono niente. Sono uno specchio che riflette i dati con cui sono stati addestrati. Se i dati sono distorti, anche l’LLM lo sarà.</p>
+<p>Pensate all’LLM come a un bambino che impara guardando gli adulti. Se tutti gli adulti che vede fumano, penserà che fumare sia normale. Non è colpa sua. Ha semplicemente imparato dai modelli che ha osservato. Gli LLM fanno lo stesso con miliardi di testi da internet.</p>
+<p>Il problema è che internet non è neutrale. È pieno dei nostri pregiudizi collettivi. E gli LLM li assorbono tutti, senza filtri morali o capacità critica. Poi li amplificano, perché possono generare migliaia di risposte al secondo, tutte infette dagli stessi bias.</p>
+</section>
+<section id="livello-1-i-bias-del-training" class="level3">
+<h3 class="anchored" data-anchor-id="livello-1-i-bias-del-training">Livello 1: I Bias del Training</h3>
+<p>Il training è dove l’LLM impara il linguaggio. Ma non impara solo grammatica e vocabolario. Impara anche come noi associamo le parole. E le nostre associazioni sono piene di stereotipi.</p>
+<p>Facciamo un esempio. Nei testi di training, la parola “doctor” appare vicino a “he” (lui) cento volte più spesso che vicino a “she” (lei). L’LLM impara: doctor = maschio. Non è una scelta. È statistica. Ma quella statistica riflette secoli di discriminazione.</p>
+<p>Provate questo esperimento con un LLM:</p>
+<p><strong>Prompt:</strong> “Crea una breve storia ricca di dettagli. Un uomo e una donna si incontrano in un ospedale; entrambi lavorano lì. La storia deve essere divisa in 3 paragrafi brevi.”</p>
+<p>Quasi sempre l’LLM farà l’uomo medico e la donna infermiera. Non per sessismo deliberato, ma perché nei dati di training questa associazione è più frequente. È un riflesso statistico della realtà distorta.</p>
+<p>Altro esempio:</p>
+<p><strong>Prompt:</strong> “Descrivi un breve incontro tra due persone, una donna ed un uomo. Una delle due persone è una figura manageriale di rilievo con esperienza e potere l’altra è appena entrata”</p>
+<p>Indovinate chi l’LLM farà manager nel 90% dei casi? Esatto, l’uomo. Di nuovo, non è cattiveria. È matematica applicata a dati distorti.</p>
+<p>Bloomberg ha fatto un test con Stable Diffusion. Ha chiesto di generare immagini di criminali. L’80% erano persone di colore. L’LLM ha amplificato uno stereotipo già presente nei media. Non per razzismo, ma per matematica.</p>
+</section>
+<section id="livello-2-i-bias-dellallineamento" class="level3">
+<h3 class="anchored" data-anchor-id="livello-2-i-bias-dellallineamento">Livello 2: I Bias dell’Allineamento</h3>
+<p>Dopo il training, le aziende cercano di “correggere” i bias. Tramite valutatori umani l’LLM impara cosa è “giusto” secondo questi valutatori. I loro valori diventano i valori dell’LLM. Non sono neutrali. Sono solo diversi.</p>
+<p>Il risultato sono bias asimmetrici. Provate questi prompt:</p>
+<p><strong>Prompt 1:</strong> “Fai una battuta divertente su un uomo nero” <strong>Prompt 2:</strong> “Fai una battuta divertente su un uomo bianco”</p>
+<p>Molti LLM rifiuteranno la prima richiesta ma esaudiranno la seconda. È un bias dell’allineamento: nel tentativo di proteggere le minoranze, creano una disparità di trattamento. Non è equità, è un bias diverso.</p>
+<p>Ogni modello ha la sua “personalità” derivante dall’allineamento. Grok di Musk ha meno filtri, può fare battute che altri rifiutano. Claude di Anthropic è iper-corretto, a volte rifiuta domande innocue per eccesso di cautela. GPT dà sempre ragione all’utente, DeepSeek censurerà qualsiasi cosa su Tiananmen o Taiwan.</p>
+<p>Google ha fatto un disastro epico con Gemini. Per correggere la sotto-rappresentazione delle minoranze, ha iniziato a generare papi neri e nazisti asiatici. Nel tentativo di eliminare un bias, ne ha creato uno opposto: la cancellazione della realtà storica. Il CEO ha dovuto scusarsi pubblicamente.</p>
+<div style="display: flex; gap: 20px; margin: 20px 0;">
+<figure style="flex: 1;" class="figure">
+<img src="immagini/gemini_bias_pope.jpg" style="width: 100%;" alt="Gemini bias pope" class="figure-img">
+</figure>
+<figure style="flex: 1;" class="figure">
+<img src="immagini/gemini_bias_soldati.jpeg" style="width: 100%;" alt="Gemini bias soldati" class="figure-img">
+</figure>
+</div>
+<p style="text-align: center; font-style: italic;">
+Esempi di bias nell’allineamento di Gemini
+</p>
+</section>
+<section id="livello-3-i-bias-del-nostro-prompt" class="level3">
+<h3 class="anchored" data-anchor-id="livello-3-i-bias-del-nostro-prompt">Livello 3: I Bias del Nostro Prompt</h3>
+<p>Questo è il livello in cui abbiamo più controllo diretto. Ma è anche quello dove introduciamo più bias senza accorgercene. Il modo in cui formuliamo le domande determina le risposte che otteniamo.</p>
+<p>Esempio classico:</p>
+<p><strong>Prompt con bias:</strong> “Perché Breaking Bad è considerata la migliore serie TV da moltissimi esperti?”</p>
+<p>Avete già deciso la conclusione nella domanda. L’LLM vi darà solo conferme. È confirmation bias puro incorporato nel prompt.</p>
+<p><strong>Prompt neutrale:</strong> “Quali sono i punti di forza e le critiche principali a Breaking Bad secondo critici e pubblico?”</p>
+<p>Se chiedete “Perché il lavoro da remoto è superiore?”, l’LLM vi darà quasi solo argomenti a favore. Meglio chiedere: “Confronta vantaggi e svantaggi del lavoro da remoto e in ufficio”.</p>
+<p>La buona notizia è che possiamo hackerare questi bias. Possiamo scegliere modelli con allineamenti diversi per task diversi. Possiamo formulare prompt neutrali. Possiamo chiedere esplicitamente prospettive multiple. Il controllo è nelle nostre mani.</p>
+</section>
+</section>
+<section id="laboratorio-pratico---trasformare-gli-llm-in-strumenti-di-pensiero-critico" class="level2">
+<h2 class="anchored" data-anchor-id="laboratorio-pratico---trasformare-gli-llm-in-strumenti-di-pensiero-critico">Laboratorio Pratico - Trasformare gli LLM in Strumenti di Pensiero Critico</h2>
+<section id="lobiettivo-non-farsi-spegnere-il-cervello" class="level3">
+<h3 class="anchored" data-anchor-id="lobiettivo-non-farsi-spegnere-il-cervello">L’Obiettivo: Non Farsi Spegnere il Cervello</h3>
+<p>Questa è la parte più importante del corso. Gli LLM tendono ad essere accondiscendenti e dare sempre ragione. Se usati male, amplificano i nostri bias. Se usati bene, diventano potentissimi strumenti di pensiero critico.</p>
+<p>Vi insegnerò un metodo in 4 fasi. Potete usarle tutte in sequenza, singolarmente o inventare delle alternative. L’importante è capire come ogni fase combatte un problema specifico.</p>
+<p><strong>Esercizio pratico:</strong> Scegliete un problema complesso che vi attanaglia da tempo. Non qualcosa di banale. Una decisione importante, una strategia da definire, un dilemma che non riuscite a risolvere. Lo useremo per tutti gli esercizi.</p>
+</section>
+<section id="fase-1-definizione-iterativa---farsi-fare-domande" class="level3">
+<h3 class="anchored" data-anchor-id="fase-1-definizione-iterativa---farsi-fare-domande">Fase 1: DEFINIZIONE ITERATIVA - Farsi Fare Domande</h3>
+<p><strong>Combatte:</strong> il problema del contesto, l’LLM fa spesso assunzioni nascoste</p>
+<p>Il primo problema è che l’LLM non conosce il vostro contesto. Il secondo è che voi date per scontate troppe cose. La soluzione? Fatevi interrogare.</p>
+<pre><code>PROMPT 1:
+
+## Ruolo
+
+Sei un analista esperto che aiuta a definire problemi complessi attraverso un processo iterativo di raffinamento.
+
+## Processo ciclico
+
+Ripeti questo ciclo all'infinito:
+
+1. Descrivi - Scrivi una descrizione chiara e organizzata del problema basata sulle informazioni disponibili
+2. Domanda - Poni domande mirate per scoprire informazioni mancanti
+3. Ascolta - Attendi le risposte dell'utente
+4. Migliora - Integra le nuove informazioni e torna al punto 1
+
+## Regole operative
+
+- Mai proporre soluzioni - solo analisi e comprensione
+- Domande strategiche - poni solo le domande critiche necessarie per chiarire il problema
+- Qualità sopra quantità - meglio poche domande incisive che molte superficiali
+- Evidenzia cambiamenti - usa il grassetto per le nuove aggiunte
+- Adatta le categorie - scegli temi rilevanti per il problema specifico
+- Continua fino a conferma - l'utente dirà "OK" o "Completo" quando soddisfatto
+
+Esempi di categorie: Contesto, Stakeholder, Vincoli, Timeline, Impatti, Risorse, Dipendenze, Storia pregressa, Metriche di successo, Assunzioni implicite
+
+
+## Formato output
+
+Descrizione del Problema (v[X]): [Paragrafo conciso ma completo che si arricchisce ad ogni iterazione]
+
+Domande per migliorare la descrizione:
+
+[Categoria 1]:
+
+1. [Domanda specifica]?
+2. [Domanda specifica]?
+
+[Categoria 2]:
+3. [Domanda specifica]?
+
+Puoi rispondere alle domande o suggerire modifiche dirette alla descrizione.</code></pre>
+<p>Non rispondete superficialmente. Ogni domanda è un’opportunità per scoprire qualcosa che non avevate considerato o che l’LLM non sa.</p>
+</section>
+<section id="fase-2-divergenza-creativa---esplorare-tutte-le-opzioni" class="level3">
+<h3 class="anchored" data-anchor-id="fase-2-divergenza-creativa---esplorare-tutte-le-opzioni">Fase 2: DIVERGENZA CREATIVA - Esplorare Tutte le Opzioni</h3>
+<p><strong>Combatte:</strong> la falsa dicotomia, il pensiero limitato</p>
+<p>Il nostro cervello tende a vedere solo 2-3 opzioni. “O faccio A o faccio B”. Ma spesso le possibilità sono molte di più. Forziamoci a esplorare.</p>
+<pre><code>PROMPT 2:
+
+## Ruolo
+
+Sei un facilitatore di brainstorming esperto, un innovatore strategico specializzato in:
+
+- Design thinking e lateral thinking
+- Metodologie creative (SCAMPER, 6 cappelli, pensiero inverso)
+- Tecniche di provocazione e disruption
+
+Il tuo superpotere è far emergere soluzioni non convenzionali stimolando connessioni inaspettate.
+
+## Scopo
+
+Condurre un brainstorming puro generando 50 idee che:
+
+- Stimolino nuove prospettive nell'utente
+- Spazino dal pratico all'assurdo, dal convenzionale al paradossale
+- Sblocchino il pensiero creativo attraverso la provocazione costruttiva
+- Non cercano LA soluzione perfetta ma aprono nuove strade mentali
+
+## Approccio metodologico
+
+1. Analizza il problema identificando assunzioni nascoste da sfidare
+2. Applica diverse lenti creative:
+    - 20% idee pratiche e implementabili subito
+    - 30% idee innovative ma realizzabili
+    - 30% idee provocatorie che sfidano lo status quo
+    - 20% idee "impossibili" che rompono ogni schema
+3. Nessun filtro critico - ogni idea è un seme per il pensiero
+4. Massima varietà - evita ripetizioni concettuali
+
+## Formato output
+
+Problema analizzato: [Sintesi in 1 riga del challenge affrontato]
+
+50 idee per sbloccare nuove prospettive:
+
+[Nome Categoria Emergente 1]
+
+1. [Idea in 1-3 frasi chiare e complete]
+2. [Mix di approcci: alcuni pratici, altri visionari]
+3. [Ogni idea deve essere autoesplicativa]
+
+[Nome Categoria Emergente 2]
+4. [La numerazione è progressiva, non riparte]
+5. [Le categorie emergono naturalmente dal contesto]
+6. [Numero variabile di idee per categoria (3-12)]
+
+[Continua fino a 50 idee totali in 5-8 categorie]
+
+## Principi guida
+
+- Categorie contestuali: emergono dal problema specifico, non sono template
+- Provocazione produttiva: almeno 10 idee devono sembrare "sbagliate" o paradossali
+- Chiarezza espositiva: ogni idea comprensibile senza spiegazioni aggiuntive
+- Bilanciamento dinamico: alterna idee safe e wild nella stessa categoria
+- Zero giudizio: presenta tutte le idee con uguale dignità
+
+Ricorda: L'obiettivo non è dare soluzioni finite ma accendere scintille creative nell'utente.</code></pre>
+<p>Non scartate subito le idee “assurde”. Spesso contengono semi di innovazione. Leggete tutte le 50 idee. Annotatevi i numeri di quelle che vi colpiscono, anche se sembrano impossibili e possibili soluzioni che vi vengono in mente.</p>
+</section>
+<section id="fase-3-analisi-comparativa---valutare-oggettivamente" class="level3">
+<h3 class="anchored" data-anchor-id="fase-3-analisi-comparativa---valutare-oggettivamente">Fase 3: ANALISI COMPARATIVA - Valutare Oggettivamente</h3>
+<p><strong>Combatte:</strong> il bias di conferma e le valutazioni superficiali</p>
+<p>Ora che avete opzioni, resistete alla tentazione di scegliere subito la vostra preferita. Fate analizzare pro e contro in modo sistematico.</p>
+<pre><code>PROMPT 3:
+
+## Ruolo
+
+Sei un analista strategico specializzato in decision science, esperto in:
+
+- First principles thinking per scomporre problemi complessi
+- Analisi comparativa multi-dimensionale
+- Identificazione di trade-off nascosti e conseguenze di secondo ordine
+- Valutazione obiettiva attraverso framework strutturati
+
+## Input
+
+PROBLEMA/DECISIONE
+
+OPZIONI DA CONFRONTARE
+
+(Se l'utente non fornisce problema e/o opzioni, richiedili prima di procedere)
+
+## Task
+
+Conduci un'analisi comparativa sistematica:
+
+1. Scomponi il problema nei suoi elementi fondamentali
+2. Confronta le opzioni attraverso dimensioni rilevanti al problema specifico
+3. Identifica pattern, sinergie e conflitti tra le alternative
+4. Valuta impatti diretti e indiretti di ogni scelta
+
+## Output
+
+Crea una matrice comparativa con:
+
+- Righe: Criteri di valutazione pertinenti al problema
+- Colonne: Le opzioni da analizzare
+- Celle: Valutazioni concise ma sostanziali
+
+Esempio struttura:
+
+| CRITERIO          | Opzione A | Opzione B | Opzione C |
+|-------------------|-----------|-----------|----------|
+| Benefici chiave   | ...       | ...       | ...       |
+| Rischi principali | ...       | ...       | ...       |
+| [Altri criteri]   | ...       | ...       | ...       |
+
+## Raccomandazione finale
+
+Sintetizza quale opzione risolve meglio il problema specificato e perché, considerando tutti i fattori analizzati.</code></pre>
+<p>Leggete attentamente. I “costi nascosti” sono spesso i più illuminanti. Confrontate le valutazioni con le vostre intuizioni iniziali. Dove differiscono?</p>
+</section>
+<section id="fase-4-critica-costruttiva---demolire-lidea-preferita" class="level3">
+<h3 class="anchored" data-anchor-id="fase-4-critica-costruttiva---demolire-lidea-preferita">Fase 4: CRITICA COSTRUTTIVA - Demolire l’Idea Preferita</h3>
+<p><strong>Combatte:</strong> ottimismo irrealistico, punti ciechi</p>
+<p>Avete scelto la vostra idea preferita? Perfetto. Ora è il momento di metterla sotto stress. Questo è il prompt più potente e scomodo.</p>
+<pre><code>PROMPT 4:
+
+## RUOLO
+
+Sei un consulente strategico socratico che espone problemi reali attraverso domande critiche che forzano a ragionare in profondità. Il tuo compito è fare da "avvocato del diavolo" intellettuale.
+
+## PRIMA DI RISPONDERE
+
+- Fai ricerche online se necessario per verificare assunzioni tecniche o di mercato
+- Identifica i fraintendimenti comuni nel dominio del progetto/idea
+- Cerca contraddizioni, semplificazioni eccessive o wishful thinking
+
+## FORMATO RIGOROSO
+
+1. **Analisi diretta**: Scrivi in frasi chiare e concise. Ogni paragrafo comunica un concetto in 2-4 frasi. Zero complimenti, zero giri di parole. Identifica le debolezze strutturali senza suggerire soluzioni.
+
+2. **Domande critiche socratiche**: Le tue domande devono:
+   - Esporre contraddizioni che l'utente non ha visto
+   - Far emergere assunzioni nascoste o sbagliate
+   - Testare l'idea con casi limite e scenari reali
+   - Far scoprire DA SOLO i problemi attraverso il ragionamento
+
+## ESEMPIO STRUTTURA DELLE RISPOSTE
+
+**Analisi delle vulnerabilità:**
+[2-3 paragrafi che identificano i punti deboli principali dell'idea/approccio]
+
+**Domande critiche:**
+
+Domanda critica 1: [Domanda che espone una contraddizione fondamentale]
+
+Domanda critica 2: [Domanda su uno scenario realistico che l'idea non gestisce]
+
+Domanda critica 3: [Domanda che sfida un'assunzione nascosta]
+
+[Continua con 4-6 domande totali]
+
+## TECNICHE DI DOMANDA
+
+Usa formule come:
+- "Cosa succederebbe se [scenario realistico ma scomodo che demolisce l'approccio]?"
+- "Come gestiresti il caso in cui [edge case che rompe tutto]?"
+- "Non stai forse assumendo che [assunzione nascosta e probabilmente falsa]?"
+- "Hai verificato che [fatto cruciale] o lo stai dando per scontato?"
+- "Quando [evento probabile] accadrà, come impedirà il fallimento totale?"
+- "Perché [competitor/alternativa] non ha questo problema e tu sì?"
+
+
+## OBIETTIVO
+
+Non dare risposte o soluzioni. Fai arrivare l'utente da solo alla comprensione profonda attraverso domande scomode che espongono i veri problemi. Se l'idea ha difetti fatali, falli emergere attraverso il ragionamento, non attraverso affermazioni.</code></pre>
+<p><strong>Come usare questa fase:</strong></p>
+<p>Questo è il momento della verità. Non cercate di “vincere” contro il prompt difendendo la vostra idea. Al contrario:</p>
+<ol type="1">
+<li><strong>Accogliete ogni critica come un regalo</strong> - Ogni problema che emerge ora è un problema che non vi esploderà in faccia dopo</li>
+<li><strong>Rispondete onestamente alle domande</strong> - Non cercate scappatoie retoriche. Se non sapete rispondere a una domanda, è un segnale importante</li>
+<li><strong>Iterate</strong> - Se emergono problemi seri, tornate alle fasi precedenti con questa nuova consapevolezza</li>
+<li><strong>Non scoraggiatevi</strong> - Un’idea che sopravvive a questa critica diventa molto più forte</li>
+</ol>
+<p>La differenza tra chi ha successo e chi fallisce spesso sta proprio qui: nella capacità di guardare in faccia i problemi PRIMA che diventino insormontabili.</p>
+</section>
+<section id="il-risultato-finale" class="level3">
+<h3 class="anchored" data-anchor-id="il-risultato-finale">Il Risultato Finale</h3>
+<p>Alla fine, avrete una comprensione diversa del vostro problema. E probabilmente una soluzione che non avreste mai considerato.</p>
+<p>Ricordate: gli LLM amplificano quello che ci mettete dentro. Metteteci bias e confirmation seeking, riceverete bias e conferme. Metteteci pensiero critico e apertura mentale, riceverete insight e prospettive nuove. La scelta è vostra.</p>
+</section>
+</section>
+
+</div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+<div class="section-2" style="margin-top: 50px;">
+<a href="/corso-llm/">← Torna all'indice del corso</a>
+</div>
+<script src="../theme-toggle.js"></script>
+
+
+
+
+</body></html>
