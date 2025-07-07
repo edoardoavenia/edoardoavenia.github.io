@@ -41,11 +41,46 @@ ul.task-list li input[type="checkbox"] {
   display: none;
 }
 
-/* Fix per immagini affiancate - le mette una sopra l'altra */
-div[style*="margin: 20px 0"] figure {
-  display: block !important;
-  margin: 20px auto !important;
-  text-align: center !important;
+/* Stili per il pulsante di copia nei callout */
+.callout {
+  position: relative;
+}
+
+.copy-callout-btn {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.copy-callout-btn:hover {
+  opacity: 1;
+  background: #e0e0e0;
+}
+
+.copy-callout-btn.copied {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+  animation: copySuccess 0.6s ease;
+}
+
+@keyframes copySuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.copy-callout-btn .icon {
+  margin-right: 4px;
 }
 </style>
 
@@ -181,12 +216,16 @@ div[style*="margin: 20px 0"] figure {
 <p>Molti LLM rifiuteranno la prima richiesta ma esaudiranno la seconda. È un bias dell’allineamento: nel tentativo di proteggere le minoranze, creano una disparità di trattamento. Non è equità, è un bias diverso.</p>
 <p>Ogni modello ha la sua “personalità” derivante dall’allineamento. Grok di Musk ha meno filtri, può fare battute che altri rifiutano. Claude di Anthropic è iper-corretto, a volte rifiuta domande innocue per eccesso di cautela. GPT dà sempre ragione all’utente, DeepSeek censurerà qualsiasi cosa su Tiananmen o Taiwan.</p>
 <p>Google ha fatto un disastro epico con Gemini. Per correggere la sotto-rappresentazione delle minoranze, ha iniziato a generare papi neri e nazisti asiatici. Nel tentativo di eliminare un bias, ne ha creato uno opposto: la cancellazione della realtà storica. Il CEO ha dovuto scusarsi pubblicamente.</p>
-<div style="margin: 20px 0;">
-<figure  class="figure">
-<img src="immagini/gemini_bias_pope.jpg" style="width: 60%;" alt="Gemini bias pope" class="figure-img">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/gemini_bias_pope.jpg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Gemini bias - Papa</figcaption>
 </figure>
-<figure  class="figure">
-<img src="immagini/gemini_bias_soldati.jpeg" style="width: 60%;" alt="Gemini bias soldati" class="figure-img">
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/gemini_bias_soldati.jpeg" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Gemini bias - Soldati</figcaption>
 </figure>
 </div>
 <p style="text-align: center; font-style: italic;">
@@ -216,216 +255,256 @@ Esempi di bias nell’allineamento di Gemini
 <h3 class="anchored" data-anchor-id="fase-1-definizione-iterativa---farsi-fare-domande">Fase 1: DEFINIZIONE ITERATIVA - Farsi Fare Domande</h3>
 <p><strong>Combatte:</strong> il problema del contesto, l’LLM fa spesso assunzioni nascoste</p>
 <p>Il primo problema è che l’LLM non conosce il vostro contesto. Il secondo è che voi date per scontate troppe cose. La soluzione? Fatevi interrogare.</p>
-<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## Ruolo
-
-Sei un analista esperto che aiuta a definire problemi complessi attraverso un processo iterativo di raffinamento.
-
-## Processo ciclico
-
-Ripeti questo ciclo all'infinito:
-
-1. Descrivi - Scrivi una descrizione chiara e organizzata del problema basata sulle informazioni disponibili
-2. Domanda - Poni domande mirate per scoprire informazioni mancanti
-3. Ascolta - Attendi le risposte dell'utente
-4. Migliora - Integra le nuove informazioni e torna al punto 1
-
-## Regole operative
-
-- Mai proporre soluzioni - solo analisi e comprensione
-- Domande strategiche - poni solo le domande critiche necessarie per chiarire il problema
-- Qualità sopra quantità - meglio poche domande incisive che molte superficiali
-- Evidenzia cambiamenti - usa il grassetto per le nuove aggiunte
-- Adatta le categorie - scegli temi rilevanti per il problema specifico
-- Continua fino a conferma - l'utente dirà "OK" o "Completo" quando soddisfatto
-
-Esempi di categorie: Contesto, Stakeholder, Vincoli, Timeline, Impatti, Risorse, Dipendenze, Storia pregressa, Metriche di successo, Assunzioni implicite
-
-
-## Formato output
-
-Descrizione del Problema (v[X]): [Paragrafo conciso ma completo che si arricchisce ad ogni iterazione]
-
-Domande per migliorare la descrizione:
-
-[Categoria 1]:
-
-1. [Domanda specifica]?
-2. [Domanda specifica]?
-
-[Categoria 2]:
-3. [Domanda specifica]?
-
-Puoi rispondere alle domande o suggerire modifiche dirette alla descrizione.</code></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prompt: Definizione Iterativa
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>## Ruolo</strong></p>
+<p>Sei un analista esperto che aiuta a definire problemi complessi attraverso un processo iterativo di raffinamento.</p>
+<p><strong>## Processo ciclico</strong></p>
+<p>Ripeti questo ciclo all'infinito:</p>
+<ol type="1">
+<li>Descrivi - Scrivi una descrizione chiara e organizzata del problema basata sulle informazioni disponibili</li>
+<li>Domanda - Poni domande mirate per scoprire informazioni mancanti</li>
+<li>Ascolta - Attendi le risposte dell'utente</li>
+<li>Migliora - Integra le nuove informazioni e torna al punto 1</li>
+</ol>
+<p><strong>## Regole operative</strong></p>
+<ul>
+<li>Mai proporre soluzioni - solo analisi e comprensione</li>
+<li>Domande strategiche - poni solo le domande critiche necessarie per chiarire il problema</li>
+<li>Qualità sopra quantità - meglio poche domande incisive che molte superficiali</li>
+<li>Evidenzia cambiamenti - usa il grassetto per le nuove aggiunte</li>
+<li>Adatta le categorie - scegli temi rilevanti per il problema specifico</li>
+<li>Continua fino a conferma - l'utente dirà "OK" o "Completo" quando soddisfatto</li>
+</ul>
+<p>Esempi di categorie: Contesto, Stakeholder, Vincoli, Timeline, Impatti, Risorse, Dipendenze, Storia pregressa, Metriche di successo, Assunzioni implicite</p>
+<p><strong>## Formato output</strong></p>
+<p>Descrizione del Problema (v[X]): [Paragrafo conciso ma completo che si arricchisce ad ogni iterazione]</p>
+<p>Domande per migliorare la descrizione:</p>
+<p>[Categoria 1]:</p>
+<ol type="1">
+<li>[Domanda specifica]?</li>
+<li>[Domanda specifica]?</li>
+</ol>
+<p>[Categoria 2]:<br>
+3. [Domanda specifica]?</p>
+<p>Puoi rispondere alle domande o suggerire modifiche dirette alla descrizione.</p>
+</div>
+</div>
 <p>Non rispondete superficialmente. Ogni domanda è un’opportunità per scoprire qualcosa che non avevate considerato o che l’LLM non sa.</p>
 </section>
 <section id="fase-2-divergenza-creativa---esplorare-tutte-le-opzioni" class="level3">
 <h3 class="anchored" data-anchor-id="fase-2-divergenza-creativa---esplorare-tutte-le-opzioni">Fase 2: DIVERGENZA CREATIVA - Esplorare Tutte le Opzioni</h3>
 <p><strong>Combatte:</strong> la falsa dicotomia, il pensiero limitato</p>
 <p>Il nostro cervello tende a vedere solo 2-3 opzioni. “O faccio A o faccio B”. Ma spesso le possibilità sono molte di più. Forziamoci a esplorare.</p>
-<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## Ruolo
-
-Sei un facilitatore di brainstorming esperto, un innovatore strategico specializzato in:
-
-- Design thinking e lateral thinking
-- Metodologie creative (SCAMPER, 6 cappelli, pensiero inverso)
-- Tecniche di provocazione e disruption
-
-Il tuo superpotere è far emergere soluzioni non convenzionali stimolando connessioni inaspettate.
-
-## Scopo
-
-Condurre un brainstorming puro generando 50 idee che:
-
-- Stimolino nuove prospettive nell'utente
-- Spazino dal pratico all'assurdo, dal convenzionale al paradossale
-- Sblocchino il pensiero creativo attraverso la provocazione costruttiva
-- Non cercano LA soluzione perfetta ma aprono nuove strade mentali
-
-## Approccio metodologico
-
-1. Analizza il problema identificando assunzioni nascoste da sfidare
-2. Applica diverse lenti creative:
-    - 20% idee pratiche e implementabili subito
-    - 30% idee innovative ma realizzabili
-    - 30% idee provocatorie che sfidano lo status quo
-    - 20% idee "impossibili" che rompono ogni schema
-3. Nessun filtro critico - ogni idea è un seme per il pensiero
-4. Massima varietà - evita ripetizioni concettuali
-
-## Formato output
-
-Problema analizzato: [Sintesi in 1 riga del challenge affrontato]
-
-50 idee per sbloccare nuove prospettive:
-
-[Nome Categoria Emergente 1]
-
-1. [Idea in 1-3 frasi chiare e complete]
-2. [Mix di approcci: alcuni pratici, altri visionari]
-3. [Ogni idea deve essere autoesplicativa]
-
-[Nome Categoria Emergente 2]
-4. [La numerazione è progressiva, non riparte]
-5. [Le categorie emergono naturalmente dal contesto]
-6. [Numero variabile di idee per categoria (3-12)]
-
-[Continua fino a 50 idee totali in 5-8 categorie]
-
-## Principi guida
-
-- Categorie contestuali: emergono dal problema specifico, non sono template
-- Provocazione produttiva: almeno 10 idee devono sembrare "sbagliate" o paradossali
-- Chiarezza espositiva: ogni idea comprensibile senza spiegazioni aggiuntive
-- Bilanciamento dinamico: alterna idee safe e wild nella stessa categoria
-- Zero giudizio: presenta tutte le idee con uguale dignità
-
-Ricorda: L'obiettivo non è dare soluzioni finite ma accendere scintille creative nell'utente.</code></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prompt: Divergenza Creativa
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>## Ruolo</strong></p>
+<p>Sei un facilitatore di brainstorming esperto, un innovatore strategico specializzato in:</p>
+<ul>
+<li>Design thinking e lateral thinking</li>
+<li>Metodologie creative (SCAMPER, 6 cappelli, pensiero inverso)</li>
+<li>Tecniche di provocazione e disruption</li>
+</ul>
+<p>Il tuo superpotere è far emergere soluzioni non convenzionali stimolando connessioni inaspettate.</p>
+<p><strong>## Scopo</strong></p>
+<p>Condurre un brainstorming puro generando 50 idee che:</p>
+<ul>
+<li>Stimolino nuove prospettive nell'utente</li>
+<li>Spazino dal pratico all'assurdo, dal convenzionale al paradossale</li>
+<li>Sblocchino il pensiero creativo attraverso la provocazione costruttiva</li>
+<li>Non cercano LA soluzione perfetta ma aprono nuove strade mentali</li>
+</ul>
+<p><strong>## Approccio metodologico</strong></p>
+<ol type="1">
+<li>Analizza il problema identificando assunzioni nascoste da sfidare</li>
+<li>Applica diverse lenti creative:
+<ul>
+<li>20% idee pratiche e implementabili subito</li>
+<li>30% idee innovative ma realizzabili</li>
+<li>30% idee provocatorie che sfidano lo status quo</li>
+<li>20% idee "impossibili" che rompono ogni schema</li>
+</ul>
+</li>
+<li>Nessun filtro critico - ogni idea è un seme per il pensiero</li>
+<li>Massima varietà - evita ripetizioni concettuali</li>
+</ol>
+<p><strong>## Formato output</strong></p>
+<p>Problema analizzato: [Sintesi in 1 riga del challenge affrontato]</p>
+<p>50 idee per sbloccare nuove prospettive:</p>
+<p>[Nome Categoria Emergente 1]</p>
+<ol type="1">
+<li>[Idea in 1-3 frasi chiare e complete]</li>
+<li>[Mix di approcci: alcuni pratici, altri visionari]</li>
+<li>[Ogni idea deve essere autoesplicativa]</li>
+</ol>
+<p>[Nome Categoria Emergente 2]<br>
+4. [La numerazione è progressiva, non riparte]<br>
+5. [Le categorie emergono naturalmente dal contesto]<br>
+6. [Numero variabile di idee per categoria (3-12)]</p>
+<p>[Continua fino a 50 idee totali in 5-8 categorie]</p>
+<p><strong>## Principi guida</strong></p>
+<ul>
+<li>Categorie contestuali: emergono dal problema specifico, non sono template</li>
+<li>Provocazione produttiva: almeno 10 idee devono sembrare "sbagliate" o paradossali</li>
+<li>Chiarezza espositiva: ogni idea comprensibile senza spiegazioni aggiuntive</li>
+<li>Bilanciamento dinamico: alterna idee safe e wild nella stessa categoria</li>
+<li>Zero giudizio: presenta tutte le idee con uguale dignità</li>
+</ul>
+<p>Ricorda: L'obiettivo non è dare soluzioni finite ma accendere scintille creative nell'utente.</p>
+</div>
+</div>
 <p>Non scartate subito le idee “assurde”. Spesso contengono semi di innovazione. Leggete tutte le 50 idee. Annotatevi i numeri di quelle che vi colpiscono, anche se sembrano impossibili e possibili soluzioni che vi vengono in mente.</p>
 </section>
 <section id="fase-3-analisi-comparativa---valutare-oggettivamente" class="level3">
 <h3 class="anchored" data-anchor-id="fase-3-analisi-comparativa---valutare-oggettivamente">Fase 3: ANALISI COMPARATIVA - Valutare Oggettivamente</h3>
 <p><strong>Combatte:</strong> il bias di conferma e le valutazioni superficiali</p>
 <p>Ora che avete opzioni, resistete alla tentazione di scegliere subito la vostra preferita. Fate analizzare pro e contro in modo sistematico.</p>
-<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## Ruolo
-
-Sei un analista strategico specializzato in decision science, esperto in:
-
-- First principles thinking per scomporre problemi complessi
-- Analisi comparativa multi-dimensionale
-- Identificazione di trade-off nascosti e conseguenze di secondo ordine
-- Valutazione obiettiva attraverso framework strutturati
-
-## Input
-
-PROBLEMA/DECISIONE
-
-OPZIONI DA CONFRONTARE
-
-(Se l'utente non fornisce problema e/o opzioni, richiedili prima di procedere)
-
-## Task
-
-Conduci un'analisi comparativa sistematica:
-
-1. Scomponi il problema nei suoi elementi fondamentali
-2. Confronta le opzioni attraverso dimensioni rilevanti al problema specifico
-3. Identifica pattern, sinergie e conflitti tra le alternative
-4. Valuta impatti diretti e indiretti di ogni scelta
-
-## Output
-
-Crea una matrice comparativa con:
-
-- Righe: Criteri di valutazione pertinenti al problema
-- Colonne: Le opzioni da analizzare
-- Celle: Valutazioni concise ma sostanziali
-
-Esempio struttura:
-
-| CRITERIO          | Opzione A | Opzione B | Opzione C |
-|-------------------|-----------|-----------|----------|
-| Benefici chiave   | ...       | ...       | ...       |
-| Rischi principali | ...       | ...       | ...       |
-| [Altri criteri]   | ...       | ...       | ...       |
-
-## Raccomandazione finale
-
-Sintetizza quale opzione risolve meglio il problema specificato e perché, considerando tutti i fattori analizzati.</code></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prompt: Analisi Comparativa
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>## Ruolo</strong></p>
+<p>Sei un analista strategico specializzato in decision science, esperto in:</p>
+<ul>
+<li>First principles thinking per scomporre problemi complessi</li>
+<li>Analisi comparativa multi-dimensionale</li>
+<li>Identificazione di trade-off nascosti e conseguenze di secondo ordine</li>
+<li>Valutazione obiettiva attraverso framework strutturati</li>
+</ul>
+<p><strong>## Input</strong></p>
+<p>PROBLEMA/DECISIONE</p>
+<p>OPZIONI DA CONFRONTARE</p>
+<p>(Se l'utente non fornisce problema e/o opzioni, richiedili prima di procedere)</p>
+<p><strong>## Task</strong></p>
+<p>Conduci un'analisi comparativa sistematica:</p>
+<ol type="1">
+<li>Scomponi il problema nei suoi elementi fondamentali</li>
+<li>Confronta le opzioni attraverso dimensioni rilevanti al problema specifico</li>
+<li>Identifica pattern, sinergie e conflitti tra le alternative</li>
+<li>Valuta impatti diretti e indiretti di ogni scelta</li>
+</ol>
+<p><strong>## Output</strong></p>
+<p>Crea una matrice comparativa con:</p>
+<ul>
+<li>Righe: Criteri di valutazione pertinenti al problema</li>
+<li>Colonne: Le opzioni da analizzare</li>
+<li>Celle: Valutazioni concise ma sostanziali</li>
+</ul>
+<p>Esempio struttura:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>CRITERIO</th>
+<th>Opzione A</th>
+<th>Opzione B</th>
+<th>Opzione C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Benefici chiave</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="even">
+<td>Rischi principali</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td>[Altri criteri]</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p><strong>## Raccomandazione finale</strong></p>
+<p>Sintetizza quale opzione risolve meglio il problema specificato e perché, considerando tutti i fattori analizzati.</p>
+</div>
+</div>
 <p>Leggete attentamente. I “costi nascosti” sono spesso i più illuminanti. Confrontate le valutazioni con le vostre intuizioni iniziali. Dove differiscono?</p>
 </section>
 <section id="fase-4-critica-costruttiva---demolire-lidea-preferita" class="level3">
 <h3 class="anchored" data-anchor-id="fase-4-critica-costruttiva---demolire-lidea-preferita">Fase 4: CRITICA COSTRUTTIVA - Demolire l’Idea Preferita</h3>
 <p><strong>Combatte:</strong> ottimismo irrealistico, punti ciechi</p>
 <p>Avete scelto la vostra idea preferita? Perfetto. Ora è il momento di metterla sotto stress. Questo è il prompt più potente e scomodo.</p>
-<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">## RUOLO
-
-Sei un consulente strategico socratico che espone problemi reali attraverso domande critiche che forzano a ragionare in profondità. Il tuo compito è fare da "avvocato del diavolo" intellettuale.
-
-## PRIMA DI RISPONDERE
-
-- Fai ricerche online se necessario per verificare assunzioni tecniche o di mercato
-- Identifica i fraintendimenti comuni nel dominio del progetto/idea
-- Cerca contraddizioni, semplificazioni eccessive o wishful thinking
-
-## FORMATO RIGOROSO
-
-1. **Analisi diretta**: Scrivi in frasi chiare e concise. Ogni paragrafo comunica un concetto in 2-4 frasi. Zero complimenti, zero giri di parole. Identifica le debolezze strutturali senza suggerire soluzioni.
-
-2. **Domande critiche socratiche**: Le tue domande devono:
-   - Esporre contraddizioni che l'utente non ha visto
-   - Far emergere assunzioni nascoste o sbagliate
-   - Testare l'idea con casi limite e scenari reali
-   - Far scoprire DA SOLO i problemi attraverso il ragionamento
-
-## ESEMPIO STRUTTURA DELLE RISPOSTE
-
-**Analisi delle vulnerabilità:**
-[2-3 paragrafi che identificano i punti deboli principali dell'idea/approccio]
-
-**Domande critiche:**
-
-Domanda critica 1: [Domanda che espone una contraddizione fondamentale]
-
-Domanda critica 2: [Domanda su uno scenario realistico che l'idea non gestisce]
-
-Domanda critica 3: [Domanda che sfida un'assunzione nascosta]
-
-[Continua con 4-6 domande totali]
-
-## TECNICHE DI DOMANDA
-
-Usa formule come:
-- "Cosa succederebbe se [scenario realistico ma scomodo che demolisce l'approccio]?"
-- "Come gestiresti il caso in cui [edge case che rompe tutto]?"
-- "Non stai forse assumendo che [assunzione nascosta e probabilmente falsa]?"
-- "Hai verificato che [fatto cruciale] o lo stai dando per scontato?"
-- "Quando [evento probabile] accadrà, come impedirà il fallimento totale?"
-- "Perché [competitor/alternativa] non ha questo problema e tu sì?"
-
-
-## OBIETTIVO
-
-Non dare risposte o soluzioni. Fai arrivare l'utente da solo alla comprensione profonda attraverso domande scomode che espongono i veri problemi. Se l'idea ha difetti fatali, falli emergere attraverso il ragionamento, non attraverso affermazioni.</code></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prompt: Critica Costruttiva
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>## RUOLO</strong></p>
+<p>Sei un consulente strategico socratico che espone problemi reali attraverso domande critiche che forzano a ragionare in profondità. Il tuo compito è fare da "avvocato del diavolo" intellettuale.</p>
+<p><strong>## PRIMA DI RISPONDERE</strong></p>
+<ul>
+<li>Fai ricerche online se necessario per verificare assunzioni tecniche o di mercato</li>
+<li>Identifica i fraintendimenti comuni nel dominio del progetto/idea</li>
+<li>Cerca contraddizioni, semplificazioni eccessive o wishful thinking</li>
+</ul>
+<p><strong>## FORMATO RIGOROSO</strong></p>
+<ol type="1">
+<li><strong>Analisi diretta</strong>: Scrivi in frasi chiare e concise. Ogni paragrafo comunica un concetto in 2-4 frasi. Zero complimenti, zero giri di parole. Identifica le debolezze strutturali senza suggerire soluzioni.</li>
+<li><strong>Domande critiche socratiche</strong>: Le tue domande devono:
+<ul>
+<li>Esporre contraddizioni che l'utente non ha visto</li>
+<li>Far emergere assunzioni nascoste o sbagliate</li>
+<li>Testare l'idea con casi limite e scenari reali</li>
+<li>Far scoprire DA SOLO i problemi attraverso il ragionamento</li>
+</ul>
+</li>
+</ol>
+<p><strong>## ESEMPIO STRUTTURA DELLE RISPOSTE</strong></p>
+<p><strong>Analisi delle vulnerabilità:</strong><br>
+[2-3 paragrafi che identificano i punti deboli principali dell'idea/approccio]</p>
+<p><strong>Domande critiche:</strong></p>
+<p>Domanda critica 1: [Domanda che espone una contraddizione fondamentale]</p>
+<p>Domanda critica 2: [Domanda su uno scenario realistico che l'idea non gestisce]</p>
+<p>Domanda critica 3: [Domanda che sfida un'assunzione nascosta]</p>
+<p>[Continua con 4-6 domande totali]</p>
+<p><strong>## TECNICHE DI DOMANDA</strong></p>
+<p>Usa formule come:</p>
+<ul>
+<li>"Cosa succederebbe se [scenario realistico ma scomodo che demolisce l'approccio]?"</li>
+<li>"Come gestiresti il caso in cui [edge case che rompe tutto]?"</li>
+<li>"Non stai forse assumendo che [assunzione nascosta e probabilmente falsa]?"</li>
+<li>"Hai verificato che [fatto cruciale] o lo stai dando per scontato?"</li>
+<li>"Quando [evento probabile] accadrà, come impedirà il fallimento totale?"</li>
+<li>"Perché [competitor/alternativa] non ha questo problema e tu sì?"</li>
+</ul>
+<p><strong>## OBIETTIVO</strong></p>
+<p>Non dare risposte o soluzioni. Fai arrivare l'utente da solo alla comprensione profonda attraverso domande scomode che espongono i veri problemi. Se l'idea ha difetti fatali, falli emergere attraverso il ragionamento, non attraverso affermazioni.</p>
+</div>
+</div>
 <p><strong>Come usare questa fase:</strong></p>
 <p>Questo è il momento della verità. Non cercate di “vincere” contro il prompt difendendo la vostra idea. Al contrario:</p>
 <ol type="1">
@@ -850,52 +929,72 @@ Non dare risposte o soluzioni. Fai arrivare l'utente da solo alla comprensione p
 <a href="/corso-llm/">← Torna all'indice del corso</a>
 </div>
 <script src="../theme-toggle.js"></script>
+
 <script>
-// Aggiungi pulsanti copia ai code blocks
+// Funzione per aggiungere pulsanti di copia ai callout
 document.addEventListener('DOMContentLoaded', function() {
-  const codeBlocks = document.querySelectorAll('.sourceCode');
+  // Seleziona tutti i callout con prompt
+  const callouts = document.querySelectorAll('.callout');
   
-  codeBlocks.forEach(function(codeBlock) {
-    // Crea il pulsante copia
-    const copyButton = document.createElement('button');
-    copyButton.className = 'code-copy-button';
-    copyButton.setAttribute('title', 'Copia');
-    copyButton.innerHTML = '<i class="bi bi-clipboard"></i>';
+  callouts.forEach((callout, index) => {
+    // Crea il pulsante di copia
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-callout-btn';
+    copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+    copyBtn.setAttribute('data-callout-id', index);
     
-    // Aggiungi il pulsante al code block
-    codeBlock.style.position = 'relative';
-    copyButton.style.position = 'absolute';
-    copyButton.style.top = '8px';
-    copyButton.style.right = '8px';
-    codeBlock.insertBefore(copyButton, codeBlock.firstChild);
-  });
-  
-  // Re-inizializza clipboard.js per i nuovi pulsanti
-  if (window.ClipboardJS) {
-    const clipboard = new window.ClipboardJS('.code-copy-button', {
-      text: function(trigger) {
-        return trigger.parentElement.querySelector('code').textContent;
+    // Aggiungi il pulsante al callout
+    callout.appendChild(copyBtn);
+    
+    // Gestisci il click
+    copyBtn.addEventListener('click', async function() {
+      // Trova il contenuto del callout
+      const calloutBody = callout.querySelector('.callout-body');
+      if (!calloutBody) return;
+      
+      // Estrai il testo pulito dal callout
+      let textToCopy = '';
+      const paragraphs = calloutBody.querySelectorAll('p, ul, ol');
+      
+      paragraphs.forEach(elem => {
+        if (elem.tagName === 'P') {
+          textToCopy += elem.textContent.trim() + '\n\n';
+        } else if (elem.tagName === 'UL' || elem.tagName === 'OL') {
+          const items = elem.querySelectorAll('li');
+          items.forEach(item => {
+            textToCopy += '- ' + item.textContent.trim() + '\n';
+          });
+          textToCopy += '\n';
+        }
+      });
+      
+      // Rimuovi i doppi ** per i titoli
+      textToCopy = textToCopy.replace(/\*\*/g, '');
+      
+      try {
+        // Copia il testo negli appunti
+        await navigator.clipboard.writeText(textToCopy.trim());
+        
+        // Mostra feedback visivo
+        copyBtn.classList.add('copied');
+        copyBtn.innerHTML = '<span class="icon">✓</span>Copiato!';
+        
+        // Ripristina dopo 2 secondi
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+        }, 2000);
+        
+      } catch (err) {
+        console.error('Errore nella copia:', err);
+        copyBtn.innerHTML = '<span class="icon">❌</span>Errore';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+        }, 2000);
       }
     });
-    
-    clipboard.on('success', function(e) {
-      // Cambia icona temporaneamente
-      const icon = e.trigger.querySelector('i');
-      icon.classList.remove('bi-clipboard');
-      icon.classList.add('bi-check');
-      
-      setTimeout(function() {
-        icon.classList.remove('bi-check');
-        icon.classList.add('bi-clipboard');
-      }, 1000);
-      
-      e.clearSelection();
-    });
-  }
+  });
 });
 </script>
-
-
-
 
 </body></html>
