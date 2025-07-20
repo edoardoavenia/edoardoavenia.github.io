@@ -10,6 +10,42 @@ format:
       - "../../style.css"
       - "../corso-theme.css"
     toc: true
+    include-in-header:
+      text: |
+        <style>
+        /* Fix per overflow della riga di puntini */
+        .callout {
+          max-width: 100% !important;
+          overflow: hidden !important;
+        }
+        
+        .callout-body-container {
+          max-width: 100% !important;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
+        }
+        
+        .callout-body-container p {
+          word-break: break-all !important;
+          overflow-wrap: anywhere !important;
+          white-space: normal !important;
+          max-width: 100% !important;
+        }
+        
+        /* Specifico per i puntini */
+        .callout-body-container pre {
+          white-space: pre-wrap !important;
+          word-break: break-all !important;
+          overflow-wrap: anywhere !important;
+          max-width: min(50ch, 100%) !important;
+          overflow-x: hidden !important;
+        }
+        
+        .callout-body-container div[style*="max-width"] {
+          max-width: 100% !important;
+          overflow-x: hidden !important;
+        }
+        </style>
     include-before-body:
       text: |
         <div class="theme-toggle">
@@ -27,6 +63,146 @@ format:
         <a href="/corso-llm/introduzione-prompt-engineering/">Prossimo modulo →</a>
         </div>
         <script src="../theme-toggle.js"></script>
+        <style>
+        /* Stili per il pulsante di copia nei callout */
+        .callout {
+          position: relative;
+          max-width: 100%;
+          overflow: hidden;
+        }
+        
+        .copy-callout-btn {
+          position: absolute;
+          top: 30px;
+          right: 10px;
+          background: #f0f0f0;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 6px 12px;
+          font-size: 12px;
+          cursor: pointer;
+          opacity: 0.7;
+          transition: all 0.3s ease;
+          z-index: 10;
+        }
+        
+        .copy-callout-btn:hover {
+          opacity: 1;
+          background: #e0e0e0;
+        }
+        
+        .copy-callout-btn.copied {
+          background: #4CAF50;
+          color: white;
+          border-color: #4CAF50;
+          animation: copySuccess 0.6s ease;
+        }
+        
+        @keyframes copySuccess {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
+        }
+        
+        .copy-callout-btn .icon {
+          margin-right: 4px;
+        }
+        
+        /* Gestione overflow per contenuti lunghi nei callout */
+        .callout-body-container {
+          overflow-wrap: break-word;
+          word-break: break-all;
+          overflow-x: hidden;
+        }
+        
+        /* Specifico per il contenuto con puntini */
+        .callout-body-container p {
+          overflow-wrap: break-word;
+          word-break: break-all;
+          white-space: normal;
+          max-width: 100%;
+        }
+        </style>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const callouts = document.querySelectorAll('.callout');
+          
+          callouts.forEach((callout, index) => {
+            // Crea il pulsante di copia
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-callout-btn';
+            copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+            copyBtn.setAttribute('data-callout-id', index);
+            
+            // Aggiungi il pulsante al callout
+            callout.appendChild(copyBtn);
+          });
+          
+          // Gestisci i click sui pulsanti di copia
+          document.addEventListener('click', async function(e) {
+            if (!e.target.closest('.copy-callout-btn')) return;
+            
+            const copyBtn = e.target.closest('.copy-callout-btn');
+            const calloutId = copyBtn.getAttribute('data-callout-id');
+            const callout = document.querySelectorAll('.callout')[calloutId];
+            
+            // Cerca specificamente il contenuto del <pre> tag per i puntini
+            const preElement = callout.querySelector('pre');
+            let textToCopy;
+            
+            if (preElement) {
+              // Se c'è un <pre>, copia solo il suo contenuto
+              textToCopy = preElement.innerText || preElement.textContent;
+            } else {
+              // Fallback per altri callout
+              const tempBtn = copyBtn.cloneNode(true);
+              copyBtn.style.display = 'none';
+              textToCopy = callout.innerText;
+              copyBtn.style.display = '';
+              
+              // Pulisci il testo
+              textToCopy = textToCopy.replace(/📋Copia|✓Copiato!/g, '').trim();
+              textToCopy = textToCopy.replace(/\*\*/g, '');
+            }
+            
+            try {
+              // Copia il testo negli appunti
+              await navigator.clipboard.writeText(textToCopy.trim());
+              
+              // Mostra feedback visivo
+              copyBtn.classList.add('copied');
+              copyBtn.innerHTML = '<span class="icon">✓</span>Copiato!';
+              
+              // Ripristina dopo 2 secondi
+              setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+              }, 2000);
+              
+            } catch (err) {
+              console.error('Errore nella copia:', err);
+              
+              // Fallback per browser più vecchi
+              const textArea = document.createElement('textarea');
+              textArea.value = textToCopy.trim();
+              document.body.appendChild(textArea);
+              textArea.select();
+              try {
+                document.execCommand('copy');
+                copyBtn.classList.add('copied');
+                copyBtn.innerHTML = '<span class="icon">✓</span>Copiato!';
+                setTimeout(() => {
+                  copyBtn.classList.remove('copied');
+                  copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+                }, 2000);
+              } catch (fallbackErr) {
+                console.error('Errore anche nel fallback:', fallbackErr);
+              }
+              document.body.removeChild(textArea);
+            }
+          });
+        });
+        </script>
 ---
 ## I Limiti Strutturali: Una Panoramica
 
@@ -96,15 +272,27 @@ Come abbiamo visto, gli LLM non "vedono" il testo come noi. Lo processano attrav
 
 **Fase 1:** Copiate e incollate questa riga di puntini in ChatGPT e chiedete: "Quanti puntini ci sono in questa riga?"
 
-......................................................................................................................................................
+::: {.callout-note}
+## Riga di 115 puntini per il test
 
-La risposta sarà qualcosa tipo "Ci sono 120 puntini". Riprovate: "190", riprovate ancora vi darà "270", poi "125". Quasi sempre sicurissima, quasi sempre sbagliata. (Sono esattamente 150 puntini).
+<div style="max-width: 100%; overflow-x: hidden;">
+<pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: anywhere; margin: 0; font-family: monospace; max-width: 50ch; word-break: break-all;">...................................................................................................................</pre>
+</div>
+:::
+
+La risposta sarà qualcosa tipo "Ci sono 120 puntini". Riprovate: "190", riprovate ancora vi darà "99", poi "125". Quasi sempre sicurissima, quasi sempre sbagliata. (Sono esattamente 115 puntini).
 
 **Fase 2:** Perché sbaglia un compito così banale? Andiamo su un tokenizer online (esempio: [platform.openai.com/tokenizer](https://platform.openai.com/tokenizer)) e incolliamo la stringa.
 
-L'intera sequenza di 150 puntini viene rappresentata da soli 4 token! L'LLM non vede singoli puntini ma gruppi. Non può contarli perché dal suo punto di vista non esistono individualmente.
+L'intera sequenza di 115 puntini viene rappresentata da soli 4 token! L'LLM non vede singoli puntini ma gruppi. Non può contarli perché dal suo punto di vista non esistono individualmente.
 
 Problemi simili emergono con domande tipo "Quante lettere 'e' ci sono in 'eccellente'?"
+
+\vspace{0.5cm}
+
+![Figura 1: Tokenizzazione dei puntini](immagini/llm-tokens-dots.png){width=85% fig-align="center"}
+
+\vspace{0.5cm}
 
 ## Matematica
 
@@ -112,7 +300,7 @@ Gli LLM possono recitare la teoria della relatività ma fallire su calcoli eleme
 
 \vspace{0.5cm}
 
-![Figura 1: Esempio di calcolo matematico con LLM](immagini/math_LLM_example.png){width=89% fig-align="center"}
+![Figura 2: Esempio di calcolo matematico con LLM](immagini/math_LLM_example.png){width=89% fig-align="center"}
 
 \vspace{0.5cm}
 
@@ -139,7 +327,7 @@ Un LLM genera testo predicendo la prossima parola più probabile. Non ha concett
 
 \vspace{0.5cm}
 
-![Figura 2: Allucinazioni LLM](immagini/allucinazioni_llm.png){width=100% fig-align="center"}
+![Figura 3: Allucinazioni LLM](immagini/allucinazioni_llm.png){width=100% fig-align="center"}
 
 \vspace{0.5cm}
 
@@ -174,7 +362,7 @@ Gli LLM operano essenzialmente come se avessero solo il Sistema 1 della cognizio
 
 \vspace{0.5cm}
 
-![Figura 3: Kahneman Book](immagini/kahneman_book.jpg){width=83% fig-align="center"}
+![Figura 4: Kahneman Book](immagini/kahneman_book.jpg){width=83% fig-align="center"}
 
 \vspace{0.5cm}
 
@@ -203,7 +391,7 @@ Link al paper: [transformer-circuits.pub/2025/attribution-graphs/biology.html](h
 
 Queste scoperte dimostrano che gli LLM sono molto più di un "T9 con gli steroidi" - sono sistemi complessi con meccanismi di ragionamento emergenti che stiamo appena iniziando a comprendere.
 
-![Figura 4: On the Biology of LLM](immagini/On_the_Biology_of_LLM.png){width=83% fig-align="center"}
+![Figura 5: On the Biology of LLM](immagini/On_the_Biology_of_LLM.png){width=83% fig-align="center"}
 
 ### Prompt Injection
 
@@ -219,7 +407,7 @@ Immaginate di vivere come il protagonista del film "Memento": ogni volta che vi 
 
 \vspace{0.5cm}
 
-![Figura 5: Memento Poster](immagini/memento_poster.jpg){width=62% fig-align="center"}
+![Figura 6: Memento Poster](immagini/memento_poster.jpg){width=62% fig-align="center"}
 
 \vspace{0.5cm}
 
