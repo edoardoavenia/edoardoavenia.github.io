@@ -35,6 +35,40 @@ ul.task-list li input[type="checkbox"] {
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="index_files/libs/bootstrap/bootstrap-98cad52ce7327bfd42cee12d434ba08f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>
+/* Fix per overflow della riga di puntini */
+.callout {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.callout-body-container {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+
+.callout-body-container p {
+  word-break: break-all !important;
+  overflow-wrap: anywhere !important;
+  white-space: normal !important;
+  max-width: 100% !important;
+}
+
+/* Specifico per i puntini */
+.callout-body-container pre {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+  overflow-wrap: anywhere !important;
+  max-width: min(50ch, 100%) !important;
+  overflow-x: hidden !important;
+}
+
+.callout-body-container div[style*="max-width"] {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -211,11 +245,31 @@ window.Quarto = {
 <section id="esercizio-1-il-test-dei-puntini" class="level3">
 <h3 class="anchored" data-anchor-id="esercizio-1-il-test-dei-puntini">Esercizio 1: Il Test dei Puntini</h3>
 <p><strong>Fase 1:</strong> Copiate e incollate questa riga di puntini in ChatGPT e chiedete: “Quanti puntini ci sono in questa riga?”</p>
-<p>……………………………………………………………………………………………………………………………………</p>
-<p>La risposta sarà qualcosa tipo “Ci sono 120 puntini”. Riprovate: “190”, riprovate ancora vi darà “270”, poi “125”. Quasi sempre sicurissima, quasi sempre sbagliata. (Sono esattamente 150 puntini).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Riga di 115 puntini per il test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div style="max-width: 100%; overflow-x: hidden;">
+<pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: anywhere; margin: 0; font-family: monospace; max-width: 50ch; word-break: break-all;">...................................................................................................................</pre>
+</div>
+</div>
+</div>
+<p>La risposta sarà qualcosa tipo “Ci sono 120 puntini”. Riprovate: “190”, riprovate ancora vi darà “99”, poi “125”. Quasi sempre sicurissima, quasi sempre sbagliata. (Sono esattamente 115 puntini).</p>
 <p><strong>Fase 2:</strong> Perché sbaglia un compito così banale? Andiamo su un tokenizer online (esempio: <a href="https://platform.openai.com/tokenizer">platform.openai.com/tokenizer</a>) e incolliamo la stringa.</p>
-<p>L’intera sequenza di 150 puntini viene rappresentata da soli 4 token! L’LLM non vede singoli puntini ma gruppi. Non può contarli perché dal suo punto di vista non esistono individualmente.</p>
+<p>L’intera sequenza di 115 puntini viene rappresentata da soli 4 token! L’LLM non vede singoli puntini ma gruppi. Non può contarli perché dal suo punto di vista non esistono individualmente.</p>
 <p>Problemi simili emergono con domande tipo “Quante lettere ‘e’ ci sono in ‘eccellente’?”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="immagini/llm-tokens-dots.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>Figura 1: Tokenizzazione dei puntini</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="matematica" class="level2">
@@ -224,7 +278,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="immagini/math_LLM_example.png" class="img-fluid figure-img" style="width:89.0%"></p>
-<figcaption>Figura 1: Esempio di calcolo matematico con LLM</figcaption>
+<figcaption>Figura 2: Esempio di calcolo matematico con LLM</figcaption>
 </figure>
 </div>
 <section id="esercizio-2-la-moltiplicazione" class="level3">
@@ -251,7 +305,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="immagini/allucinazioni_llm.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Figura 2: Allucinazioni LLM</figcaption>
+<figcaption>Figura 3: Allucinazioni LLM</figcaption>
 </figure>
 </div>
 </section>
@@ -285,7 +339,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="immagini/kahneman_book.jpg" class="img-fluid figure-img" style="width:83.0%"></p>
-<figcaption>Figura 3: Kahneman Book</figcaption>
+<figcaption>Figura 4: Kahneman Book</figcaption>
 </figure>
 </div>
 <p>Questo Sistema 1 è caratterizzato da:</p>
@@ -314,7 +368,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="immagini/On_the_Biology_of_LLM.png" class="img-fluid figure-img" style="width:83.0%"></p>
-<figcaption>Figura 4: On the Biology of LLM</figcaption>
+<figcaption>Figura 5: On the Biology of LLM</figcaption>
 </figure>
 </div>
 </section>
@@ -332,7 +386,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="immagini/memento_poster.jpg" class="img-fluid figure-img" style="width:62.0%"></p>
-<figcaption>Figura 5: Memento Poster</figcaption>
+<figcaption>Figura 6: Memento Poster</figcaption>
 </figure>
 </div>
 <p>Ogni volta che iniziate una nuova chat, l’LLM è esattamente come quando ha finito il training. Non ha alcuna memoria delle conversazioni precedenti con voi o con altri utenti. I pesi della rete neurale rimangono immutati - è sempre lo stesso modello “congelato”.</p>
@@ -788,6 +842,146 @@ window.Quarto = {
 <a href="/corso-llm/introduzione-prompt-engineering/">Prossimo modulo →</a>
 </div>
 <script src="../theme-toggle.js"></script>
+<style>
+/* Stili per il pulsante di copia nei callout */
+.callout {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.copy-callout-btn {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.copy-callout-btn:hover {
+  opacity: 1;
+  background: #e0e0e0;
+}
+
+.copy-callout-btn.copied {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+  animation: copySuccess 0.6s ease;
+}
+
+@keyframes copySuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.copy-callout-btn .icon {
+  margin-right: 4px;
+}
+
+/* Gestione overflow per contenuti lunghi nei callout */
+.callout-body-container {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  overflow-x: hidden;
+}
+
+/* Specifico per il contenuto con puntini */
+.callout-body-container p {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  max-width: 100%;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const callouts = document.querySelectorAll('.callout');
+
+  callouts.forEach((callout, index) => {
+    // Crea il pulsante di copia
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-callout-btn';
+    copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+    copyBtn.setAttribute('data-callout-id', index);
+
+    // Aggiungi il pulsante al callout
+    callout.appendChild(copyBtn);
+  });
+
+  // Gestisci i click sui pulsanti di copia
+  document.addEventListener('click', async function(e) {
+    if (!e.target.closest('.copy-callout-btn')) return;
+
+    const copyBtn = e.target.closest('.copy-callout-btn');
+    const calloutId = copyBtn.getAttribute('data-callout-id');
+    const callout = document.querySelectorAll('.callout')[calloutId];
+
+    // Cerca specificamente il contenuto del <pre> tag per i puntini
+    const preElement = callout.querySelector('pre');
+    let textToCopy;
+
+    if (preElement) {
+      // Se c'è un <pre>, copia solo il suo contenuto
+      textToCopy = preElement.innerText || preElement.textContent;
+    } else {
+      // Fallback per altri callout
+      const tempBtn = copyBtn.cloneNode(true);
+      copyBtn.style.display = 'none';
+      textToCopy = callout.innerText;
+      copyBtn.style.display = '';
+
+      // Pulisci il testo
+      textToCopy = textToCopy.replace(/📋Copia|✓Copiato!/g, '').trim();
+      textToCopy = textToCopy.replace(/\*\*/g, '');
+    }
+
+    try {
+      // Copia il testo negli appunti
+      await navigator.clipboard.writeText(textToCopy.trim());
+
+      // Mostra feedback visivo
+      copyBtn.classList.add('copied');
+      copyBtn.innerHTML = '<span class="icon">✓</span>Copiato!';
+
+      // Ripristina dopo 2 secondi
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+      }, 2000);
+
+    } catch (err) {
+      console.error('Errore nella copia:', err);
+
+      // Fallback per browser più vecchi
+      const textArea = document.createElement('textarea');
+      textArea.value = textToCopy.trim();
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        copyBtn.classList.add('copied');
+        copyBtn.innerHTML = '<span class="icon">✓</span>Copiato!';
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          copyBtn.innerHTML = '<span class="icon">📋</span>Copia';
+        }, 2000);
+      } catch (fallbackErr) {
+        console.error('Errore anche nel fallback:', fallbackErr);
+      }
+      document.body.removeChild(textArea);
+    }
+  });
+});
+</script>
 
 
 
