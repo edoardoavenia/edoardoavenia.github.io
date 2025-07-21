@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Edoardo Avenia">
+
+<title>Tool per LLM</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-9425930b91d061205d5859b704501f6a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+</head><body class="quarto-light">\usepackage{fancyhdr}
+\pagestyle{fancy}
+\thispagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\includegraphics[width=2.2cm]{immagini/logo.png}}
+\renewcommand{\headrulewidth}{0pt}
+\let\oldmaketitle\maketitle
+\renewcommand{\maketitle}{\oldmaketitle\tableofcontents}
+
+
+
+
+
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Altri Formati</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tool per LLM</h1>
+<p class="subtitle lead">Corso LLM - Modulo 8</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autore/Autrice</div>
+    <div class="quarto-title-meta-contents">
+             <p>Edoardo Avenia </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="levoluzione-da-chatbot-a-collaboratori" class="level2">
+<h2 class="anchored" data-anchor-id="levoluzione-da-chatbot-a-collaboratori">L’Evoluzione da Chatbot a Collaboratori</h2>
+<p>Ricordate i primi giorni di ChatGPT? Era novembre 2022, e molti erano affascinati da questo chatbot che poteva conversare su qualsiasi argomento. Ma c’era un problema fondamentale: era solo una finestra di chat. Scrivevi, copiavi la risposta, la incollavi dove serviva. Ripetevi il processo. Ancora. E ancora.</p>
+<p>Oggi quella finestra di chat si è trasformata in qualcosa di profondamente diverso. L’evoluzione è stata graduale ma inesorabile: la capacità di cercare online è arrivata dopo mesi di sviluppo, poi sono arrivati i plugin sperimentali, la generazione immagini, le azioni dei GPTs, gli artefatti ed i canvas, ora tramite i server MCP i modelli possono essere collegati a moltissimo software. Ogni aggiornamento ha aggiunto un tassello, trasformando progressivamente un chatbot in quello che oggi potremmo definire un collaboratore digitale.</p>
+<p>Gli LLM non sono più solo chatbot - sono diventati orchestratori di capacità che possono vedere, creare, analizzare e interagire con il mondo digitale quasi come farebbe un collega umano. Questa trasformazione non è solo tecnologica; è un cambio di paradigma nel modo in cui lavoriamo.</p>
+<p>Per capire questa evoluzione, dobbiamo partire da un concetto fondamentale: i tool. Ma cosa sono esattamente i tool nel contesto degli LLM? E perché stanno rivoluzionando il modo in cui lavoriamo? </p>
+<div class="center">
+<p><img src="immagini/anthropic-tools.png" class="img-fluid" style="width:70.0%"></p>
+</div>
+</section>
+<section id="il-concetto-di-tool-negli-llm" class="level2">
+<h2 class="anchored" data-anchor-id="il-concetto-di-tool-negli-llm">Il Concetto di Tool negli LLM</h2>
+<section id="cosa-sono-davvero-i-tool" class="level3">
+<h3 class="anchored" data-anchor-id="cosa-sono-davvero-i-tool">Cosa Sono Davvero i Tool</h3>
+<p>Immaginate di avere un assistente brillante ma chiuso in una stanza senza finestre. Può ragionare, scrivere, creare, ma non può vedere cosa succede fuori, non può usare un computer, non può nemmeno sapere che ore sono. Questo erano gli LLM fino a poco tempo fa: intelligenze capaci ma isolate dal mondo.</p>
+<p>I tool sono le “finestre” e gli “strumenti” che diamo a questi assistenti. Tecnicamente, sono funzioni che il modello può decidere di chiamare quando necessario. Ma c’è un aspetto cruciale da capire per chi non è tecnico: quando un LLM “chiama” un tool, in realtà sta solo scrivendo. L’LLM può solo generare testo - è tutto quello che sa fare.</p>
+<p>Pensateci come a un essere umano che deve fare una ricerca online. Voi potete cercare su Google? Sì, ma vi serve lo strumento giusto: un browser, una tastiera per inserire la query, uno schermo per vedere i risultati. Il browser deve essere progettato per interfacciarsi con voi - con le vostre mani, i vostri occhi. Allo stesso modo, i tool devono essere progettati per interfacciarsi con l’LLM attraverso l’unico mezzo che conosce: il testo.</p>
+</section>
+<section id="come-funziona-il-meccanismo" class="level3">
+<h3 class="anchored" data-anchor-id="come-funziona-il-meccanismo">Come Funziona il Meccanismo</h3>
+<p>Il processo è affascinante nella sua eleganza:</p>
+<ol type="1">
+<li><p><strong>Il modello riceve una richiesta</strong>: “Che tempo fa a Milano?”</p></li>
+<li><p><strong>Riconosce la necessità di un tool</strong>: Il modello capisce che serve informazione real-time che non possiede</p></li>
+<li><p><strong>Genera una “chiamata di funzione”</strong>: Invece di rispondere direttamente, scrive qualcosa come:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"function"</span><span class="fu">:</span> <span class="st">"weather"</span><span class="fu">,</span> <span class="dt">"parameters"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"city"</span><span class="fu">:</span> <span class="st">"Milano"</span><span class="fu">}}</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p><strong>La piattaforma interpreta</strong>: Questo testo speciale non viene mostrato all’utente. La piattaforma lo riconosce come un’istruzione</p></li>
+<li><p><strong>Il sistema esegue</strong>: La piattaforma chiama davvero l’API meteo</p></li>
+<li><p><strong>Il risultato torna al modello</strong>: “Milano: 22°C, sereno”</p></li>
+<li><p><strong>Il modello genera la risposta finale</strong>: “A Milano ci sono 22 gradi con cielo sereno. Una bella giornata!”</p></li>
+</ol>
+<p>Questo meccanismo di “function calling” ha aperto possibilità prima impossibili. Questa capacità di generare output strutturato che trasforma un chatbot in un sistema capace di agire.</p>
+</section>
+<section id="limpatto-rivoluzionario" class="level3">
+<h3 class="anchored" data-anchor-id="limpatto-rivoluzionario">L’Impatto Rivoluzionario</h3>
+<p>La differenza può sembrare sottile, ma è profonda. Prima, gli LLM potevano solo parlare del mondo. Ora possono interagire con esso. Prima potevano solo descrivere come inviare un’email. Ora possono davvero inviarla.</p>
+<p>Un esempio che chiarisce tutto: chiedete a un LLM senza tool “Quanti file ci sono nella mia cartella Documenti?” Non può rispondere - non ha accesso al vostro computer. Ma con il tool giusto, può:</p>
+<ol type="1">
+<li>Generare la chiamata per accedere al filesystem</li>
+<li>Ricevere la lista dei file</li>
+<li>Contarli e rispondere con precisione</li>
+</ol>
+<p>È come dare vista a chi era cieco, mani a chi non poteva toccare. E questo è solo l’inizio.</p>
+<div class="center">
+<p><img src="immagini/tools-list.png" class="img-fluid"></p>
+</div>
+</section>
+</section>
+<section id="tool-di-ricerca-lai-che-naviga-internet" class="level2">
+<h2 class="anchored" data-anchor-id="tool-di-ricerca-lai-che-naviga-internet">Tool di Ricerca: L’AI che Naviga Internet</h2>
+<section id="il-problema-della-conoscenza-congelata" class="level3">
+<h3 class="anchored" data-anchor-id="il-problema-della-conoscenza-congelata">Il Problema della Conoscenza Congelata</h3>
+<p>C’è una categoria di domande che ogni utente di ChatGPT ha fatto almeno una volta: “Chi ha vinto le elezioni?” O magari: “Qual è il prezzo attuale di Bitcoin?” o altre domande su dati real time. E la risposta, frustrante, se non era un’allucinazione era qualcosa tipo: “Mi dispiace, il mio training si ferma a…”</p>
+<p>Questo limite non era un difetto di progettazione, ma una necessità tecnica. I modelli vengono addestrati su enormi quantità di dati, un processo che richiede mesi e congela la conoscenza a un momento specifico nel tempo.</p>
+<p>I tool di ricerca hanno cambiato tutto. Ma non è stato un processo immediato o semplice.</p>
+</section>
+<section id="lanatomia-di-una-ricerca-ai" class="level3">
+<h3 class="anchored" data-anchor-id="lanatomia-di-una-ricerca-ai">L’Anatomia di una Ricerca AI</h3>
+<p>Prima di tutto, c’è qualcosa che non vedete ma che è fondamentale: il system prompt. Questo prompt invisibile viene prima di ogni vostra domanda e contiene, tra le altre cose, la lista dei tool che l’LLM può usare e le istruzioni su come usarli.</p>
+<p>Quando fate una domanda che richiede l’uso di un tool:</p>
+<ol type="1">
+<li><strong>Il modello interpreta il bisogno</strong>: Basandosi sul system prompt e sulla vostra domanda, capisce che serve un tool</li>
+<li><strong>Scrive la chiamata</strong>: Genera il testo strutturato per invocare il tool di ricerca</li>
+<li><strong>La piattaforma intercetta</strong>: Non vedete questo testo - se la piattaforma è fatta bene, vi mostra un’animazione tipo “ricerca online in corso”</li>
+<li><strong>Esecuzione e attesa</strong>: La ricerca viene effettuata mentre voi vedete l’indicatore di caricamento</li>
+<li><strong>Integrazione dei risultati</strong>: Il modello riprende la generazione con accesso a tutto: la vostra domanda originale, la conversazione, il system prompt, E i risultati della ricerca</li>
+<li><strong>Risposta informata</strong>: Ora può rispondere usando le informazioni trovate online</li>
+</ol>
+<p>La differenza cruciale qui è tra “sapere” e “cercare”. Il modello non impara permanentemente dalle ricerche - ogni volta che chiudete la conversazione, quella conoscenza acquisita svanisce.</p>
+<div class="center">
+<p><img src="immagini/search-include-anthropic.png" class="img-fluid"></p>
+</div>
+</section>
+<section id="linterfaccia-della-ricerca" class="level3">
+<h3 class="anchored" data-anchor-id="linterfaccia-della-ricerca">L’Interfaccia della Ricerca</h3>
+<p>Una buona piattaforma bilancia trasparenza ed esperienza utente. Deve mostrare chiaramente quando sta usando un tool di ricerca - a volte non volete che faccia ricerche, altre volte è essenziale. L’interfaccia deve dare un feedback visivo chiaro così potete capire se sta cercando o meno.</p>
+<p>Inoltre, le migliori implementazioni citano le fonti nella risposta con link cliccabili. Questo vi permette di verificare le informazioni e approfondire se necessario.</p>
+<p><strong>Perplexity</strong> merita una menzione speciale: è stata una delle prime piattaforme nate specificamente per la ricerca, proponendosi come l’unione perfetta tra un chatbot e un motore di ricerca. Al suo interno ci sono vari modelli e l’esperienza è ottimizzata per trovare e sintetizzare informazioni. Ma ormai tutte le grandi piattaforme hanno integrato tool di ricerca efficaci.</p>
+</section>
+<section id="i-limiti-del-possibile" class="level3">
+<h3 class="anchored" data-anchor-id="i-limiti-del-possibile">I Limiti del Possibile</h3>
+<p>Ma ci sono vincoli importanti da comprendere:</p>
+<p><strong>robot.txt e accesso limitato</strong>: Molti siti bloccano l’accesso automatizzato. È come avere una biblioteca dove alcune stanze sono chiuse a chiave.</p>
+<p><strong>Il problema del “search poisoning”</strong>: Pagine create specificamente per ingannare AI esistono e si moltiplicano. I modelli devono costantemente affinare la capacità di distinguere fonti affidabili.</p>
+<p><strong>Freschezza vs affidabilità</strong>: Le informazioni più recenti non sono sempre le più accurate. C’è una tensione costante tra essere aggiornati e essere corretti.</p>
+<p>Un esempio illuminante: chiedete del meteo di oggi. Semplice, riceve dati da API affidabili. Chiedete un’analisi della situazione geopolitica attuale. Complesso, richiede sintesi di fonti multiple potenzialmente contraddittorie.</p>
+<p>Le ricerche, come anche le fonti scritte caricate da voi, riducono il rischio di allucinazione perché i token più probabili saranno influenzati dalle fonti usate. Ma introducono altri rischi: non sempre le fonti sono vere, per questo vanno verificate. Senza ricerca non possiamo sapere come è stato fatto quel calcolo che deriva essenzialmente da pattern appresi nell’allenamento. Con la ricerca, la risposta si basa fortemente su pagine web che possiamo consultare.</p>
+</section>
+</section>
+<section id="artefatti-e-canvas-una-rivoluzione-nellinterfaccia" class="level2">
+<h2 class="anchored" data-anchor-id="artefatti-e-canvas-una-rivoluzione-nellinterfaccia">Artefatti e Canvas: Una Rivoluzione nell’Interfaccia</h2>
+<div class="center">
+<p><img src="immagini/bad-message-example.png" class="img-fluid" style="width:70.0%"></p>
+</div>
+<section id="il-problema-che-nessuno-vedeva" class="level3">
+<h3 class="anchored" data-anchor-id="il-problema-che-nessuno-vedeva">Il Problema che Nessuno Vedeva</h3>
+<p>C’è un momento che tutti abbiamo vissuto. L’AI genera una risposta perfetta - una email professionale, un report dettagliato, del codice pulito. E poi inizia il calvario: “Certamente! Ecco la tua email professionale:” seguito dal contenuto che volevi. Copi tutto. Togli la parte introduttiva. Formatti. Sistemi.</p>
+<p>Piccola modifica? Ricopi tutto nel prompt, aspetti la rigenerazione completa, ricopi, riformatti. Un’altra modifica? Ripeti. È un workflow che definire frustrante è un eufemismo.</p>
+<p>Questo processo era così comune che non ci facevamo più caso. Era “come funzionano i chatbot”. Poi, nell’estate 2024, tutto è cambiato.</p>
+</section>
+<section id="claude-artifacts" class="level3">
+<h3 class="anchored" data-anchor-id="claude-artifacts">Claude Artifacts</h3>
+<p>Il 21 giugno 2024, Anthropic annunciò Claude 3.5 Sonnet insieme a una nuova feature chiamata Artifacts. Non era solo una funzionalità - era una filosofia completamente nuova.</p>
+<p>L’insight fondamentale era semplice: conversazione e contenuto sono cose diverse. La chat è per discutere, iterare, esplorare. Il contenuto - il documento, il codice, il diagramma - merita il suo spazio dedicato.</p>
+<p>Tecnicamente, quando Claude genera un Artifact:</p>
+<ol type="1">
+<li>Riconosce che il contenuto è sostanziale (oltre 20 righe o 1500 caratteri)</li>
+<li>Lo marca con tag speciali nel suo output</li>
+<li>La piattaforma lo intercetta e lo renderizza in un pannello separato</li>
+<li>Mantiene versioning e stato attraverso l’intera conversazione</li>
+</ol>
+<p>La vera magia è nell’esperienza utente.</p>
+</section>
+<section id="i-tipi-di-artifacts-oltre-il-testo" class="level3">
+<h3 class="anchored" data-anchor-id="i-tipi-di-artifacts-oltre-il-testo">I Tipi di Artifacts: Oltre il Testo</h3>
+<p>Claude supporta diversi tipi di Artifacts, ognuno con capacità uniche:</p>
+<p><strong>Documenti (Markdown)</strong>: Non semplice testo, ma documenti strutturati con formattazione ricca. Perfetti per report, proposte, documentazione. L’export è pulito e professionale.</p>
+<p><strong>SVG e Diagrammi</strong>: Grafici vettoriali editabili. Ideali per infografiche, schemi, visualizzazioni che devono essere precise e scalabili.</p>
+<p><strong>Mermaid Diagrams</strong>: Flowchart, sequence diagram, gantt chart generati da descrizioni testuali. Si aggiornano dinamicamente mentre iterate sul design.</p>
+<p>Il momento “wow” arriva quando realizzi la potenza. “Crea un diagramma di flusso per il nostro processo di onboarding clienti” diventa un diagramma professionale in 30 secondi. “Aggiorna per includere il nuovo step di verifica” e il diagramma si riorganizza automaticamente.</p>
+</section>
+<section id="chatgpt-canvas-levoluzione-del-concetto" class="level3">
+<h3 class="anchored" data-anchor-id="chatgpt-canvas-levoluzione-del-concetto">ChatGPT Canvas: L’Evoluzione del Concetto</h3>
+<p>OpenAI lanciò Canvas nell’ottobre 2024, osservando attentamente cosa ha fatto Anthropic e spingendo il concetto in una direzione diversa: collaborazione diretta invece di generazione e visualizzazione.</p>
+<p>Le differenze sono sostanziali:</p>
+<p><strong>Editing In-Place</strong>: In Canvas puoi cliccare e modificare direttamente. Non è più un modello che genera e tu che osservi - è vera collaborazione. Vedi il cursore dell’AI che fa modifiche mentre tu lavori. La sensazione è quella di Google Docs, ma con un collaboratore che capisce le tue intenzioni al volo.</p>
+<div class="center">
+<p><img src="immagini/openai-chatgpt-artifacts.png" class="img-fluid"></p>
+</div>
+<p>La filosofia è chiara: Artifacts separa conversazione e contenuto. Canvas li fonde in un’esperienza collaborativa unificata.</p>
+</section>
+<section id="il-confronto-che-conta" class="level3">
+<h3 class="anchored" data-anchor-id="il-confronto-che-conta">Il Confronto che Conta</h3>
+<p>Non è una gara. Sono approcci diversi per esigenze diverse:</p>
+<ul>
+<li><strong>Usa Artifacts</strong> quando vuoi generare contenuto pulito e iterare mantenendo la conversazione separata</li>
+<li><strong>Usa Canvas</strong> quando vuoi lavorare gomito a gomito con l’AI sul documento stesso</li>
+</ul>
+<p>Entrambi risolvono il problema fondamentale: eliminare il tedioso copia-incolla. Entrambi trasformano l’AI da generatore di testo a vero collaboratore creativo.</p>
+<div class="center">
+<p><img src="immagini/gemini-artifacts.png" class="img-fluid"></p>
+</div>
+<p>Vale la pena notare che anche Gemini ha recentemente aggiunto i canvas, in uno stile simile a quello di ChatGPT dove sia l’utente che l’AI possono modificare direttamente i documenti.</p>
+</section>
+</section>
+<section id="tool-di-codice-quando-lai-programma" class="level2">
+<h2 class="anchored" data-anchor-id="tool-di-codice-quando-lai-programma">Tool di Codice: Quando l’AI Programma</h2>
+<p>Gli LLM sono straordinariamente bravi a programmare. Come conoscono molte lingue naturali, conoscono anche moltissimi linguaggi di programmazione. Python e i linguaggi web come HTML, CSS e JavaScript sono i loro punti di forza, essendo abbondantemente presenti nei dati di addestramento.</p>
+<p>Ma fino a poco fa, il codice generato era come un’email: andava copiato e usato da un programmatore. L’evoluzione rivoluzionaria è che ora l’LLM può non solo scrivere il codice, ma anche eseguirlo direttamente tramite un tool.</p>
+<section id="code-interpreter-il-veterano" class="level3">
+<h3 class="anchored" data-anchor-id="code-interpreter-il-veterano">Code Interpreter: Il Veterano</h3>
+<p>La capacità di eseguire codice è stata una delle aggiunte più rivoluzionarie agli LLM. Ma il percorso è stato tutt’altro che lineare.</p>
+<p><strong>Code Interpreter</strong> (il veterano di ChatGPT) gira in container isolati sui server di OpenAI. Python completo, librerie scientifiche pre-installate, può processare dati. Ma c’è un limite cruciale: zero accesso a internet per ragioni di sicurezza. È potente ma isolato.</p>
+<p>Questo strumento risolve già elegantemente il problema che abbiamo visto nel Modulo 2 del contare i punti. L’LLM non sa quanti punti ci sono perché vede token che ne contengono molti assieme, ma sa scrivere esattamente gli stessi token in un interprete di codice per calcolare il vero risultato.</p>
+<p>Se volete provare, ecco gli stessi 150 punti del Modulo 2:</p>
+<p>…………………………………………………………………………………………………….</p>
+<div class="center">
+<p><img src="immagini/code-interpreter-dots.png" class="img-fluid"></p>
+</div>
+<p>Anche le operazioni matematiche, che abbiamo visto essere un forte limite dopo una certa difficoltà, possono essere risolte brillantemente con il tool Code Interpreter. Calcoli complessi, analisi statistiche, manipolazione di dataset - tutto diventa possibile.</p>
+<div class="center">
+<p><img src="immagini/code-interpreter-math.png" class="img-fluid"></p>
+</div>
+</section>
+<section id="canvas-con-pyodide-e-la-vera-rivoluzione" class="level3">
+<h3 class="anchored" data-anchor-id="canvas-con-pyodide-e-la-vera-rivoluzione">Canvas con Pyodide e la Vera Rivoluzione</h3>
+<p><strong>Canvas con Pyodide</strong> rappresenta un approccio diverso in pratica: Python che gira nel vostro browser, non su server remoti.</p>
+<p>Ma la vera rivoluzione sono proprio gli Artifacts di codice:</p>
+<p><strong>HTML/CSS/JavaScript</strong>: Scrivi, visualizzi, itera. In tempo reale. “Crea una landing page per il nostro nuovo prodotto” diventa una pagina funzionante in 60 secondi.</p>
+<p><strong>React Components</strong>: Qui la magia raggiunge l’apice. Applicazioni interattive complete, con stato, eventi, tutto funzionante. “Crea un dashboard per monitorare le vendite con grafici interattivi” e in 60 secondi hai:</p>
+<ul>
+<li>Grafici che si aggiornano</li>
+<li>Filtri funzionanti</li>
+<li>Responsive design</li>
+<li>Codice pulito e commentato</li>
+</ul>
+</section>
+<section id="un-esempio-di-interfaccia-interattiva" class="level3">
+<h3 class="anchored" data-anchor-id="un-esempio-di-interfaccia-interattiva">Un Esempio di interfaccia interattiva</h3>
+<p>Volete vedere la potenza? Ecco un test reale:</p>
+<p>“Crea un’applicazione per tracciare le spese mensili con:</p>
+<ul>
+<li>Form per aggiungere spese</li>
+<li>Categorie personalizzabili</li>
+<li>Grafico a torta delle spese per categoria</li>
+<li>Export ed import dati in CSV”</li>
+</ul>
+<p>Risultato in 45 secondi:</p>
+<ul>
+<li>Applicazione React completa</li>
+<li>200+ righe di codice pulito</li>
+<li>Interfaccia professionale</li>
+<li>Tutte le funzionalità richieste</li>
+<li>Pronta per essere salvata e usata</li>
+</ul>
+<div class="center">
+<p><img src="immagini/react-expense-tracker.png" class="img-fluid"></p>
+</div>
+<p>Il codice non è perfetto. Ma è un prototipo funzionante che prima avrebbe richiesto ore. È questa la rivoluzione: dalla idea al prototipo testabile in meno tempo di quanto serva per fare un caffè.</p>
+</section>
+</section>
+<section id="il-futuro-mcp-e-integrazioni-avanzate" class="level2">
+<h2 class="anchored" data-anchor-id="il-futuro-mcp-e-integrazioni-avanzate">Il Futuro: MCP e Integrazioni Avanzate</h2>
+<section id="model-context-protocol-lo-standard-che-cambierà-tutto" class="level3">
+<h3 class="anchored" data-anchor-id="model-context-protocol-lo-standard-che-cambierà-tutto">Model Context Protocol: Lo Standard che Cambierà Tutto</h3>
+<p>Nel novembre 2024, Anthropic ha annunciato il Model Context Protocol (MCP)</p>
+<p>L’analogia migliore? USB per l’LLM.</p>
+<p>Prima di USB, ogni dispositivo aveva il suo connettore proprietario. Stampanti, scanner, tastiere - tutto richiedeva porte e driver specifici. USB ha standardizzato tutto. MCP fa lo stesso per le connessioni LLM.</p>
+<p>Tecnicamente, MCP definisce:</p>
+<ul>
+<li>Schema standardizzato per descrivere tool e capacità</li>
+<li>Protocollo di comunicazione bidirezionale</li>
+<li>Gestione stato e sessioni persistenti</li>
+<li>Sicurezza e permessi granulari</li>
+</ul>
+<p>Praticamente, significa che presto potrete:</p>
+<ul>
+<li>Connettere qualsiasi LLM al vostro CRM aziendale con un click</li>
+<li>Dare accesso selettivo e sicuro a database interni</li>
+<li>Implementare workflow che sopravvivono tra sessioni</li>
+<li>Condividere tool tra diversi modelli LLM</li>
+</ul>
+<p>Come evidenziato dalla rapida adozione, major providers inclusi OpenAI e Google DeepMind hanno già abbracciato lo standard. Non è solo una specifica tecnica - è il futuro dell’interoperabilità LLM.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
