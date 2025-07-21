@@ -4,34 +4,30 @@ subtitle: "Corso LLM - Modulo 8"
 author: "Edoardo Avenia"
 lang: it
 format:
-  pdf:
-    documentclass: article
-    papersize: a4
-    geometry:
-      - margin=2.5cm
-    fontsize: 11pt
-    linestretch: 1.2
-    toc-depth: 2
-    number-sections: true
-    colorlinks: true
-    linkcolor: blue
-    fig-pos: 'H'
-    keep-tex: false
-    fig-cap: false
-header-includes:
-  - |-
-    \usepackage{fancyhdr}
-    \pagestyle{fancy}
-    \thispagestyle{fancy}
-    \fancyhf{}
-    \fancyhead[R]{\includegraphics[width=2.2cm]{immagini/logo.png}}
-    \renewcommand{\headrulewidth}{0pt}
-    \let\oldmaketitle\maketitle
-    \renewcommand{\maketitle}{\oldmaketitle\tableofcontents}
+  html:
+    theme: cosmo
+    css: 
+      - "../../style.css"
+      - "../corso-theme.css"
+    toc: true
+    include-before-body:
+      text: |
+        <div class="theme-toggle">
+          <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="section-2">
+        <a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
+    include-after-body:
+      text: |
+        </div>
+        <div class="section-2" style="margin-top: 50px;">
+        <a href="/corso-llm/personalizzazione-llm/">← Modulo precedente</a>
+        </div>
+        <script src="../theme-toggle.js"></script>
 ---
-
-\vspace{4cm}
-
 
 ## L'Evoluzione da Chatbot a Collaboratori
 
@@ -42,7 +38,6 @@ Oggi quella finestra di chat si è trasformata in qualcosa di profondamente dive
 Gli LLM non sono più solo chatbot - sono diventati orchestratori di capacità che possono vedere, creare, analizzare e interagire con il mondo digitale quasi come farebbe un collega umano. Questa trasformazione non è solo tecnologica; è un cambio di paradigma nel modo in cui lavoriamo.
 
 Per capire questa evoluzione, dobbiamo partire da un concetto fondamentale: i tool. Ma cosa sono esattamente i tool nel contesto degli LLM? E perché stanno rivoluzionando il modo in cui lavoriamo?
-\vspace{1cm}
 
 ::: {.center}
 ![](immagini/anthropic-tools.png){width=70%}
@@ -265,8 +260,6 @@ Ma la vera rivoluzione sono proprio gli Artifacts di codice:
 - Responsive design
 - Codice pulito e commentato
 
-\vspace{2cm}
-
 
 ### Un Esempio di interfaccia interattiva
 
@@ -292,8 +285,6 @@ Risultato in 45 secondi:
 :::
 
 Il codice non è perfetto. Ma è un prototipo funzionante che prima avrebbe richiesto ore. È questa la rivoluzione: dalla idea al prototipo testabile in meno tempo di quanto serva per fare un caffè.
-
-\vspace{3cm}
 
 
 ## Il Futuro: MCP e Integrazioni Avanzate

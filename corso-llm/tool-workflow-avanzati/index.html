@@ -69,25 +69,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-9425930b91d061205d5859b704501f6a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-</head><body class="quarto-light">\usepackage{fancyhdr}
-\pagestyle{fancy}
-\thispagestyle{fancy}
-\fancyhf{}
-\fancyhead[R]{\includegraphics[width=2.2cm]{immagini/logo.png}}
-\renewcommand{\headrulewidth}{0pt}
-\let\oldmaketitle\maketitle
-\renewcommand{\maketitle}{\oldmaketitle\tableofcontents}
+<link href="index_files/libs/bootstrap/bootstrap-98cad52ce7327bfd42cee12d434ba08f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../corso-theme.css">
+</head>
 
-
-
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Altri Formati</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#levoluzione-da-chatbot-a-collaboratori" id="toc-levoluzione-da-chatbot-a-collaboratori" class="nav-link active" data-scroll-target="#levoluzione-da-chatbot-a-collaboratori">L’Evoluzione da Chatbot a Collaboratori</a></li>
+  <li><a href="#il-concetto-di-tool-negli-llm" id="toc-il-concetto-di-tool-negli-llm" class="nav-link" data-scroll-target="#il-concetto-di-tool-negli-llm">Il Concetto di Tool negli LLM</a>
+  <ul class="collapse">
+  <li><a href="#cosa-sono-davvero-i-tool" id="toc-cosa-sono-davvero-i-tool" class="nav-link" data-scroll-target="#cosa-sono-davvero-i-tool">Cosa Sono Davvero i Tool</a></li>
+  <li><a href="#come-funziona-il-meccanismo" id="toc-come-funziona-il-meccanismo" class="nav-link" data-scroll-target="#come-funziona-il-meccanismo">Come Funziona il Meccanismo</a></li>
+  <li><a href="#limpatto-rivoluzionario" id="toc-limpatto-rivoluzionario" class="nav-link" data-scroll-target="#limpatto-rivoluzionario">L’Impatto Rivoluzionario</a></li>
+  </ul></li>
+  <li><a href="#tool-di-ricerca-lai-che-naviga-internet" id="toc-tool-di-ricerca-lai-che-naviga-internet" class="nav-link" data-scroll-target="#tool-di-ricerca-lai-che-naviga-internet">Tool di Ricerca: L’AI che Naviga Internet</a>
+  <ul class="collapse">
+  <li><a href="#il-problema-della-conoscenza-congelata" id="toc-il-problema-della-conoscenza-congelata" class="nav-link" data-scroll-target="#il-problema-della-conoscenza-congelata">Il Problema della Conoscenza Congelata</a></li>
+  <li><a href="#lanatomia-di-una-ricerca-ai" id="toc-lanatomia-di-una-ricerca-ai" class="nav-link" data-scroll-target="#lanatomia-di-una-ricerca-ai">L’Anatomia di una Ricerca AI</a></li>
+  <li><a href="#linterfaccia-della-ricerca" id="toc-linterfaccia-della-ricerca" class="nav-link" data-scroll-target="#linterfaccia-della-ricerca">L’Interfaccia della Ricerca</a></li>
+  <li><a href="#i-limiti-del-possibile" id="toc-i-limiti-del-possibile" class="nav-link" data-scroll-target="#i-limiti-del-possibile">I Limiti del Possibile</a></li>
+  </ul></li>
+  <li><a href="#artefatti-e-canvas-una-rivoluzione-nellinterfaccia" id="toc-artefatti-e-canvas-una-rivoluzione-nellinterfaccia" class="nav-link" data-scroll-target="#artefatti-e-canvas-una-rivoluzione-nellinterfaccia">Artefatti e Canvas: Una Rivoluzione nell’Interfaccia</a>
+  <ul class="collapse">
+  <li><a href="#il-problema-che-nessuno-vedeva" id="toc-il-problema-che-nessuno-vedeva" class="nav-link" data-scroll-target="#il-problema-che-nessuno-vedeva">Il Problema che Nessuno Vedeva</a></li>
+  <li><a href="#claude-artifacts" id="toc-claude-artifacts" class="nav-link" data-scroll-target="#claude-artifacts">Claude Artifacts</a></li>
+  <li><a href="#i-tipi-di-artifacts-oltre-il-testo" id="toc-i-tipi-di-artifacts-oltre-il-testo" class="nav-link" data-scroll-target="#i-tipi-di-artifacts-oltre-il-testo">I Tipi di Artifacts: Oltre il Testo</a></li>
+  <li><a href="#chatgpt-canvas-levoluzione-del-concetto" id="toc-chatgpt-canvas-levoluzione-del-concetto" class="nav-link" data-scroll-target="#chatgpt-canvas-levoluzione-del-concetto">ChatGPT Canvas: L’Evoluzione del Concetto</a></li>
+  <li><a href="#il-confronto-che-conta" id="toc-il-confronto-che-conta" class="nav-link" data-scroll-target="#il-confronto-che-conta">Il Confronto che Conta</a></li>
+  </ul></li>
+  <li><a href="#tool-di-codice-quando-lai-programma" id="toc-tool-di-codice-quando-lai-programma" class="nav-link" data-scroll-target="#tool-di-codice-quando-lai-programma">Tool di Codice: Quando l’AI Programma</a>
+  <ul class="collapse">
+  <li><a href="#code-interpreter-il-veterano" id="toc-code-interpreter-il-veterano" class="nav-link" data-scroll-target="#code-interpreter-il-veterano">Code Interpreter: Il Veterano</a></li>
+  <li><a href="#canvas-con-pyodide-e-la-vera-rivoluzione" id="toc-canvas-con-pyodide-e-la-vera-rivoluzione" class="nav-link" data-scroll-target="#canvas-con-pyodide-e-la-vera-rivoluzione">Canvas con Pyodide e la Vera Rivoluzione</a></li>
+  <li><a href="#un-esempio-di-interfaccia-interattiva" id="toc-un-esempio-di-interfaccia-interattiva" class="nav-link" data-scroll-target="#un-esempio-di-interfaccia-interattiva">Un Esempio di interfaccia interattiva</a></li>
+  </ul></li>
+  <li><a href="#il-futuro-mcp-e-integrazioni-avanzate" id="toc-il-futuro-mcp-e-integrazioni-avanzate" class="nav-link" data-scroll-target="#il-futuro-mcp-e-integrazioni-avanzate">Il Futuro: MCP e Integrazioni Avanzate</a>
+  <ul class="collapse">
+  <li><a href="#model-context-protocol-lo-standard-che-cambierà-tutto" id="toc-model-context-protocol-lo-standard-che-cambierà-tutto" class="nav-link" data-scroll-target="#model-context-protocol-lo-standard-che-cambierà-tutto">Model Context Protocol: Lo Standard che Cambierà Tutto</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
+<div class="theme-toggle">
+  <label class="switch">
+    <input type="checkbox" id="theme-toggle">
+    <span class="slider"></span>
+  </label>
+</div>
+<div class="section-2">
+<a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -120,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Ricordate i primi giorni di ChatGPT? Era novembre 2022, e molti erano affascinati da questo chatbot che poteva conversare su qualsiasi argomento. Ma c’era un problema fondamentale: era solo una finestra di chat. Scrivevi, copiavi la risposta, la incollavi dove serviva. Ripetevi il processo. Ancora. E ancora.</p>
 <p>Oggi quella finestra di chat si è trasformata in qualcosa di profondamente diverso. L’evoluzione è stata graduale ma inesorabile: la capacità di cercare online è arrivata dopo mesi di sviluppo, poi sono arrivati i plugin sperimentali, la generazione immagini, le azioni dei GPTs, gli artefatti ed i canvas, ora tramite i server MCP i modelli possono essere collegati a moltissimo software. Ogni aggiornamento ha aggiunto un tassello, trasformando progressivamente un chatbot in quello che oggi potremmo definire un collaboratore digitale.</p>
 <p>Gli LLM non sono più solo chatbot - sono diventati orchestratori di capacità che possono vedere, creare, analizzare e interagire con il mondo digitale quasi come farebbe un collega umano. Questa trasformazione non è solo tecnologica; è un cambio di paradigma nel modo in cui lavoriamo.</p>
-<p>Per capire questa evoluzione, dobbiamo partire da un concetto fondamentale: i tool. Ma cosa sono esattamente i tool nel contesto degli LLM? E perché stanno rivoluzionando il modo in cui lavoriamo? </p>
+<p>Per capire questa evoluzione, dobbiamo partire da un concetto fondamentale: i tool. Ma cosa sono esattamente i tool nel contesto degli LLM? E perché stanno rivoluzionando il modo in cui lavoriamo?</p>
 <div class="center">
 <p><img src="immagini/anthropic-tools.png" class="img-fluid" style="width:70.0%"></p>
 </div>
@@ -341,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 
-</main>
+</div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -743,6 +783,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+
+<div class="section-2" style="margin-top: 50px;">
+<a href="/corso-llm/personalizzazione-llm/">← Modulo precedente</a>
+</div>
+<script src="../theme-toggle.js"></script>
 
 
 
