@@ -34,25 +34,58 @@ ul.task-list li input[type="checkbox"] {
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-9425930b91d061205d5859b704501f6a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-</head><body class="quarto-light">\usepackage{fancyhdr}
-\pagestyle{fancy}
-\thispagestyle{fancy}
-\fancyhf{}
-\fancyhead[R]{\includegraphics[width=2.2cm]{immagini/logo.png}}
-\renewcommand{\headrulewidth}{0pt}
-\let\oldmaketitle\maketitle
-\renewcommand{\maketitle}{\oldmaketitle\tableofcontents}
+<link href="index_files/libs/bootstrap/bootstrap-98cad52ce7327bfd42cee12d434ba08f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../corso-theme.css">
+</head>
 
-
-
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Altri Formati</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#il-problema-della-personalizzazione" id="toc-il-problema-della-personalizzazione" class="nav-link active" data-scroll-target="#il-problema-della-personalizzazione">1. Il Problema della Personalizzazione</a></li>
+  <li><a href="#i-quattro-approcci-fondamentali" id="toc-i-quattro-approcci-fondamentali" class="nav-link" data-scroll-target="#i-quattro-approcci-fondamentali">2. I Quattro Approcci Fondamentali</a>
+  <ul class="collapse">
+  <li><a href="#prompt-engineering" id="toc-prompt-engineering" class="nav-link" data-scroll-target="#prompt-engineering">Prompt Engineering</a></li>
+  <li><a href="#long-context" id="toc-long-context" class="nav-link" data-scroll-target="#long-context">Long Context</a></li>
+  <li><a href="#rag-retrieval-augmented-generation" id="toc-rag-retrieval-augmented-generation" class="nav-link" data-scroll-target="#rag-retrieval-augmented-generation">RAG (Retrieval Augmented Generation)</a></li>
+  <li><a href="#fine-tuning" id="toc-fine-tuning" class="nav-link" data-scroll-target="#fine-tuning">Fine-tuning</a></li>
+  </ul></li>
+  <li><a href="#combinazioni-e-trade-off" id="toc-combinazioni-e-trade-off" class="nav-link" data-scroll-target="#combinazioni-e-trade-off">3. Combinazioni e Trade-off</a>
+  <ul class="collapse">
+  <li><a href="#long-context-prompt-engineering" id="toc-long-context-prompt-engineering" class="nav-link" data-scroll-target="#long-context-prompt-engineering">Long Context + Prompt Engineering</a></li>
+  <li><a href="#rag-prompt-engineering" id="toc-rag-prompt-engineering" class="nav-link" data-scroll-target="#rag-prompt-engineering">RAG + Prompt Engineering</a></li>
+  <li><a href="#il-ruolo-del-fine-tuning" id="toc-il-ruolo-del-fine-tuning" class="nav-link" data-scroll-target="#il-ruolo-del-fine-tuning">Il Ruolo del Fine-tuning</a></li>
+  </ul></li>
+  <li><a href="#piattaforme-per-la-personalizzazione" id="toc-piattaforme-per-la-personalizzazione" class="nav-link" data-scroll-target="#piattaforme-per-la-personalizzazione">4. Piattaforme per la Personalizzazione</a>
+  <ul class="collapse">
+  <li><a href="#gpts-di-openai" id="toc-gpts-di-openai" class="nav-link" data-scroll-target="#gpts-di-openai">GPTs di OpenAI</a></li>
+  <li><a href="#projects-in-chatgpt-e-claude" id="toc-projects-in-chatgpt-e-claude" class="nav-link" data-scroll-target="#projects-in-chatgpt-e-claude">Projects in ChatGPT e Claude</a></li>
+  </ul></li>
+  <li><a href="#esercizio-pratico-progettare-il-proprio-assistente" id="toc-esercizio-pratico-progettare-il-proprio-assistente" class="nav-link" data-scroll-target="#esercizio-pratico-progettare-il-proprio-assistente">5. Esercizio Pratico: Progettare il Proprio Assistente</a>
+  <ul class="collapse">
+  <li><a href="#obiettivo" id="toc-obiettivo" class="nav-link" data-scroll-target="#obiettivo">Obiettivo</a></li>
+  <li><a href="#strumenti-disponibili" id="toc-strumenti-disponibili" class="nav-link" data-scroll-target="#strumenti-disponibili">Strumenti Disponibili</a></li>
+  <li><a href="#struttura-base-dellesercizio" id="toc-struttura-base-dellesercizio" class="nav-link" data-scroll-target="#struttura-base-dellesercizio">Struttura Base dell’Esercizio</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
+<div class="theme-toggle">
+  <label class="switch">
+    <input type="checkbox" id="theme-toggle">
+    <span class="slider"></span>
+  </label>
+</div>
+<div class="section-2">
+<a href="/">← Home</a> | <a href="/corso-llm/">← Indice Corso</a>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -81,12 +114,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <section id="il-problema-della-personalizzazione" class="level2">
-<h2 class="anchored" data-anchor-id="il-problema-della-personalizzazione">Il Problema della Personalizzazione</h2>
+<h2 class="anchored" data-anchor-id="il-problema-della-personalizzazione">1. Il Problema della Personalizzazione</h2>
 <p>I Large Language Models sono strumenti estremamente potenti ma anche molto generici. Sebbene siano esperti su argomenti come Shakespeare o la fisica quantistica, non conoscono le vostre procedure aziendali, il vostro stile comunicativo o i vostri prodotti specifici. Questa è la sfida centrale della personalizzazione degli LLM: come trasformare un modello generico in un assistente specializzato, capace di comprendere e ragionare nel contesto specifico della vostra organizzazione o ruolo?</p>
 <p>Non esiste una risposta univoca. Esistono invece quattro approcci principali, ciascuno con punti di forza e debolezze, costi e livelli di complessità differenti. La scelta dipende da vari fattori: budget, competenze tecniche disponibili, frequenza degli aggiornamenti, volume previsto di utilizzo e strumenti disponibili.</p>
 </section>
 <section id="i-quattro-approcci-fondamentali" class="level2">
-<h2 class="anchored" data-anchor-id="i-quattro-approcci-fondamentali">I Quattro Approcci Fondamentali</h2>
+<h2 class="anchored" data-anchor-id="i-quattro-approcci-fondamentali">2. I Quattro Approcci Fondamentali</h2>
 <section id="prompt-engineering" class="level3">
 <h3 class="anchored" data-anchor-id="prompt-engineering">Prompt Engineering</h3>
 <p>Il prompt engineering è l’approccio più semplice e immediato, basato sul fornire istruzioni precise al modello tramite il prompt, senza modificarlo direttamente. Tecnicamente, fornendo istruzioni influenzate il meccanismo di attenzione del modello, guidandolo verso gli aspetti rilevanti.</p>
@@ -94,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="long-context" class="level3">
 <h3 class="anchored" data-anchor-id="long-context">Long Context</h3>
-<p>L’approccio long context è un’evoluzione naturale del prompt engineering, basato sull’inserire nel prompt documenti interi. Questa tecnica è resa possibile dall’evoluzione della context window: GPT-3, nel 2020, poteva gestire solo 2.000 token, mentre modelli attuali come Gemini arrivano fino a un milione di token. Tecniche come Flash Attention e sparse attention permettono di mantenere elevata qualità anche con contesti molto ampi.</p>
+<p>L’approccio long context è un’evoluzione naturale del prompt engineering, basato sull’inserire nel prompt documenti interi. Questa tecnica è resa possibile dall’evoluzione della context window: GPT-3, nel 2020, poteva gestire solo 4.000 token, mentre modelli attuali come Gemini arrivano fino a un milione di token. Tecniche come Flash Attention e sparse attention permettono di mantenere elevata qualità anche con contesti molto ampi.</p>
 <p>Con il long context potete includere manuali completi, cataloghi prodotti, procedure aziendali dettagliate, esempi di conversazioni ideali o persino interi libri. Tuttavia, più contesto non significa automaticamente risposte migliori: il fenomeno “Lost in the Middle” può portare il modello a trascurare informazioni poste al centro del contesto. Inoltre, questa tecnica può essere molto costosa, soprattutto per grandi volumi di interazioni giornaliere.</p>
 </section>
 <section id="rag-retrieval-augmented-generation" class="level3">
@@ -105,9 +138,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p><strong>Sistema di retrieval</strong>: ogni domanda diventa un vettore; il sistema cerca nel database i chunk semanticamente più simili.</p></li>
 <li><p><strong>Augmentation</strong>: i chunk selezionati vengono inseriti nel prompt con la domanda originale, guidando il modello nella generazione della risposta.</p></li>
 </ul>
-<div class="center">
 <p><img src="immagini/rag_flow_simplified.png" class="img-fluid"></p>
-</div>
 <p>I vantaggi sono notevoli: costi ridotti, scalabilità elevata, aggiornamenti semplici. Tuttavia, la complessità tecnica è significativa e richiede competenze specifiche per gestire al meglio il sistema.</p>
 </section>
 <section id="fine-tuning" class="level3">
@@ -117,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 <section id="combinazioni-e-trade-off" class="level2">
-<h2 class="anchored" data-anchor-id="combinazioni-e-trade-off">Combinazioni e Trade-off</h2>
+<h2 class="anchored" data-anchor-id="combinazioni-e-trade-off">3. Combinazioni e Trade-off</h2>
 <p>Nella pratica si utilizzano spesso combinazioni degli approcci sopra descritti, sfruttando i punti di forza di ciascuno.</p>
 <section id="long-context-prompt-engineering" class="level3">
 <h3 class="anchored" data-anchor-id="long-context-prompt-engineering">Long Context + Prompt Engineering</h3>
@@ -133,27 +164,21 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 <section id="piattaforme-per-la-personalizzazione" class="level2">
-<h2 class="anchored" data-anchor-id="piattaforme-per-la-personalizzazione">Piattaforme per la Personalizzazione</h2>
+<h2 class="anchored" data-anchor-id="piattaforme-per-la-personalizzazione">4. Piattaforme per la Personalizzazione</h2>
 <p>Le principali piattaforme hanno democratizzato l’accesso alle tecniche di personalizzazione.</p>
 <section id="gpts-di-openai" class="level3">
 <h3 class="anchored" data-anchor-id="gpts-di-openai">GPTs di OpenAI</h3>
-<p>I GPTs consentono una personalizzazione semplificata grazie a un’interfaccia user-friendly, integrando prompt engineering e retrieval avanzato. È possibile caricare documenti e collegare API esterne per arricchire ulteriormente le funzionalità. </p>
-<div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="immagini/gpts_store_openai.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-</figure>
-</div>
-</div>
+<p>I GPTs consentono una personalizzazione semplificata grazie a un’interfaccia user-friendly, integrando prompt engineering e retrieval avanzato. È possibile caricare documenti e collegare API esterne per arricchire ulteriormente le funzionalità.</p>
+<p><img src="immagini/gpts_store_openai.png" class="img-fluid"></p>
 </section>
 <section id="projects-in-chatgpt-e-claude" class="level3">
 <h3 class="anchored" data-anchor-id="projects-in-chatgpt-e-claude">Projects in ChatGPT e Claude</h3>
 <p>Sia ChatGPT che Claude hanno recentemente introdotto i “Projects”, workspace dedicati per lavori continuativi.</p>
-<p>Questi strumenti permettono di mantenere contesto e conoscenze attraverso sessioni multiple, offrendo workspace dedicati per gestire progetti complessi, file condivisi, istruzioni personalizzate e collaborazione. </p>
+<p>Questi strumenti permettono di mantenere contesto e conoscenze attraverso sessioni multiple, offrendo workspace dedicati per gestire progetti complessi, file condivisi, istruzioni personalizzate e collaborazione.</p>
 </section>
 </section>
 <section id="esercizio-pratico-progettare-il-proprio-assistente" class="level2">
-<h2 class="anchored" data-anchor-id="esercizio-pratico-progettare-il-proprio-assistente">Esercizio Pratico: Progettare il Proprio Assistente</h2>
+<h2 class="anchored" data-anchor-id="esercizio-pratico-progettare-il-proprio-assistente">5. Esercizio Pratico: Progettare il Proprio Assistente</h2>
 <section id="obiettivo" class="level3">
 <h3 class="anchored" data-anchor-id="obiettivo">Obiettivo</h3>
 <p>Creare un assistente personalizzato utilizzando le tecniche discusse. L’implementazione pratica sarà guidata in aula.</p>
@@ -173,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 
-</main>
+</div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -575,6 +600,11 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+
+<div class="section-2" style="margin-top: 50px;">
+<a href="/corso-llm/tool-workflow-avanzati/">Prossimo modulo →</a>
+</div>
+<script src="../theme-toggle.js"></script>
 
 
 
